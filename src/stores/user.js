@@ -31,6 +31,13 @@ export const useUserStore = defineStore('user', () => {
   }
  }
 
+ // Yeni eklenen fonksiyon
+ function clearUserData() {
+  user.value = null;
+  localStorage.removeItem('encryptedUser');
+  localStorage.removeItem('encryptedToken');
+ }
+
  // Fonksiyonları ve reaktif verileri döndür
- return { user, loadEncryptedData };
+ return { user, loadEncryptedData, clearUserData };
 });
