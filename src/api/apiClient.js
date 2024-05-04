@@ -1,8 +1,8 @@
 import axios from 'axios';
-import useLoading from '../stores/loading.js';
+import CryptoJS from 'crypto-js';
 
-// useLoading fonksiyonunu çağırın
-const { isLoading, setLoading } = useLoading();
+const secretKey = import.meta.env.VITE_SECRET_KEY;
+
 
 // Axios yapılandırmasını oluşturun
 const apiClient = axios.create({
@@ -10,43 +10,38 @@ const apiClient = axios.create({
   //baseURL: "https://app.ikatech.tech/api/", // API adresinizi buraya ekleyin
 });
 
+
 // Axios interceptor ekleyin
 apiClient.interceptors.request.use(
   (config) => {
+    // secretKey'i doğru bir şekilde tanımlayın ve içe aktarın
+    const secretKey = import.meta.env.VITE_SECRET_KEY; // Örnek olarak
 
-    // localStorage'dan token'ı alın
-    const token = localStorage.getItem('token-admin')
+    const encryptedToken = localStorage.getItem('encryptedToken');
 
-    if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`
+    // encryptedToken'ın null olmadığını kontrol edin
+    if (encryptedToken) {
+      const bytes = CryptoJS.AES.decrypt(encryptedToken, secretKey);
+      const token = bytes.toString(CryptoJS.enc.Utf8);
+
+      // Token varsa, Authorization başlığını ayarlayın
+      if (token) {
+        config.headers['Authorization'] = `Bearer ${token}`;
+      }
+    } else {
+      // Token yoksa, bir hata mesajı veya uyarı gösterebilirsiniz
+      console.warn('Token bilgisi bulunamadı.');
     }
-    // İstek başladığında yükleme durumunu true yap
-    setLoading(true);
 
     return config;
   },
   (error) => {
-    // İstek hatası aldığında yükleme durumunu false yap
-    setLoading(false);
-
+    // İstek hatası durumunda, hata ile ilgili bilgiyi loglayın
+    console.error('Axios istek hatası:', error);
     return Promise.reject(error);
   }
 );
 
-apiClient.interceptors.response.use(
-  (response) => {
-    // Yanıt geldiğinde yükleme durumunu false yap
-    setLoading(false);
-
-    return response;
-  },
-  (error) => {
-    // Yanıt hatası aldığında yükleme durumunu false yap
-    setLoading(false);
-
-    return Promise.reject(error);
-  }
-);
 
 export default apiClient;
 
