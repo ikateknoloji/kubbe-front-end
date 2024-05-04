@@ -37,35 +37,40 @@ const router = createRouter({
       meta: { requiresAuth: true }, // Kimlik doğrulama gereksinimi ekleyin
       children: [
         {
+          path: '',
+          name: 'dahsboardIndex',
+          component: () => import('../views/DashboardIndex.vue'),
+        },
+        {
           path: 'admin',
           name: 'admin',
           component: () => import('../views/admin/Admin.vue'),
-          meta: { roles: ['admin'] } // Yalnızca 'admin'  rolüne izin ver
+          meta: { roles: 'admin' } // Yalnızca 'admin'  rolüne izin ver
         },
         {
           path: 'musteri',
           name: 'musteri',
           component: () => import('../views/musteri/Musteri.vue'),
-          meta: { roles: ['musteri'] } // Yalnızca 'musteri' rolüne izin ver
+          meta: { roles: 'musteri' } // Yalnızca 'musteri' rolüne izin ver
         },
         {
           path: 'tasarimci',
           name: 'tasarimci',
           component: () => import('../views/tasarimci/Tasarimci.vue'),
-          meta: { roles: ['tasarimci'] } // Yalnızca 'tasarimci' rolüne izin ver
+          meta: { roles: 'tasarimci' } // Yalnızca 'tasarimci' rolüne izin ver
         },
         // Diğer uygulamalar için rotalar...
         {
           path: 'kurye',
           name: 'kurye',
           component: () => import('../views/kurye/Kurye.vue'),
-          meta: { roles: ['kurye'] } // Yalnızca 'kurye' rolüne izin ver
+          meta: { roles: 'kurye' } // Yalnızca 'kurye' rolüne izin ver
         },
         {
           path: 'uretici',
           name: 'uretici',
           component: () => import('../views/uretici/Uretici.vue'),
-          meta: { roles: ['uretici'] } // Yalnızca 'uretici' rolüne izin ver
+          meta: { roles: 'uretici' } // Yalnızca 'uretici' rolüne izin ver
         },
         // Diğer alt rotalar...
       ]
@@ -139,5 +144,28 @@ router.beforeEach((to, from, next) => {
     next();
   }
 });
+
+router.beforeEach((to, from, next) => {
+  const userStore = useUserStore();
+  // Kullanıcının rollerini bir dizi olarak alın
+  const userRoles = userStore.user?.roles.map(role => role.name) || [];
+
+  // Rota için gerekli rolleri kontrol edin
+  if (to.matched.some(record => record.meta.roles)) {
+    const requiredRoles = Array.isArray(to.meta.roles) ? to.meta.roles : [to.meta.roles];
+
+    // Kullanıcının rolleri içinde gerekli roller varsa, rotaya izin ver
+    if (requiredRoles.some(requiredRole => userRoles.includes(requiredRole))) {
+      next();
+    } else {
+      // Kullanıcının rolleri içinde gerekli roller yoksa, erişimi engelle
+      next(false);
+    }
+  } else {
+    // Rota için rol kontrolü gerekmiyorsa, rotaya izin ver
+    next();
+  }
+});
+
 
 export default router
