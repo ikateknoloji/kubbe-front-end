@@ -103,9 +103,9 @@ const loginUser = async () => {
       toast.error('Bir hata oluştu');
     }
   } catch (error) {
-    console.log(error);
-    // Hata durumunu işleme
-    // toast.error(error.response.data.message);
+    toast.error(error.response.data.message, {
+      autoClose: 3000,
+    });
   }
 };
 
