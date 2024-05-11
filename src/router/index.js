@@ -34,7 +34,7 @@ const router = createRouter({
       path: '/dashboard',
       name: 'dashboard',
       component: () => import('../views/Dashboard.vue'),
-      meta: { requiresAuth: true }, // Kimlik doğrulama gereksinimi ekleyin
+      meta: { requiresAuth: true, breadcrumb: 'Dashboard' }, // Kimlik doğrulama gereksinimi ekleyin
       children: [
         {
           path: '',
@@ -45,7 +45,117 @@ const router = createRouter({
           path: 'admin',
           name: 'admin',
           component: () => import('../views/admin/Admin.vue'),
-          meta: { roles: 'admin' } // Yalnızca 'admin'  rolüne izin ver
+          meta: { roles: 'admin', breadcrumb: 'Yönetici Paneli' }, // Yalnızca 'admin'  rolüne izin ver
+          children: [
+            {
+              path: '',
+              name: 'admin-page',
+              component: () => import('@/views/admin/order/Orders.vue'),
+              meta: { breadcrumb: 'Siparişler' }
+            },
+            {
+              path: 'orders',
+              name: 'orders',
+              component: () => import('@/views/admin/order/Orders.vue'),
+              meta: { breadcrumb: 'Siparişler' }
+            },
+            {
+              path: 'orders-invoices',
+              name: 'orders-invoices',
+              component: () => import('@/views/admin/order/BekleyenFaturalar.vue'),
+              meta: { breadcrumb: 'Bekleyen Faturalar' }
+            },
+            {
+              path: 'orders/:status',
+              name: 'order-status',
+              component: () => import('@/views/admin/order/OrderStatusView.vue'),
+              meta: { breadcrumb: 'Sipariş Durumu' }
+            },
+            {
+              path: 'orders/:status/:id',
+              name: 'order-detail',
+              component: () => import('@/views/admin/order/OrderDetail.vue'),
+              meta: { breadcrumb: 'Sipariş Detayı' }
+            },
+            {
+              path: 'orders/:status/:id/edit',
+              name: 'order-edit-detail',
+              component: () => import('@/views/admin/edit/OrderEdit.vue'),
+              meta: { breadcrumb: 'Siparişi Düzenle' }
+            },
+            {
+              path: 'orders/:status/:id/request',
+              name: 'order-request-detail',
+              component: () => import('@/views/admin/order/OrderRequest.vue'),
+              meta: { breadcrumb: 'Siparişi İptal İsteği' }
+            },
+            {
+              path: 'orders-reject',
+              name: 'orders-reject',
+              component: () => import('@/views/admin/order-cancel/ReddedilenSiparisler.vue'),
+              meta: { breadcrumb: 'Bekleyen Faturalar' }
+            },
+            {
+              path: 'orders-cancel',
+              name: 'orders-cancel',
+              component: () => import('@/views/admin/order-cancel/IptalEdilenSiparisler.vue'),
+              meta: { breadcrumb: 'Reddedilen Siparişler ' }
+            },
+            {
+              path: 'orders-cancel-pending',
+              name: 'orders-cancel-pending',
+              component: () => import('@/views/admin/order-cancel/IptalBekleyenSiparisler.vue'),
+              meta: { breadcrumb: 'İptal Bekleyen Siparişler' }
+            },
+            {
+              path: 'orders-delayed',
+              name: 'orders-delayed',
+              component: () => import('@/views/admin/order/GecikenSiparisler.vue'),
+              meta: { breadcrumb: 'Bekleyen Faturalar' }
+            },
+            {
+              path: 'user',
+              name: 'user-information',
+              component: () => import('@/views/admin/Profile.vue'),
+              meta: { breadcrumb: 'Kullanıcı Bilgileri' }
+            },
+            {
+              path: 'uretici',
+              name: 'manufacturer-information',
+              component: () => import('@/views/admin/user/Uretici.vue'),
+              meta: { breadcrumb: 'Üretici Bilgileri' }
+            },
+            {
+              path: 'uretici-aktif/:id',
+              name: 'manufacturer-active',
+              component: () => import('@/views/admin/history/MusteriAktif.vue'),
+              meta: { breadcrumb: 'Üretici Aktif Siparişler' }
+            },
+            {
+              path: 'uretici-gecmis/:id',
+              name: 'manufacturer-history',
+              component: () => import('@/views/admin/history/MusteriGecmis.vue'),
+              meta: { breadcrumb: 'Üretici Geçmiş Siparişler' }
+            },
+            {
+              path: 'musteri',
+              name: 'customer-information',
+              component: () => import('@/views/admin/user/Musteri.vue'),
+              meta: { breadcrumb: 'Üretici Bilgileri' }
+            },
+            {
+              path: 'musteri-aktif/:id',
+              name: 'customer-active',
+              component: () => import('@/views/admin/history/MusteriAktif.vue'),
+              meta: { breadcrumb: 'Müşteri Aktif Siparişler' }
+            },
+            {
+              path: 'musteri-gecmis/:id',
+              name: 'customer-history',
+              component: () => import('@/views/admin/history/MusteriGecmis.vue'),
+              meta: { breadcrumb: 'Müşteri Geçmiş Siparişler' }
+            },
+          ]
         },
         {
           path: 'musteri',
@@ -59,7 +169,6 @@ const router = createRouter({
           component: () => import('../views/tasarimci/Tasarimci.vue'),
           meta: { roles: 'tasarimci' } // Yalnızca 'tasarimci' rolüne izin ver
         },
-        // Diğer uygulamalar için rotalar...
         {
           path: 'kurye',
           name: 'kurye',
