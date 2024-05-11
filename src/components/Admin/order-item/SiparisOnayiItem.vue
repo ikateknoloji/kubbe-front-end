@@ -1,0 +1,97 @@
+<template>
+  <div v-if="data" class="font-poppins">
+
+    <div class="p-2 md:p-8 mt-10 relative">
+
+      <InfoReject v-if="data.order.is_rejected === 'R'" :order="data.order" />
+      <CanceledOrder v-if="data.order.is_rejected === 'C'" :order="data.order" />
+      <PendingCancellation v-if="data.order.is_rejected === 'P'" :order="data.order" />
+
+      <CoverContent title="Müşteri Bilgileri">
+        <EditButton :order="data.order" />
+        <div class="grid grid-cols-12 gap-4 ">
+          <div class="flex flex-col col-span-12  lg:col-span-7 min-h-[300px] lg:order-0 order-1">
+            <Dealer :info="data.order.customer" />
+            <CustomerInfo :customer="data.order.customer_info" />
+          </div>
+          <div class="col-span-12 lg:col-span-5  lg:order-1 order-0">
+            <LogoComponent :order="data.order" />
+          </div>
+        </div>
+      </CoverContent>
+
+      <OrderTable>
+        <TableColm :columns="columnsData" />
+        <OrderTableItem :data="data.order.order_items" />
+      </OrderTable>
+
+      <div class="max-w-7xl grid grid-cols-12 gap-4">
+        <OrderInfo :order="data.order" />
+        <BillInfo v-if="data.order?.invoice_info" :info="data.order.invoice_info" />
+      </div>
+
+      <OrderNote v-if="data.order.note" :note="data.order.note" />
+      <OrderAddress :address="data.order.order_address.address" />
+
+      <div v-if="data.order.is_rejected == 'A'" class="flex space-x-4">
+        <button type="button" @click="store.transitionToDesignPhase(data.order.id)"
+          class="w-full md:w-fit whitespace-nowrap py-3 px-8 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white     hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+          Sipariş Onay
+        </button>
+        <RejectButton :order="data.order" />
+      </div>
+
+    </div>
+  </div>
+</template>
+
+<script setup>
+import CustomerInfo from '../CustomerInfo.vue';
+import Dealer from '../Dealer.vue';
+import LogoComponent from '../LogoComponent.vue';
+
+import OrderTable from '@/components/Admin/OrderTable.vue';
+import TableColm from '@/components/Admin/TableColm.vue';
+import OrderTableItem from '@/components/Admin/OrderTableItem.vue';
+import OrderNote from '@/components/Admin/OrderNote.vue';
+import OrderInfo from '@/components/Admin/OrderInfo.vue';
+import BillInfo from '@/components/Admin/BillInfo.vue';
+import OrderAddress from '@/components/Admin/OrderAddress.vue';
+import RejectButton from '@/components/Admin/reject/RejectButton.vue';
+import CoverContent from '@/components/CoverContent.vue';
+import EditButton from '@/components/Admin/edit/EditButton.vue';
+
+import InfoReject from '@/components/Admin/reject/InfoReject.vue';
+import CanceledOrder from '@/components/Admin/reject/CanceledOrder.vue';
+import PendingCancellation from '@/components/Admin/reject/PendingCancellation.vue';
+
+import { useMangeOrderStore } from '@/stores/orderManage.js';
+
+const store = useMangeOrderStore();
+
+const props = defineProps({
+  data: {
+    type: Object,
+    default: () => ({}),
+  },
+});
+
+
+const columnsData = [
+  '#',
+  'Kategori',
+  'Ürün Tipi',
+  'Renk',
+  'Adet',
+  'Birim Fiyatı'
+];
+
+</script>
+
+<style>
+.dropdown:focus-within .dropdown-menu {
+  opacity: 1;
+  transform: translate(0) scale(1);
+  visibility: visible;
+}
+</style>
