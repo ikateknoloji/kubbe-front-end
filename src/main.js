@@ -15,6 +15,7 @@ import router from './router'
 import Echo from 'laravel-echo'
 import Pusher from 'pusher-js'
 
+
 const echo = new Echo({
  broadcaster: 'pusher',
  key: 'd9e58dbfce8962bd41f8', // Pusher key
