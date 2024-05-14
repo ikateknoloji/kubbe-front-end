@@ -63,7 +63,7 @@ const router = createRouter({
               path: 'orders-invoices',
               name: 'orders-invoices',
               component: () => import('@/views/admin/order/BekleyenFaturalar.vue'),
-              meta: { breadcrumb: 'Bekleyen Faturalar' }
+              meta: { breadcrumb: 'Fatura Bekleyen Siparişler' }
             },
             {
               path: 'orders/:status',
@@ -93,13 +93,13 @@ const router = createRouter({
               path: 'orders-reject',
               name: 'orders-reject',
               component: () => import('@/views/admin/order-cancel/ReddedilenSiparisler.vue'),
-              meta: { breadcrumb: 'Bekleyen Faturalar' }
+              meta: { breadcrumb: 'Reddedilen Siparişler' }
             },
             {
               path: 'orders-cancel',
               name: 'orders-cancel',
               component: () => import('@/views/admin/order-cancel/IptalEdilenSiparisler.vue'),
-              meta: { breadcrumb: 'Reddedilen Siparişler ' }
+              meta: { breadcrumb: 'İptal Edilen Siparişler ' }
             },
             {
               path: 'orders-cancel-pending',
@@ -161,7 +161,87 @@ const router = createRouter({
           path: 'musteri',
           name: 'musteri',
           component: () => import('../views/musteri/Musteri.vue'),
-          meta: { roles: 'musteri' } // Yalnızca 'musteri' rolüne izin ver
+          meta: { roles: 'musteri' }, // Yalnızca 'musteri' rolüne izin ver
+          children: [
+            {
+              path: '',
+              name: 'customer-page',
+              component: () => import('@/views/musteri/order/Orders.vue'),
+              meta: { breadcrumb: 'Siparişler' }
+            },
+            {
+              path: 'user',
+              name: 'musteri-user-information',
+              component: () => import('@/views/musteri/Profile.vue'),
+              meta: { breadcrumb: 'Kullanıcı Bilgileri' }
+            },
+            {
+              path: 'order-create',
+              name: 'musteri-order-create',
+              component: () => import('@/views/musteri/create/OrderCreate.vue'),
+              meta: { breadcrumb: 'Sipariş Oluştur' }
+            },
+            {
+              path: 'order-item-create',
+              name: 'musteri-order-create-item',
+              component: () => import('@/views/musteri/create/OrderCreateItem.vue'),
+              meta: { breadcrumb: 'Şipariş Sepeti' }
+            },
+            {
+              path: 'orders',
+              name: 'musteri-orders',
+              component: () => import('@/views/musteri/order/Orders.vue'),
+              meta: { breadcrumb: 'Siparişler' }
+            },
+            {
+              path: 'orders-delayed',
+              name: 'customer-orders-delayed',
+              component: () => import('@/views/musteri/order/GecikenSiparisler.vue'),
+              meta: { breadcrumb: 'Bekleyen Faturalar' }
+            },
+            {
+              path: 'orders/:status',
+              name: 'musteri-order-status',
+              component: () => import('@/views/musteri/order/OrderStatus.vue'),
+              meta: { breadcrumb: 'Sipariş Durumu' }
+            },
+            {
+              path: 'orders/:status/:id',
+              name: 'musteri-order-detail',
+              component: () => import('@/views/musteri/order/OrderDetail.vue'),
+              meta: { breadcrumb: 'Sipariş Detayı' }
+            },
+            {
+              path: 'orders/:status/:id/edit',
+              name: 'musteri-order-edit',
+              component: () => import('@/views/musteri/edit/OrderEdit.vue'),
+              meta: { breadcrumb: 'Siparişi Düzenle' }
+            },
+            {
+              path: 'orders/:status/:id/request',
+              name: 'musteri-order-edit-detail',
+              component: () => import('@/views/musteri/order/OrderRequest.vue'),
+              meta: { breadcrumb: 'Siparişi Düzenle' }
+            },
+            {
+              path: 'orders-reject',
+              name: 'musteri-orders-reject',
+              component: () => import('@/views/musteri/order-cancel/ReddedilenSiparisler.vue'),
+              meta: { breadcrumb: 'Reddedilen Siparişler' }
+            },
+            {
+              path: 'orders-cancel',
+              name: 'musteri-orders-cancel',
+              component: () => import('@/views/musteri/order-cancel/IptalEdilenSiparisler.vue'),
+              meta: { breadcrumb: 'İptal Edilen Siparişler ' }
+            },
+            {
+              path: 'orders-cancel-pending',
+              name: 'musteri-orders-cancel-pending',
+              component: () => import('@/views/musteri/order-cancel/IptalBekleyenSiparisler.vue'),
+              meta: { breadcrumb: 'İptal Bekleyen Siparişler' }
+            },
+          ]
         },
         {
           path: 'tasarimci',

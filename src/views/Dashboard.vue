@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white fixed top-0 left-0 right-0 w-full border-b border-gray-200 mb-10 z-[20]">
+  <div class="bg-white fixed top-0 left-0 right-0 w-full border-b border-gray-200 mb-10 z-[50]">
     <div class="mx-auto max-w-7xl w-full flex items-end justify-between p-5">
       <div>
         <img src="@/assets/images/logo.png" alt="Vue logo" class="w-[100px]" />
