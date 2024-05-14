@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col p-2 md:p-5 box box--stacked mb-10 relative">
+  <div class="flex flex-col p-4 md:p-5 box box--stacked mb-10 relative">
     <div class="pb-5 mb-6 font-medium border-b border-dashed border-slate-300/70 text-[0.94rem]">{{ title }}</div>
     <div>
       <slot />
