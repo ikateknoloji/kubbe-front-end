@@ -10,13 +10,13 @@
 import { onMounted, ref } from 'vue';
 
 import PageTitle from '@/components/PageTitle.vue';
-import Cards from '@/components/Customer/Cards.vue';
-import Pagination from '@/components/Customer/Pagination.vue';
+import Cards from '@/components/Manufacturer/Cards.vue';
+import Pagination from '@/components/Manufacturer/Pagination.vue';
 
-import { useCustomerAllOrdersStore } from '@/stores/musteri/useCustomerAllOrder.js';
+import { useUreticiAllOrdersStore } from '@/stores/uretici/useUreticiAllOrder.js';
 import { storeToRefs } from 'pinia'
 
-const store = useCustomerAllOrdersStore();
+const store = useUreticiAllOrdersStore();
 const { allOrders } = storeToRefs(store)
 
 

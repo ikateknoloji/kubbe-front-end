@@ -244,6 +244,50 @@ const router = createRouter({
           ]
         },
         {
+          path: 'uretici',
+          name: 'uretici',
+          component: () => import('../views/uretici/Uretici.vue'),
+          meta: { roles: 'uretici' }, // Yalnızca 'uretici' rolüne izin ver
+          children: [
+            {
+              path: '',
+              name: 'uretici-page',
+              component: () => import('@/views/uretici/order/Orders.vue'),
+              meta: { breadcrumb: 'Siparişler' }
+            },
+            {
+              path: 'user',
+              name: 'uretici-user-information',
+              component: () => import('@/views/uretici/Profile.vue'),
+              meta: { breadcrumb: 'Kullanıcı Bilgileri' }
+            },
+            {
+              path: 'orders',
+              name: 'uretici-orders',
+              component: () => import('@/views/uretici/order/Orders.vue'),
+              meta: { breadcrumb: 'Siparişler' }
+            },
+            {
+              path: 'orders/:status',
+              name: 'uretici-order-status',
+              component: () => import('@/views/uretici/order/OrderStatus.vue'),
+              meta: { breadcrumb: 'Sipariş Durumu' }
+            },
+            {
+              path: 'orders/:status/:id',
+              name: 'uretici-order-detail',
+              component: () => import('@/views/uretici/order/OrderDetail.vue'),
+              meta: { breadcrumb: 'Sipariş Detayı' }
+            },
+            {
+              path: 'orders-delayed',
+              name: 'uretici-orders-delayed',
+              component: () => import('@/views/uretici/order/GecikenSiparisler.vue'),
+              meta: { breadcrumb: 'Geçikmiş Siparişler' }
+            },
+          ]
+        },
+        {
           path: 'tasarimci',
           name: 'tasarimci',
           component: () => import('../views/tasarimci/Tasarimci.vue'),
@@ -254,12 +298,6 @@ const router = createRouter({
           name: 'kurye',
           component: () => import('../views/kurye/Kurye.vue'),
           meta: { roles: 'kurye' } // Yalnızca 'kurye' rolüne izin ver
-        },
-        {
-          path: 'uretici',
-          name: 'uretici',
-          component: () => import('../views/uretici/Uretici.vue'),
-          meta: { roles: 'uretici' } // Yalnızca 'uretici' rolüne izin ver
         },
         // Diğer alt rotalar...
       ]
