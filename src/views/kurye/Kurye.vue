@@ -69,6 +69,8 @@ const toggleSidebar = () => {
 
 
 onMounted(() => {
+  store.fetchKuryeNotifications();
+
   if (echo) {
     echo.private('courier-notifications')
       .subscribed(() => {

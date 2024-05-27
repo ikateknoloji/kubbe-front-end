@@ -336,6 +336,12 @@ const router = createRouter({
               meta: { breadcrumb: 'Siparişler' }
             },
             {
+              path: 'notifications',
+              name: 'tasarimci-notifications',
+              component: () => import('@/views/tasarimci/Notification.vue'),
+              meta: { breadcrumb: 'Bildirimler' }
+            },
+            {
               path: 'tasarim-bekleyen',
               name: 'tasarimci-bekleyen-add',
               component: () => import('@/views/tasarimci/order/TasarimBekleyen.vue'),
