@@ -79,7 +79,7 @@ onMounted(() => {
   if (echo) {
     echo.private(`user.${user.value.id}`)
       .subscribed(() => { })
-      .listen('.customer-notifications', (e) => {
+      .listen('.customer.notification', (e) => {
         let customerNotification = e.message;
         customerNotification.message = JSON.parse(e.message.message);
         store.addNotification(customerNotification);
