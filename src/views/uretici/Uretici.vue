@@ -40,16 +40,26 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted } from 'vue';
+import { ref, computed, watch, onMounted, inject } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { storeToRefs } from 'pinia'
+import { toast } from 'vue3-toastify'; // Vue3-Toastify'ı içe aktar
 
 import Geridon from '@/components/GeriDon.vue';
 import Sidebar from '@/components/Manufacturer/navbar/Sidebar.vue';
 import NavigationToggle from '@/components/Manufacturer/navbar/NavigationToggle.vue';
 import Search from '@/components/Manufacturer/search/Search.vue';
+import { useUserStore } from '@/stores/user.js';
+import { useUreticiNotificationsStore } from '@/stores/ureticiNotification.js';
+
+const store = useUreticiNotificationsStore();
+const userStore = useUserStore();
+
+const { user } = storeToRefs(userStore)
 
 const route = useRoute();
 const router = useRouter();
+const echo = inject('echo')
 
 // Sidebar'ın durumunu kontrol etmek için reactive bir state
 const isTranslate = ref(false);
@@ -64,6 +74,43 @@ const toggleSidebar = () => {
 
 
 onMounted(() => {
+
+  store.fetchUreticiNotifications();
+
+  if (echo) {
+    echo.private(`user.${user.value.id}`)
+      .subscribed(() => { })
+      .listen('.customer.notification', (e) => {
+        let ureticiNotification = e.message;
+        ureticiNotification.message = JSON.parse(e.message.message);
+        store.addNotification(ureticiNotification);
+
+        // Yeni bildirim için toast mesajı göster
+        toast.info(`${ureticiNotification.message.title}`, {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        customerNotification.message = JSON.parse(e.message.message);
+        store.addNotification(customerNotification);
+
+        // Yeni bildirim için toast mesajı göster
+        toast.info(`${customerNotification.message.title}`, {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      });
+  }
+
   // Bileşen monte edildikten sonra ekran genişliğini kontrol edin
   screenWidth.value = window.innerWidth;
   isFixed.value = screenWidth.value < 1536;

@@ -280,6 +280,12 @@ const router = createRouter({
               meta: { breadcrumb: 'Siparişler' }
             },
             {
+              path: 'notifications',
+              name: 'uretici-notifications',
+              component: () => import('@/views/uretici/Notification.vue'),
+              meta: { breadcrumb: 'Bildirimler' }
+            },
+            {
               path: 'user',
               name: 'uretici-user-information',
               component: () => import('@/views/uretici/Profile.vue'),
