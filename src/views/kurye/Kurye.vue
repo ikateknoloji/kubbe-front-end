@@ -40,16 +40,21 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted } from 'vue';
+import { ref, computed, watch, onMounted, inject } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { toast } from 'vue3-toastify'; // Vue3-Toastify'ı içe aktar
 
 import Geridon from '@/components/GeriDon.vue';
 import Sidebar from '@/components/Kurye/navbar/Sidebar.vue';
 import NavigationToggle from '@/components/Kurye/navbar/NavigationToggle.vue';
 import Search from '@/components/Kurye/search/Search.vue';
+import { useKuryeNotificationsStore } from '@/stores/kuryeNotification.js';
+
+const store = useKuryeNotificationsStore();
 
 const route = useRoute();
 const router = useRouter();
+const echo = inject('echo')
 
 // Sidebar'ın durumunu kontrol etmek için reactive bir state
 const isTranslate = ref(false);
@@ -64,6 +69,29 @@ const toggleSidebar = () => {
 
 
 onMounted(() => {
+  if (echo) {
+    echo.private('courier-notifications')
+      .subscribed(() => {
+      })
+      .listen('.courier-notifications', (e) => {
+        let adminNotification = e.message;
+        adminNotification.message = JSON.parse(e.message.message);
+        store.addNotification(adminNotification);
+        // Yeni bildirim için toast mesajı göster
+        toast.info(` ${adminNotification.message.title}`, {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      });
+  } else {
+    console.error('Echo is not available');
+  }
+
   // Bileşen monte edildikten sonra ekran genişliğini kontrol edin
   screenWidth.value = window.innerWidth;
   isFixed.value = screenWidth.value < 1536;

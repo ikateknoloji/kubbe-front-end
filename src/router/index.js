@@ -374,6 +374,12 @@ const router = createRouter({
               meta: { breadcrumb: 'Siparişler' }
             },
             {
+              path: 'notifications',
+              name: 'kurye-notifications',
+              component: () => import('@/views/kurye/Notification.vue'),
+              meta: { breadcrumb: 'Bildirimler' }
+            },
+            {
               path: 'kargo-teslim',
               name: 'kargo-teslim',
               component: () => import('@/views/kurye/order/Kargo.vue'),

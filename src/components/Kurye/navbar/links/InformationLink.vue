@@ -14,7 +14,7 @@
       </li>
 
       <li>
-        <router-link to="/"
+        <router-link to="/dashboard/kurye/notifications"
           class="flex items-center  py-2 px-2.5  text-sm text-slate-700 rounded-lg hover:bg-gray-300 ">
           <div class="w-full flex items-center justify-between">
             <div class="flex items-center w-full">
@@ -27,7 +27,7 @@
             </div>
             <div class="relative flex items-center justify-center mr-2">
               <span class="absolute w-8 h-8 p-2 text-xs rounded bg-red-500 text-white "></span>
-              <span class="z-10 text-white">9</span>
+              <span class="z-10 text-white">{{ count }}</span>
             </div>
           </div>
         </router-link>
@@ -73,6 +73,14 @@
   </li>
 </template>
 
-<script setup></script>
+<script setup>
+import { storeToRefs } from 'pinia'
+import { useKuryeNotificationsStore } from '@/stores/kuryeNotification.js';
+
+const store = useKuryeNotificationsStore();
+
+const { count } = storeToRefs(store)
+
+</script>
 
 <style scoped></style>
