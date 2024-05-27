@@ -13,7 +13,7 @@ export const useUreticiNotificationsStore = defineStore('ureticiNotifications', 
   loading.value = true;
   error.value = null;
   try {
-   const response = await apiClient.get('/notifications/user');
+   const response = await apiClient.get('/notifications/manufacturer');
    ureticiNotifications.value = response.data.data.map(notification => {
     return {
      ...notification,
@@ -32,7 +32,7 @@ export const useUreticiNotificationsStore = defineStore('ureticiNotifications', 
 
  async function markNotificationAsRead(id) {
   try {
-   await apiClient.post(`/notifications/user/${id}/read`);
+   await apiClient.post(`/notifications/manufacturer/${id}/read`);
    ureticiNotifications.value = ureticiNotifications.value.map(notification =>
     notification.id === id ? { ...notification, is_read: true } : notification
    );
@@ -43,7 +43,6 @@ export const useUreticiNotificationsStore = defineStore('ureticiNotifications', 
 
  async function addNotification(notification) {
   try {
-   await apiClient.post('/notifications/user', notification);
    ureticiNotifications.value.push(notification);
   } catch (err) {
    error.value = err;

@@ -80,7 +80,7 @@ onMounted(() => {
   if (echo) {
     echo.private(`user.${user.value.id}`)
       .subscribed(() => { })
-      .listen('.customer.notification', (e) => {
+      .listen('.manufacturer.notification', (e) => {
         let ureticiNotification = e.message;
         ureticiNotification.message = JSON.parse(e.message.message);
         store.addNotification(ureticiNotification);
@@ -95,19 +95,7 @@ onMounted(() => {
           draggable: true,
           progress: undefined,
         });
-        customerNotification.message = JSON.parse(e.message.message);
-        store.addNotification(customerNotification);
 
-        // Yeni bildirim için toast mesajı göster
-        toast.info(`${customerNotification.message.title}`, {
-          position: 'top-right',
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
       });
   }
 
