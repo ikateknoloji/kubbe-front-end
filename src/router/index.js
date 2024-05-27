@@ -182,6 +182,12 @@ const router = createRouter({
               meta: { breadcrumb: 'Siparişler' }
             },
             {
+              path: 'notifications',
+              name: 'customer-notifications',
+              component: () => import('@/views/musteri/Notification.vue'),
+              meta: { breadcrumb: 'Bildirimler' }
+            },
+            {
               path: 'user',
               name: 'musteri-user-information',
               component: () => import('@/views/musteri/Profile.vue'),

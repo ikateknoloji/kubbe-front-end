@@ -40,16 +40,26 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted } from 'vue';
+import { ref, computed, watch, onMounted, inject } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { toast } from 'vue3-toastify'; // Vue3-Toastify'ı içe aktar
+import { storeToRefs } from 'pinia'
 
 import Geridon from '@/components/GeriDon.vue';
 import Sidebar from '@/components/Customer/navbar/Sidebar.vue';
 import NavigationToggle from '@/components/Customer/navbar/NavigationToggle.vue';
 import Search from '@/components/Customer/search/Search.vue';
+import { useCustomerNotificationsStore } from '@/stores/customerNotification.js';
+import { useUserStore } from '@/stores/user.js';
 
 const route = useRoute();
 const router = useRouter();
+const store = useCustomerNotificationsStore();
+const userStore = useUserStore();
+
+const { user } = storeToRefs(userStore)
+
+const echo = inject('echo')
 
 // Sidebar'ın durumunu kontrol etmek için reactive bir state
 const isTranslate = ref(false);
@@ -64,6 +74,28 @@ const toggleSidebar = () => {
 
 
 onMounted(() => {
+  store.fetchCustomerNotifications();
+
+  if (echo) {
+    echo.private(`user.${user.value.id}`)
+      .subscribed(() => { })
+      .listen('.customer-notifications', (e) => {
+        let customerNotification = e.message;
+        customerNotification.message = JSON.parse(e.message.message);
+        store.addNotification(customerNotification);
+
+        // Yeni bildirim için toast mesajı göster
+        toast.info(`${customerNotification.message.title}`, {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      });
+  }
   // Bileşen monte edildikten sonra ekran genişliğini kontrol edin
   screenWidth.value = window.innerWidth;
   isFixed.value = screenWidth.value < 1536;

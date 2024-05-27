@@ -13,23 +13,46 @@ import router from './router'
 
 import Echo from 'laravel-echo';
 import Pusher from 'pusher-js';
+import CryptoJS from 'crypto-js'; // CryptoJS'i içe aktar
 
 window.Pusher = Pusher;
 
 Pusher.logToConsole = true;
 
-const echo = new Echo({
+const SECRET_KEY = import.meta.env.VITE_SECRET_KEY;
+
+// localStorage'dan şifrelenmiş token'ı al
+const encryptedToken = localStorage.getItem('encryptedToken');
+
+let token = '';
+if (encryptedToken) {
+ // Token'ı çöz
+ const bytes = CryptoJS.AES.decrypt(encryptedToken, SECRET_KEY);
+ token = bytes.toString(CryptoJS.enc.Utf8);
+}
+
+window.Pusher = Pusher;
+
+Pusher.logToConsole = true;
+
+// Echo yapılandırma nesnesi
+const echoConfig = {
  broadcaster: 'pusher',
  key: '22d37cd76f03144c6fda',
  cluster: 'eu',
  encrypted: true,
  authEndpoint: 'http://127.0.0.1:8000/broadcasting/auth',
- auth: {
+};
+
+if (token) {
+ echoConfig.auth = {
   headers: {
-   Authorization: `Bearer 7|JsXzlf566BC7Cn8MAzwI4gPJEr3I7NqhpXv6ZMBF6f2618b4`,
+   Authorization: `Bearer ${token}`, // Çözülmüş token'ı buraya ekle
   },
- },
-});
+ };
+}
+
+const echo = new Echo(echoConfig);
 
 
 

@@ -1,11 +1,11 @@
 <template>
-  <div v-motion-fade class="shadow w-full md:w-3/4 mb-10" role="alert" v-for="notification in notifications"
+  <div v-motion-fade class="shadow w-full md:w-3/4 mb-10" role="alert" v-for="notification in userNotifications"
     :key="notification.id">
     <router-link @click="store.markNotificationAsRead(notification.id)"
-      :to="`/dashboard/admin/orders/${notification.message.order.original_status}/${notification.message.order.id}`">
+      :to="`/dashboard/musteri/orders/${notification.message.order.original_status}/${notification.message.order.id}`">
       <div class="flex w-full relative">
         <div class="w-16 text-center p-2 mt-2"
-          v-bind:class="{ 'bg-gray-500': notification.is_read === '1', 'bg-red-500': notification.is_read === '0' }">
+          v-bind:class="{ 'bg-gray-500': notification.is_read === '1' || notification.is_read === 1, 'bg-red-500': notification.is_read === '0' || notification.is_read === 0 }">
           <div class="flex justify-center h-full items-center">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24"
               stroke="currentColor">
@@ -40,16 +40,15 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { storeToRefs } from 'pinia'
-import { useAdminNotificationsStore } from '@/stores/adminNotification.js';
+import { useCustomerNotificationsStore } from '@/stores/customerNotification.js';
 
-const store = useAdminNotificationsStore();
+const store = useCustomerNotificationsStore();
 
-const { notifications, pagination } = storeToRefs(store)
+const { userNotifications, pagination } = storeToRefs(store)
 
-const fetchAdminNotifications = store.fetchAdminNotifications;
 
 onMounted(() => {
-  fetchAdminNotifications();
+  store.fetchCustomerNotifications();
 });
 </script>
 

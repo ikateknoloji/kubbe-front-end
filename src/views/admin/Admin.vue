@@ -49,6 +49,7 @@ import Sidebar from '@/components/Admin/navbar/Sidebar.vue';
 import NavigationToggle from '@/components/Admin/navbar/NavigationToggle.vue';
 import Search from '@/components/Admin/search/Search.vue';
 import { useAdminNotificationsStore } from '@/stores/adminNotification.js';
+import { toast } from 'vue3-toastify'; // Vue3-Toastify'ı içe aktar
 
 const route = useRoute();
 const router = useRouter();
@@ -72,20 +73,32 @@ const toggleSidebar = () => {
   isTranslate.value = !isTranslate.value;
 };
 
-// Bildirim mesajını tutmak için bir ref değişkeni oluşturun
-const adminNotification = ref(null);
 
 onMounted(() => {
   fetchAdminNotifications();
 
-  echo.private('admin-notifications')
-    .subscribed(() => {
-      console.log('Successfully subscribed to admin-notifications channel');
-    })
-    .listen('AdminNotificationEvent', (e) => {
-      adminNotification.message = JSON.parse(e.message.message);
-      store.addNotification(adminNotification.message);
-    });
+  if (echo) {
+    echo.private('admin-notifications')
+      .subscribed(() => {
+      })
+      .listen('.admin-notifications', (e) => {
+        let adminNotification = e.message;
+        adminNotification.message = JSON.parse(e.message.message);
+        store.addNotification(adminNotification);
+        // Yeni bildirim için toast mesajı göster
+        toast.info(` ${adminNotification.message.title}`, {
+          position: 'top-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      });
+  } else {
+    console.error('Echo is not available');
+  }
 
   // Bileşen monte edildikten sonra ekran genişliğini kontrol edin
   screenWidth.value = window.innerWidth;
