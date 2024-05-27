@@ -54,6 +54,12 @@ const router = createRouter({
               meta: { breadcrumb: 'Siparişler' }
             },
             {
+              path: 'notifications',
+              name: 'admin-notifications',
+              component: () => import('@/views/admin/Notification.vue'),
+              meta: { breadcrumb: 'Bildirimler' }
+            },
+            {
               path: 'orders',
               name: 'orders',
               component: () => import('@/views/admin/order/Orders.vue'),

@@ -40,18 +40,25 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, onMounted } from 'vue';
+import { ref, computed, watch, onMounted, inject } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-
-import echo from '@/websocket/echo.js';
+import { storeToRefs } from 'pinia'
 
 import Geridon from '@/components/GeriDon.vue';
 import Sidebar from '@/components/Admin/navbar/Sidebar.vue';
 import NavigationToggle from '@/components/Admin/navbar/NavigationToggle.vue';
 import Search from '@/components/Admin/search/Search.vue';
+import { useAdminNotificationsStore } from '@/stores/adminNotification.js';
 
 const route = useRoute();
 const router = useRouter();
+const store = useAdminNotificationsStore();
+
+const echo = inject('echo')
+
+const { notifications, pagination } = storeToRefs(store)
+
+const fetchAdminNotifications = store.fetchAdminNotifications;
 
 
 // Sidebar'ın durumunu kontrol etmek için reactive bir state
@@ -65,14 +72,19 @@ const toggleSidebar = () => {
   isTranslate.value = !isTranslate.value;
 };
 
-const messages = ref([]);
-
-
+// Bildirim mesajını tutmak için bir ref değişkeni oluşturun
+const adminNotification = ref(null);
 
 onMounted(() => {
+  fetchAdminNotifications();
+
   echo.private('admin-notifications')
-    .listen('.admin-notifications', (e) => {
-      console.log('New notification:', e);
+    .subscribed(() => {
+      console.log('Successfully subscribed to admin-notifications channel');
+    })
+    .listen('AdminNotificationEvent', (e) => {
+      adminNotification.message = JSON.parse(e.message.message);
+      store.addNotification(adminNotification.message);
     });
 
   // Bileşen monte edildikten sonra ekran genişliğini kontrol edin

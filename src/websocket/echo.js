@@ -7,7 +7,7 @@ Pusher.logToConsole = true;
 
 const echo = new Echo({
  broadcaster: 'pusher',
- key: 'd9e58dbfce8962bd41f8',
+ key: '22d37cd76f03144c6fda',
  cluster: 'eu',
  encrypted: true,
  authEndpoint: 'http://127.0.0.1:8000/broadcasting/auth',
