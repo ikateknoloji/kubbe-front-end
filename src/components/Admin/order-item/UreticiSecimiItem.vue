@@ -39,7 +39,7 @@
       <OrderAddress :address="data.order.order_address.address" />
 
       <SelectComponent v-if="data.order.is_rejected == 'A'" :orderId="data.order.id">
-        <RejectButton :orderId="data.order.id" />
+        <RejectButton />
       </SelectComponent>
 
     </div>

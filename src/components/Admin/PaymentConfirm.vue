@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-fit my-10">
-    <PdfComponent :src="order.formatted_order_images['P'].image_url" />
+    <PdfComponent :src="order?.formatted_order_images['P']?.image_url" />
     <br>
     <div class="flex flex-col md:flex-row md:space-x-3">
       <button type="button" @click="store.verifyPayment(order.id)"

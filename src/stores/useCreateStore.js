@@ -203,7 +203,7 @@ export const useCreateStore = defineStore('create', () => {
     })
   };
 
-  const addOrderItem = async (category, product, color, quantity, unit_price, type, newColor) => {
+  const addOrderItem = async (category, product, color, quantity, unit_price, type, newColor, hexColor) => {
 
     try {
 

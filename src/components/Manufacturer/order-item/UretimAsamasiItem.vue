@@ -67,7 +67,6 @@ import PendingCancellation from '@/components/Manufacturer/reject/PendingCancell
 
 import SiparisLogo from '@/components/Admin/buttons/SiparisLogo.vue';
 import TasarimButton from '@/components/Admin/buttons/TasarimButton.vue';
-import UrunButton from '@/components/Admin/buttons/UrunButton.vue';
 
 
 

@@ -112,7 +112,7 @@ const onUpload = async () => {
       toast(response.data.message, {
         autoClose: 3000, // Bildirimi 3 saniye sonra otomatik olarak kapat
         onClose: () => { // Bildirim kapatıldığında tetiklenir
-          router.push(`/dashboard/admin/orders-invoices`); // Yönlendirme işlemini gerçekleştir
+          router.back(); // Kullanıcıyı bir önceki sayfaya geri gönder
         }
       });
 

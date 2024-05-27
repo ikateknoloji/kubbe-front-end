@@ -28,7 +28,7 @@
         {{ item.email }}
       </td>
       <td class="lg:px-6 px-2 lg:py-4 py-1 whitespace-nowrap text-sm font-medium text-gray-800 ">
-        <router-link :to="`/`">
+        <router-link :to="`/dashboard/admin/uretici-gecmis/${item.id}`">
           <div
             class="bg-zinc-100 duration-150 hover:!border-b-2 text-blue-950 rounded-xl drop-shadow-lg group flex items-center border-2 border-b-4 border-blue-950 cursor-pointer active:bg-zinc-300">
             <div class="py-2 pl-3">
@@ -41,7 +41,7 @@
         </router-link>
       </td>
       <td class="lg:px-6 px-2 lg:py-4 py-1 whitespace-nowrap text-sm font-medium text-gray-800 ">
-        <router-link :to="`/`">
+        <router-link :to="`/dashboard/admin/uretici-aktif/${item.id}`">
           <div
             class="bg-zinc-100 duration-150 hover:!border-b-2 text-blue-950 rounded-xl drop-shadow-lg group flex items-center border-2 border-b-4 border-blue-950 cursor-pointer active:bg-zinc-300">
             <div class="py-2 pl-3">

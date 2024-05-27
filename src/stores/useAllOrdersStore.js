@@ -66,6 +66,26 @@ export const useAllOrdersStore = defineStore('allOrders', () => {
   }
  }
 
+
+ async function fetchManufacturerActiveOrders(manufacturerId) {
+  try {
+   const response = await apiClient.get(`/orders/manufacturer-active/${manufacturerId}`);
+   allOrders.value = await response.data.orders;
+  } catch (error) {
+   console.error(error);
+  }
+ }
+
+ async function fetchManufacturerHistoryOrders(manufacturerId) {
+  try {
+   const response = await apiClient.get(`/orders/manufacturer-history/${manufacturerId}`);
+   allOrders.value = await response.data.orders;
+  } catch (error) {
+   console.error(error);
+  }
+ }
+
+
  async function fetchRejectedStatusOrders($rejectedStatus) {
   try {
    const response = await apiClient.get(`/orders/rejected-status/${$rejectedStatus}`);
@@ -84,6 +104,8 @@ export const useAllOrdersStore = defineStore('allOrders', () => {
   fetchDelayedOrders,
   fetchCustomerActiveOrders,
   fetchCustomerHistoryOrders,
-  fetchRejectedStatusOrders
+  fetchRejectedStatusOrders,
+  fetchManufacturerActiveOrders,
+  fetchManufacturerHistoryOrders,
  };
 });

@@ -15,7 +15,7 @@
         <div v-if="user" class="hs-dropdown relative inline-flex">
           <button id="hs-dropdown-default" type="button" class="hs-dropdown-toggle py-3 px-2 ">
             <div class="flex items-center justify-center w-12 h-12 mx-2 overflow-hidden rounded-3xl">
-              <img v-if="user.profile_photo" :src="user.profile_photo" alt="Kullanıcı Profil Resmi" class="w-[100px]" />
+              <img v-if="user.profile_photo" :src="fullImageUrl" alt="Kullanıcı Profil Resmi" class="w-[100px]" />
               <img v-else
                 src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80"
                 alt="user-icon" class="w-[100px]" />
@@ -64,6 +64,10 @@ import { useRouter } from 'vue-router';
 const userStore = useUserStore();
 const { user } = storeToRefs(userStore)
 const router = useRouter();
+
+const fullImageUrl = computed(() => {
+  return `${import.meta.env.VITE_IMAGE_BASE_URL}/${user.value.profile_photo}`;
+});
 
 
 const logout = async () => {

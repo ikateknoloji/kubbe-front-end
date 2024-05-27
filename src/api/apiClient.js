@@ -17,7 +17,7 @@ apiClient.interceptors.request.use(
     // secretKey'i doğru bir şekilde tanımlayın ve içe aktarın
     const secretKey = import.meta.env.VITE_SECRET_KEY; // Örnek olarak
 
-    const encryptedToken = localStorage.getItem('encryptedToken');
+    const encryptedToken = localStorage.getItem('encryptedToken') || null;
 
     // encryptedToken'ın null olmadığını kontrol edin
     if (encryptedToken) {

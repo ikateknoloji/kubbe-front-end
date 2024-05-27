@@ -45,11 +45,11 @@
 <script setup>
 import { useMangeOrderStore } from '@/stores/orderManage.js';
 
-import CustomerInfo from '../CustomerInfo.vue';
-import Dealer from '../Dealer.vue';
-import LogoComponent from '../LogoComponent.vue';
+import CustomerInfo from '@/components/Admin/CustomerInfo.vue';
+import Dealer from '@/components/Admin/Dealer.vue';
+import LogoComponent from '@/components/Admin/LogoComponent.vue';
 
-import OrderTable from '../OrderTable.vue';
+import OrderTable from '@/components/Admin/OrderTable.vue';
 import TableColm from '@/components/Admin/TableColm.vue';
 import OrderTableItem from '@/components/Admin/OrderTableItem.vue';
 import OrderNote from '@/components/Admin/OrderNote.vue';

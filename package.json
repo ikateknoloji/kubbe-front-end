@@ -18,6 +18,7 @@
     "pinia": "^2.1.7",
     "preline": "^2.1.0",
     "pusher-js": "^8.4.0-rc2",
+    "qrcode-vue3": "^1.6.8",
     "vue": "^3.4.21",
     "vue-router": "^4.3.0",
     "vue3-pdfjs": "^0.1.6",

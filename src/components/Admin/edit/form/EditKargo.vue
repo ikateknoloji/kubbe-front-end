@@ -79,7 +79,7 @@ const onProductInTransitionUpload = async () => {
   formData.append('product_in_transition_image', productInTransitionImageInput.value.files[0]);
 
   try {
-    const response = await apiClient.post(`/api/orders/${props.data.order.id}/product-in-transition`, formData, {
+    const response = await apiClient.post(`/update-cargo-code/${props.data.order.id}`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }

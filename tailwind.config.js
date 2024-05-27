@@ -10,6 +10,9 @@ export default {
       fontFamily: {
         'poppins': ['Poppins', "sans-serif"],
         'source': ['Source Sans 3', "sans-serif"],
+      },
+      gridTemplateRows: {
+        'custom': 'repeat(12, minmax(0, 10rem))', // Her satır için 5rem yükseklik
       }
     },
   },

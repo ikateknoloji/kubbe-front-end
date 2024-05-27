@@ -32,6 +32,8 @@
           </svg>
         </li>
       </ol>
+      <Search />
+      <Geridon />
       <router-view />
     </div>
   </div>
@@ -41,8 +43,10 @@
 import { ref, computed, watch, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
+import Geridon from '@/components/GeriDon.vue';
 import Sidebar from '@/components/Manufacturer/navbar/Sidebar.vue';
 import NavigationToggle from '@/components/Manufacturer/navbar/NavigationToggle.vue';
+import Search from '@/components/Manufacturer/search/Search.vue';
 
 const route = useRoute();
 const router = useRouter();

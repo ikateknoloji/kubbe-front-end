@@ -30,6 +30,10 @@
         <KargoButton :url="data.order" />
         <FaturaButton v-if="data.order.invoice_type == 'Kurumsal'" :url="data.order" />
       </ImageList>
+      <pre>
+        {{ data.order }}
+      </pre>
+
 
       <OrderTable>
         <TableColm :columns="columnsData" />
@@ -51,12 +55,12 @@
 <script setup>
 import { useMangeOrderStore } from '@/stores/orderManage.js';
 
-import CustomerInfo from '../CustomerInfo.vue';
-import Dealer from '../Dealer.vue';
-import LogoComponent from '../LogoComponent.vue';
-import Date from '../Date.vue';
+import CustomerInfo from '@/components/Admin/CustomerInfo.vue';
+import Dealer from '@/components/Admin/Dealer.vue';
+import LogoComponent from '@/components/Admin/LogoComponent.vue';
+import Date from '@/components/Admin/Date.vue';
 
-import OrderTable from '../OrderTable.vue';
+import OrderTable from '@/components/Admin/OrderTable.vue';
 import TableColm from '@/components/Admin/TableColm.vue';
 import OrderTableItem from '@/components/Admin/OrderTableItem.vue';
 import OrderNote from '@/components/Admin/OrderNote.vue';
@@ -73,6 +77,12 @@ import CanceledOrder from '@/components/Admin/reject/CanceledOrder.vue';
 import PendingCancellation from '@/components/Admin/reject/PendingCancellation.vue';
 
 
+import SiparisLogo from '@/components/Admin/buttons/SiparisLogo.vue';
+import DekontButton from '@/components/Admin/buttons/DekontButton.vue';
+import TasarimButton from '@/components/Admin/buttons/TasarimButton.vue';
+import UrunButton from '@/components/Admin/buttons/UrunButton.vue';
+import KargoButton from '@/components/Admin/buttons/KargoButton.vue';
+import FaturaButton from '@/components/Admin/buttons/FaturaButton.vue';
 
 const store = useMangeOrderStore();
 

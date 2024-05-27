@@ -7,7 +7,7 @@
       <div class="px-2  md:px-8 pt-4 flex items-center space-x-2 justify-start">
         <div v-if="item.customer.profile_photo"
           class="relative inline-block h-[4rem] w-[4rem] rounded-full overflow-hidden bg-center bg-cover"
-          :style="{ backgroundImage: `url(${item.customer.profile_photo})` }">
+          :style="{ backgroundImage: `url(${BASE_URL}${item.customer.profile_photo})` }">
         </div>
         <div v-else>
           <img src="@/assets/user-icon.png" alt="" class="w-12 h-12">
@@ -97,8 +97,7 @@
 </template>
 
 <script setup>
-
-
+const BASE_URL = "http://localhost:8000/"; // BASE_URL değişkenini tanımlıyoruz
 
 const props = defineProps({
   order: Object

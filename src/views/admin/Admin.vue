@@ -32,6 +32,8 @@
           </svg>
         </li>
       </ol>
+      <Search />
+      <Geridon />
       <router-view />
     </div>
   </div>
@@ -41,11 +43,16 @@
 import { ref, computed, watch, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
+import echo from '@/websocket/echo.js';
+
+import Geridon from '@/components/GeriDon.vue';
 import Sidebar from '@/components/Admin/navbar/Sidebar.vue';
 import NavigationToggle from '@/components/Admin/navbar/NavigationToggle.vue';
+import Search from '@/components/Admin/search/Search.vue';
 
 const route = useRoute();
 const router = useRouter();
+
 
 // Sidebar'ın durumunu kontrol etmek için reactive bir state
 const isTranslate = ref(false);
@@ -58,8 +65,16 @@ const toggleSidebar = () => {
   isTranslate.value = !isTranslate.value;
 };
 
+const messages = ref([]);
+
+
 
 onMounted(() => {
+  echo.private('admin-notifications')
+    .listen('.admin-notifications', (e) => {
+      console.log('New notification:', e);
+    });
+
   // Bileşen monte edildikten sonra ekran genişliğini kontrol edin
   screenWidth.value = window.innerWidth;
   isFixed.value = screenWidth.value < 1536;

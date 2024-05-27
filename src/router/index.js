@@ -128,13 +128,13 @@ const router = createRouter({
             {
               path: 'uretici-aktif/:id',
               name: 'manufacturer-active',
-              component: () => import('@/views/admin/history/MusteriAktif.vue'),
+              component: () => import('@/views/admin/history/UreticiAktif.vue'),
               meta: { breadcrumb: 'Üretici Aktif Siparişler' }
             },
             {
               path: 'uretici-gecmis/:id',
               name: 'manufacturer-history',
-              component: () => import('@/views/admin/history/MusteriGecmis.vue'),
+              component: () => import('@/views/admin/history/UreticiGecmis.vue'),
               meta: { breadcrumb: 'Üretici Geçmiş Siparişler' }
             },
             {
@@ -155,6 +155,12 @@ const router = createRouter({
               component: () => import('@/views/admin/history/MusteriGecmis.vue'),
               meta: { breadcrumb: 'Müşteri Geçmiş Siparişler' }
             },
+            {
+              path: 'search-results',
+              name: 'search-results',
+              component: () => import('@/views/admin/search/SearchResults.vue'),
+              meta: { breadcrumb: 'Arama Sonuçları' }
+            }
           ]
         },
         {
@@ -241,6 +247,12 @@ const router = createRouter({
               component: () => import('@/views/musteri/order-cancel/IptalBekleyenSiparisler.vue'),
               meta: { breadcrumb: 'İptal Bekleyen Siparişler' }
             },
+            {
+              path: 'search-results',
+              name: 'customer-search-results',
+              component: () => import('@/views/musteri/search/SearchResults.vue'),
+              meta: { breadcrumb: 'Arama Sonuçları' }
+            }
           ]
         },
         {
@@ -285,21 +297,115 @@ const router = createRouter({
               component: () => import('@/views/uretici/order/GecikenSiparisler.vue'),
               meta: { breadcrumb: 'Geçikmiş Siparişler' }
             },
+            {
+              path: 'search-results',
+              name: 'manufacturer-search-results',
+              component: () => import('@/views/uretici/search/SearchResults.vue'),
+              meta: { breadcrumb: 'Arama Sonuçları' }
+            }
           ]
         },
         {
           path: 'tasarimci',
           name: 'tasarimci',
           component: () => import('../views/tasarimci/Tasarimci.vue'),
-          meta: { roles: 'tasarimci' } // Yalnızca 'tasarimci' rolüne izin ver
+          meta: { roles: 'tasarimci' }, // Yalnızca 'uretici' rolüne izin ver
+          children: [
+            {
+              path: '',
+              name: 'tasarimci-bekleyen',
+              component: () => import('@/views/tasarimci/order/TasarimBekleyen.vue'),
+              meta: { breadcrumb: 'Siparişler' }
+            },
+            {
+              path: 'tasarim-bekleyen',
+              name: 'tasarimci-bekleyen-add',
+              component: () => import('@/views/tasarimci/order/TasarimBekleyen.vue'),
+              meta: { breadcrumb: 'Siparişler' }
+            },
+            {
+              path: 'tasarim-bekleyen/:id',
+              name: 'tasarimci-ekle',
+              component: () => import('@/views/tasarimci/order/TasarimEkle.vue'),
+              meta: { breadcrumb: 'Siparişler' }
+            },
+            {
+              path: 'tasarim-guncelle',
+              name: 'tasarim-guncelle',
+              component: () => import('@/views/tasarimci/order/TasarimGuncelle.vue'),
+              meta: { breadcrumb: 'Siparişler' }
+            },
+            {
+              path: 'tasarim-guncelle/:id',
+              name: 'tasarim-guncelle-item',
+              component: () => import('@/views/tasarimci/order/TasarimGuncelleItem.vue'),
+              meta: { breadcrumb: 'Siparişler' }
+            },
+            {
+              path: 'search-results',
+              name: 'desinger-search-results',
+              component: () => import('@/views/tasarimci/search/SearchResults.vue'),
+              meta: { breadcrumb: 'Arama Sonuçları' }
+            }
+          ]
         },
         {
           path: 'kurye',
           name: 'kurye',
-          component: () => import('../views/kurye/Kurye.vue'),
-          meta: { roles: 'kurye' } // Yalnızca 'kurye' rolüne izin ver
+          component: () => import('@/views/kurye/Kurye.vue'),
+          meta: { roles: 'kurye' }, // Yalnızca 'kurye' rolüne izin ver
+          children: [
+            {
+              path: '',
+              name: 'kargo',
+              component: () => import('@/views/kurye/order/Kargo.vue'),
+              meta: { breadcrumb: 'Siparişler' }
+            },
+            {
+              path: 'kargo-teslim',
+              name: 'kargo-teslim',
+              component: () => import('@/views/kurye/order/Kargo.vue'),
+              meta: { breadcrumb: 'Kargo Teslim' }
+            },
+            {
+              path: 'kargo-guncelle',
+              name: 'kargo-güncelle',
+              component: () => import('@/views/kurye/order/KargoGuncelle.vue'),
+              meta: { breadcrumb: 'Kargo Aşaması' }
+            },
+            {
+              path: 'kargo-kodu/:qrcode',
+              name: 'kargo-qr-code',
+              component: () => import('@/views/kurye/order-item/KargoQrCode.vue'),
+              meta: { breadcrumb: 'Kargo QrCode' }
+            },
+            {
+              path: 'kargo-teslim/:id',
+              name: 'kargo-teslim-item',
+              component: () => import('@/views/kurye/order/KargoEkle.vue'),
+              meta: { breadcrumb: 'Sipariş' }
+            },
+            {
+              path: 'kargo-guncelle/:id',
+              name: 'kargo-güncelle-item',
+              component: () => import('@/views/kurye/order/KargoGuncelleItem.vue'),
+              meta: { breadcrumb: 'Siparişler' }
+            },
+            {
+              path: 'user',
+              name: 'kurye-kullaninici-bilgileri',
+              component: () => import('@/views/kurye/Profile.vue'),
+              meta: { breadcrumb: 'Kullanıcı Bilgileri' }
+            },
+            {
+              path: 'search-results',
+              name: 'courier-search-results',
+              component: () => import('@/views/kurye/search/SearchResults.vue'),
+              meta: { breadcrumb: 'Arama Sonuçları' }
+            }
+          ]
         },
-        // Diğer alt rotalar...
+
       ]
     },
     {
@@ -329,6 +435,31 @@ router.beforeEach((to, from, next) => {
     // Rota korumalı değilse, doğrudan geçiş yap
     next();
   }
+});
+
+
+router.beforeEach((to, from, next) => {
+  // Kök rotaların başlıklarını bir obje içinde sakla
+  const rootRouteTitles = {
+    'admin': 'Yönetici Paneli',
+    'musteri': 'Müşteri Paneli',
+    'uretici': 'Üretici Paneli',
+    'tasarimci': 'Tasarımcı Paneli',
+    'kurye': 'Kurye Paneli'
+  };
+
+  // Mevcut rotanın kök rotasını bul
+  let rootPath = to.matched.find(record => rootRouteTitles[record.name]);
+
+  // Eğer kök rota bulunursa ve başlığı varsa
+  if (rootPath && rootRouteTitles[rootPath.name]) {
+    // Belge başlığını kök rotanın başlığı ile ayarla
+    document.title = rootRouteTitles[rootPath.name];
+  } else {
+    // Kök rota değilse veya başlığı yoksa varsayılan başlığı kullan
+    document.title = 'Dashboard';
+  }
+  next();
 });
 
 
