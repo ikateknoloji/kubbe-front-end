@@ -313,18 +313,28 @@
         <span class="text-blue-500">Toplam Teklif </span>
         <span class="text-blue-500">{{ formData.offer_price }} TL</span>
       </div>
-      <div class="mt-7 flex flex-wrap items-center space-x-4 mb-10">
-        <button @click="create.createOrder"
-          class="group relative inline-flex border border-[#3d85bb] focus:outline-none  lg:ml-4 lg:inline-flex">
+      <div v-if="orderDisplay.length > 0" class="mt-7 flex flex-wrap items-center space-x-4 mb-10">
+        <button :disabled="loading" @click="createOrder"
+          class="group relative inline-flex border border-[#3d85bb] focus:outline-none lg:ml-4 lg:inline-flex">
           <span
-            class="w-full inline-flex items-center justify-center self-stretch px-4 py-2 text-sm text-[#3d85bb] text-center font-semibold  bg-white ring-1 ring-[#3d85bb] ring-offset-1 transform transition-transform group-hover:-translate-y-1 group-hover:-translate-x-1 group-focus:-translate-y-1 group-focus:-translate-x-1">
-            Sipariş Oluştur
+            class="w-full inline-flex items-center justify-center self-stretch px-4 py-2 text-sm text-[#3d85bb] text-center font-semibold bg-white ring-1 ring-[#3d85bb] ring-offset-1 transform transition-transform group-hover:-translate-y-1 group-hover:-translate-x-1 group-focus:-translate-y-1 group-focus:-translate-x-1">
+            <template v-if="loading">
+              <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-[#3d85bb]" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8h8a8 8 0 01-8 8v-8H4z"></path>
+              </svg>
+              Yükleniyor...
+            </template>
+            <template v-else>
+              Sipariş Oluştur
+            </template>
           </span>
         </button>
-        <button @click="create.rejectOrder"
-          class="group relative inline-flex border border-[#c64646] focus:outline-none  lg:ml-4 lg:inline-flex">
+        <button :disabled="loading" @click="create.rejectOrder"
+          class="group relative inline-flex border border-[#c64646] focus:outline-none lg:ml-4 lg:inline-flex">
           <span
-            class="w-full inline-flex items-center justify-center self-stretch px-4 py-2 text-sm text-[#c64646] text-center font-semibold  bg-white ring-1 ring-[#c64646] ring-offset-1 transform transition-transform group-hover:-translate-y-1 group-hover:-translate-x-1 group-focus:-translate-y-1 group-focus:-translate-x-1">
+            class="w-full inline-flex items-center justify-center self-stretch px-4 py-2 text-sm text-[#c64646] text-center font-semibold bg-white ring-1 ring-[#c64646] ring-offset-1 transform transition-transform group-hover:-translate-y-1 group-hover:-translate-x-1 group-focus:-translate-y-1 group-focus:-translate-x-1">
             Sipariş İptal Et
           </span>
         </button>
@@ -353,7 +363,7 @@ import { storeToRefs } from 'pinia'
 
 
 
-
+const loading = ref(false);
 const store = useCategoryStore()
 const create = useCreateStore()
 const router = useRouter()
@@ -455,6 +465,18 @@ const completeOrder = () => {
     },
   })
 }
+
+
+const createOrder = async () => {
+  loading.value = true;
+  try {
+    await create.createOrder();
+  } catch (error) {
+    toast.error('Sipariş oluşturulurken bir hata oluştu.');
+  } finally {
+    loading.value = false;
+  }
+};
 
 onMounted(() => {
   store.getProductCategories()
