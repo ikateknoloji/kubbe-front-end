@@ -2,7 +2,7 @@
   <div v-motion-fade class="shadow w-full md:w-3/4 mb-10" role="alert" v-for="notification in kuryeNotifications"
     :key="notification.id">
     <router-link @click="store.markNotificationAsRead(notification.id)"
-      :to="`/dashboard/musteri/orders/${notification.message.order.original_status}/${notification.message.order.id}`">
+      :to="`/dashboard/kurye/${notification.message.order.original_status === 'PD' ? 'kargo-teslim' : 'kargo-guncelle'}/${notification.message.order.id}`">
       <div class="flex w-full relative">
         <div class="w-16 text-center p-2 mt-2"
           v-bind:class="{ 'bg-gray-500': notification.is_read === '1' || notification.is_read === 1, 'bg-red-500': notification.is_read === '0' || notification.is_read === 0 }">
