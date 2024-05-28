@@ -23,6 +23,7 @@ export const useCustomerNotificationsStore = defineStore('customerNotifications'
    const { data, ...other } = response.data;
    pagination.value = other;
    count.value = response.data.unread_count
+
   } catch (err) {
    error.value = err;
   } finally {
