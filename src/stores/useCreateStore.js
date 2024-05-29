@@ -4,9 +4,11 @@ import apiClient from '@/api/apiClient' // axios instance
 import { useRouter } from 'vue-router'
 import { toast } from 'vue3-toastify' // Vue3-Toastify'ı içe aktar
 import { nextTick } from 'vue';
+import { useLoadingStore } from '@/stores/loadingStore'; // useLoadingStore'un doğru yolunu belirt
 
 export const useCreateStore = defineStore('create', () => {
   const router = useRouter()
+  const loadingStore = useLoadingStore();
 
   const formData = ref({
     order_name: '',
@@ -150,6 +152,7 @@ export const useCreateStore = defineStore('create', () => {
     }
 
     try {
+      loadingStore.setLoading(true); // Yüklenme durumunu başlat
       // '/validate-form' rotasına bir POST isteği gönderin
       // FormData nesnesini ve 'Content-Type' başlığını isteğe ekleyin
       const response = await apiClient.post('/validate-form', formDataToSend, {
@@ -179,6 +182,8 @@ export const useCreateStore = defineStore('create', () => {
         }
       } else {
       }
+    } finally {
+      loadingStore.setLoading(false); // Yüklenme durumunu sonlandır
     }
   }
 
@@ -204,8 +209,8 @@ export const useCreateStore = defineStore('create', () => {
   };
 
   const addOrderItem = async (category, product, color, quantity, unit_price, type, newColor, hexColor) => {
-
     try {
+      loadingStore.setLoading(true); // Yüklenme durumunu başlat
 
       const selectedColor = color ? color.name : newColor;
 
@@ -253,8 +258,6 @@ export const useCreateStore = defineStore('create', () => {
         })
       }
     } catch (error) {
-
-
       toast.error(`Hata: ${error.response.data.error}`, {
         // Yakalanan hata mesajını göster
         autoClose: 1000, // Bildirimi 3 saniye sonra otomatik olarak kapat
@@ -262,13 +265,15 @@ export const useCreateStore = defineStore('create', () => {
 
       console.log(error)
 
+    } finally {
+      loadingStore.setLoading(false); // Yüklenme durumunu sonlandır
     }
   }
 
 
   const createOrder = async () => {
     try {
-
+      loadingStore.setLoading(true); // Yüklenme durumunu başlat
       let formDataToSend = new FormData();
 
       for (let key in formData.value) {
@@ -301,6 +306,8 @@ export const useCreateStore = defineStore('create', () => {
       }
     } catch (error) {
       console.log(error)
+    } finally {
+      loadingStore.setLoading(false); // Yüklenme durumunu sonlandır
     }
   }
 

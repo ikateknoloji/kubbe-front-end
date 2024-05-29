@@ -7,7 +7,7 @@ import { ref, computed, onMounted, watch } from 'vue'
 import apiClient from '@/api/apiClient'; // Doğru yolu belirt
 
 import { useRoute } from 'vue-router';
-
+import { useLoadingStore } from '@/stores/loadingStore'; // useLoadingStore'un doğru yolunu belirt
 
 import SiparisOnayiItem from '@/components/Customer/order-item/SiparisOnayiItem.vue'
 import TasarimBekleyenItem from '@/components/Customer/order-item/TasarimBekleyenItem.vue'
@@ -22,6 +22,7 @@ import KargoItem from '@/components/Customer/order-item/KargoItem.vue'
 const route = useRoute();
 
 const ordersData = ref(null);
+const loadingStore = useLoadingStore();
 
 
 
@@ -43,12 +44,14 @@ const dynamicComponent = computed(() => componentsMap[route.params.status])
 
 const getOrder = async () => {
   try {
+    loadingStore.setLoading(true); // Yüklenme durumunu başlat
     const response = await apiClient.get(`/orders/customer/${route.params.id}`);
     // Gelen veriyi reaktif değere atayın
     ordersData.value = response.data;
   } catch (error) {
     console.error(error);
   }
+  finally { loadingStore.setLoading(false); }
 };
 
 

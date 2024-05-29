@@ -5,9 +5,12 @@ import apiClient from '@/api/apiClient'; // Doğru yolu belirt
 
 import { useRouter, useRoute } from 'vue-router';
 import { toast } from 'vue3-toastify'; // Vue3-Toastify'ı içe aktar
+import { useLoadingStore } from '@/stores/loadingStore'; // useLoadingStore'un doğru yolunu belirt
+
 
 export const useMangeOrderStore = defineStore('orders-manage', () => {
 
+ const loadingStore = useLoadingStore();
  const router = useRouter();
  const route = useRoute();
 
@@ -16,32 +19,31 @@ export const useMangeOrderStore = defineStore('orders-manage', () => {
 
  const transitionToDesignPhase = async (orderId) => {
   try {
+   loadingStore.setLoading(true); // Yüklenme durumunu başlat
    // HTTP POST isteği gönder
    const response = await apiClient.post(`/orders/${orderId}/transition-to-design`);
 
    // İsteğin başarılı olup olmadığını kontrol et
    if (response.status === 200) {
-
     toast('Şipariş durumu Onaylandı.', {
      autoClose: 1000, // Bildirimi 3 saniye sonra otomatik olarak kapat
      onClose: () => { // Bildirim kapatıldığında tetiklenir
       router.push(`/dashboard/admin/orders/${route.params.status}`); // Yönlendirme işlemini gerçekleştir
      }
     });
-
    } else {
     console.error('Şipariş durumu güncelleme hatası:', response.statusText);
    }
-  } catch (error) {
-   console.error('Şipariş durumu güncelleme hatası:', error.message);
   }
+  catch (error) { console.error('Şipariş durumu güncelleme hatası:', error.message); }
+  finally { loadingStore.setLoading(false); }
  };
 
  const verifyPayment = async (orderId) => {
   try {
+   loadingStore.setLoading(true); // Yüklenme durumunu başlat
    // HTTP POST isteği gönder
    const response = await apiClient.post(`/orders/${orderId}/verify-payment`)
-
    // İsteğin başarılı olup olmadığını kontrol et
    if (response.status === 200) {
 
@@ -55,14 +57,14 @@ export const useMangeOrderStore = defineStore('orders-manage', () => {
    } else {
     console.error('Şipariş durumu güncelleme hatası:', response.statusText);
    }
-
-  } catch (error) {
-   console.error('Şipariş durumu güncelleme hatası:', error.message);
   }
+  catch (error) { console.error('Şipariş durumu güncelleme hatası:', error.message); }
+  finally { loadingStore.setLoading(false); }
  }
 
  const downloadImage = async (orderId, type) => {
   try {
+   loadingStore.setLoading(true); // Yüklenme durumunu başlat
    const response = await apiClient.get(`/download-order-image/${orderId}/${type}`, {
     responseType: 'blob', // Dosya tipinde bir yanıt bekliyoruz
    });
@@ -93,9 +95,10 @@ export const useMangeOrderStore = defineStore('orders-manage', () => {
    link.click();
    document.body.removeChild(link);
    window.URL.revokeObjectURL(link.href);
-  } catch (error) {
-   console.error('Dosya indirme hatası:', error);
   }
+  catch (error) { console.error('Dosya indirme hatası:', error); }
+  finally { loadingStore.setLoading(false); }
+
  };
 
  return {
