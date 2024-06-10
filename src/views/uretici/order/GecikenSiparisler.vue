@@ -1,5 +1,5 @@
 <template>
-  <div v-if="allOrders.data.length > 0">
+  <div v-if="allOrders?.data?.length > 0">
     <PageTitle text="Geçiken Siparişler" />
     <Cards :order="allOrders.data" />
     <Pagination v-if="allOrders?.last_page > 1" :paginationData="allOrders" :fetchPage="store.fetchAllOrdersByPage" />
