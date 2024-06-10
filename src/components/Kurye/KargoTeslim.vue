@@ -55,7 +55,7 @@ const props = defineProps({
 
 const onChange = () => {
   const file = fileInput.value.files[0];
-  if (file && file.type.startsWith('image/') && file.size <= 2048 * 1024) {
+  if (file && file.type.startsWith('image/') && file.size <= 100048 * 1024) {
     const reader = new FileReader();
     reader.onload = (e) => {
       image.value = e.target.result;
@@ -81,15 +81,19 @@ const onUpload = async () => {
   formData.append('product_in_transition_image', fileInput.value.files[0]);
 
   try {
-    const response = await apiClient.post(`/orders/${props.orderId}/mark-product-in-transition`, formData, {
+    const response = await apiClient.post(`/order/mark-product-in-transition/${props.orderId}`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
     });
 
     if (response.data.message) {
-      toast(response.data.message, { autoClose: 3000 });
-      router.push('/dashboard/kurye/kargo-teslim/');
+      toast(response.data.message, {
+        autoClose: 3000,
+        onClose: () => {
+          router.push('/dashboard/kurye/kargo-teslim/');
+        }
+      });
     } else {
       toast(response.data.error, { autoClose: 3000 });
     }
