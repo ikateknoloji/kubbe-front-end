@@ -7,7 +7,7 @@
       <td class="lg:px-6 px-2 lg:py-4 py-1 whitespace-nowrap text-sm font-medium text-gray-800 ">
         <div v-if="item.profile_photo"
           class="relative inline-block h-[4rem] w-[4rem] rounded-full overflow-hidden bg-center bg-cover"
-          :style="{ backgroundImage: `url(${item.profile_photo})` }">
+          :style="{ backgroundImage: `url(${BASE_URL}${item.profile_photo})` }">
         </div>
         <div v-else>
           <img
@@ -62,6 +62,7 @@ import { ref, onMounted } from 'vue';
 import apiClient from '@/api/apiClient';
 
 const allManufacturers = ref(null);
+const BASE_URL = "https://app.kubbe-crm.online/"; // BASE_URL değişkenini tanımlıyoruz
 
 async function fetchAllManufacturers() {
   try {

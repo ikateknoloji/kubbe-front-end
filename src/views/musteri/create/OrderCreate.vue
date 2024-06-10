@@ -276,7 +276,7 @@
           </div>
         </label>
         <div class="flex flex-col">
-          <div class="flex flex-wrap mt-4 gap-x-6 mb-3">
+          <div class="flex flex-wrap space-y-5 md:space-y-0 mt-4 gap-x-6 mb-3">
             <div class="w-44">
               <input type="radio" class="peer hidden" id="a" value="A" v-model="formData.shipping_type" />
               <label for="a"
@@ -315,7 +315,7 @@
     <div class="flex flex-col p-5 pb-16 box box--stacked mb-10">
       <div class="pb-5 mb-6 font-medium border-b border-dashed border-slate-300/70 text-[0.94rem]">Fatura Bilgileri
       </div>
-      <div class="grid grid-cols-2">
+      <div class="grid grid-cols-1 md:grid-cols-2">
         <!-- Şirket Adı-->
         <div class="flex-col block pt-5 mt-5 xl:items-center sm:flex xl:flex-row first:mt-0 first:pt-0">
           <label class="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:w-60 xl:mr-14">

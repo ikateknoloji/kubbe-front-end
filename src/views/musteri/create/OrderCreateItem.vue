@@ -17,7 +17,7 @@
           </div>
         </label>
         <div class="w-full  gap-4 flex  flex-wrap mt-4  mb-3">
-          <div class="w-full max-w-xs mb-10 relative z-[30]">
+          <div class="w-full max-w-xs mb-10 relative z-[50]">
             <Listbox v-model="selectedCategory">
               <ListboxButton
                 class="relative w-full cursor-default bg-white py-4 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
@@ -135,7 +135,7 @@
         </label>
         <div class="w-full flex-wrap  gap-4 flex mt-4  mb-3">
           <div class=" mb-5 relative z-[20]">
-            <div class="max-w-md w-96 " v-if="!checkedColor">
+            <div class="md:max-w-md max-w-xs w-96 " v-if="!checkedColor">
               <Listbox v-motion-fade v-model="color">
                 <ListboxButton
                   class="relative w-full cursor-default bg-white py-4 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/100 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
@@ -198,6 +198,12 @@
             </div>
           </div>
           <div class="w-56 max-w-md mb-10 relative z-10">
+            <div class="block md:hidden ">
+              <div class="font-medium">Adet</div>
+              <div class="mt-1.5 xl:mt-3 text-xs leading-relaxed text-slate-500/80">
+                Lütfen Adet bilgisi giriniz. Bu bilgi gereklidir.
+              </div>
+            </div>
             <input type=""
               class="py-5 px-4 block w-full rounded text-sm focus:border-[#6398bc] focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none focus:outline-none bg-[#ffffff] shadow-md text-gray-900"
               v-model="quantity" @keydown="handleKeyDown" placeholder="Lütfen Adet Giriniz" />

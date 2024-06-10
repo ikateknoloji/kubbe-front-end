@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PageTitle text="Üretici Onayı Bekleyen Siparişler" />
+    <PageTitle text="Üretici Seçimi Bekleyen Siparişler" />
     <Cards :order="order" />
   </div>
 

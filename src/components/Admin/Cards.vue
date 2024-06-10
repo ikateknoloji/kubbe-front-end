@@ -97,7 +97,7 @@
 </template>
 
 <script setup>
-const BASE_URL = "http://localhost:8000/"; // BASE_URL değişkenini tanımlıyoruz
+const BASE_URL = "https://app.kubbe-crm.online/"; // BASE_URL değişkenini tanımlıyoruz
 
 const props = defineProps({
   order: Object

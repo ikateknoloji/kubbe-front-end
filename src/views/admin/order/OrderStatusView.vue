@@ -2,19 +2,16 @@
   <div v-if="ordersByStatus?.data.length > 0">
     <component :is="dynamicComponent" :order="ordersByStatus.data"></component>
     <Pagination v-if="ordersByStatus?.last_page > 1" :paginationData="ordersByStatus"
-      :fetchPage="store.fetchAllOrdersByPage" />
+      :fetchPage="store.fetchOrdersByPage" />
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted, computed, watchEffect } from 'vue'
+import { ref, computed, watchEffect } from 'vue'
 import { useRoute } from 'vue-router';
-
-import { useOrderStatusStrore } from '@/stores/userOrdersStatus.js';
+import { useOrderStatusStore } from '@/stores/userOrdersStatus.js'; // Store'un doğru ismi ve yolu
 import { storeToRefs } from 'pinia'
-
 import Pagination from '@/components/Admin/Pagination.vue';
-
 import SiparisOnayi from '@/components/Admin/order/SiparisOnayi.vue';
 import TasarimBekleyen from '@/components/Admin/order/TasarimBekleyen.vue';
 import TasarimOnayiVeOdeme from '@/components/Admin/order/TasarimOnayiVeOdeme.vue';
@@ -27,10 +24,8 @@ import Kargo from '@/components/Admin/order/Kargo.vue';
 
 const route = useRoute();
 
-const id = ref(route.params.status); // rota parametresi 'id' okunur (bu reaktiftir)
-
-const store = useOrderStatusStrore()
-const { ordersByStatus } = storeToRefs(store)
+const store = useOrderStatusStore();
+const { ordersByStatus } = storeToRefs(store);
 
 const componentsMap = {
   'OC': SiparisOnayi,            // Sipariş Onayı Ver *
@@ -42,18 +37,13 @@ const componentsMap = {
   'PP': UretimAsamasi,           // Üretimde*
   'PR': UrunHazir,               // Hazır Olan Şiparişler.*
   'PD': Kargo,                   // Kargo Bekleyen Siparişler*
-}
+};
 
-const dynamicComponent = computed(() => componentsMap[route.params.status])
-
-
-
+const dynamicComponent = computed(() => componentsMap[route.params.status]);
 
 watchEffect(() => {
-  store.fetchOrdersByStatus(route.params.status)
-})
-
-
+  store.fetchOrdersByStatus(route.params.status);
+});
 </script>
 
 <style scoped></style>

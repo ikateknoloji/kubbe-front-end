@@ -30,9 +30,7 @@
         <KargoButton :url="data.order" />
         <FaturaButton v-if="data.order.invoice_type == 'Kurumsal'" :url="data.order" />
       </ImageList>
-      <pre>
-        {{ data.order }}
-      </pre>
+
 
 
       <OrderTable>

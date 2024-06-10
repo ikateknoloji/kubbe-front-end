@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import apiClient from '@/api/apiClient'; // Doğru yolu belirt
 import { useLoadingStore } from '@/stores/loadingStore'; // useLoadingStore'un doğru yolunu belirt
 
-export const useOrderStatusStore = defineStore('orders', () => {
+export const useOrderStatusStore = defineStore('orders-admin', () => {
  const loadingStore = useLoadingStore();
  const ordersByStatus = ref(null);
 
