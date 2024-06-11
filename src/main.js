@@ -41,7 +41,7 @@ const echoConfig = {
  key: '22d37cd76f03144c6fda',
  cluster: 'eu',
  forceTLS: true,
- authEndpoint: 'http://127.0.0.1:8000/broadcasting/auth',
+ authEndpoint: 'https://app.kubbe-crm.online/broadcasting/auth',
 };
 
 if (token) {

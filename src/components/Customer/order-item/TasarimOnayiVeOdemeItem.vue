@@ -38,10 +38,11 @@
       <OrderAddress :address="data.order.order_address.address" />
 
       <CoverContent title="Dekont Ekle">
-        <DekontEkle :orderId="data.order.id" />
+        <DekontEkle :orderId="data.order.id" :design_images="data.order.design_images" />
       </CoverContent>
     </div>
   </div>
+
 </template>
 
 <script setup>

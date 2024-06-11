@@ -1,5 +1,12 @@
 <template>
-  <div class="max-w-4xl w-full">
+  <div class="max-w-5xl w-full">
+    <div class="w-full grid grid-cols-12 gap-4 mb-10">
+      <div v-for="design in design_images" :key="design.id"
+        class="col-span-3 m-2 p-2 border-2 rounded-lg cursor-pointer"
+        :class="{ 'border-blue-500': selectedDesignId === design.id }" @click="selectDesign(design.id)">
+        <img :src="`${imageBaseUrl}${design.design_path}`" alt="Design Image" class="w-full h-auto object-cover" />
+      </div>
+    </div>
     <div class="flex items-center justify-center w-full mb-10">
       <label for="dropzone-file"
         class="flex flex-col items-center justify-center w-full h-fit border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100"
@@ -55,13 +62,24 @@ const props = defineProps({
   orderId: {
     type: Number,
     required: true
+  },
+  design_images: {
+    type: Object,
+    required: true
   }
 });
 
+const imageBaseUrl = import.meta.env.VITE_IMAGE_BASE_URL;
+
+
 const fileInput = ref(null);
 const image = ref(null);
-
+const selectedDesignId = ref(null);
 const fileType = ref(null);
+
+const selectDesign = (designId) => {
+  selectedDesignId.value = designId;
+};
 
 const onChange = () => {
   const file = fileInput.value.files[0];
@@ -97,6 +115,7 @@ const onUpload = async () => {
 
   // Yüklenen dosyayı FormData'ya ekleyin
   formData.append('payment_proof', fileInput.value.files[0]);
+  formData.append('image_id', selectedDesignId.value);
 
   try {
     // POST isteğini yapın
@@ -131,3 +150,9 @@ const onUpload = async () => {
 };
 
 </script>
+
+<style>
+.selected {
+  border: 2px solid green;
+}
+</style>

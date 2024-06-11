@@ -14,5 +14,11 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
+  },
+  optimizeDeps: {
+    include: [
+      'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css',
+      'filepond/dist/filepond.min.css'
+    ]
   }
 })

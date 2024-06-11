@@ -5,7 +5,7 @@
       :to="`/dashboard/admin/orders/${notification.message.order.original_status}/${notification.message.order.id}`">
       <div class="flex w-full relative">
         <div class="w-16 text-center p-2 mt-2"
-          v-bind:class="{ 'bg-gray-500': notification.is_read === '1', 'bg-red-500': notification.is_read === '0' }">
+          v-bind:class="{ 'bg-gray-500': notification.is_read === '1' || notification.is_read === 1, 'bg-red-500': notification.is_read === '0' || notification.is_read === 0 }">
           <div class="flex justify-center h-full items-center">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24"
               stroke="currentColor">
@@ -15,7 +15,7 @@
           </div>
         </div>
         <div class="bg-white border-r-4 w-full p-4 mb-2"
-          v-bind:class="{ 'border-gray-500': notification.is_read === '1', 'border-red-500': notification.is_read === '0' }">
+          v-bind:class="{ 'bg-gray-500': notification.is_read === '1' || notification.is_read === 1, 'bg-red-500': notification.is_read === '0' || notification.is_read === 0 }">
           <div>
             <p class="text-gray-600 font-bold">{{ notification.message.title }}</p>
             <p class="text-gray-600 text-sm">{{ notification.message.body }}</p>
