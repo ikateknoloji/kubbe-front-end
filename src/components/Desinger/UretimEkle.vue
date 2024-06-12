@@ -1,16 +1,10 @@
 <template>
   <div class="max-w-4xl w-full">
-    <h3 class="font-poppins text-[#090909] my-10 text-xl">Tasarım Dosyasını Ekleyin</h3>
+    <h3 class="font-poppins text-[#090909] my-10 text-xl">Üretim Dosyasını Ekleyin</h3>
     <file-pond name="design_image" ref="singlePond" :allowMultiple="false"
       acceptedFileTypes="image/jpeg, image/png, image/gif, image/svg+xml, application/pdf"
       labelIdle='Tasarım dosyasını Buraya ekleyiniz <span class="filepond--label-action"> Gözat </span>'
       @updatefiles="handleSingleFileUpdate" />
-
-    <h3 class="font-poppins text-[#090909] my-10 text-xl">Sipariş Tasarımlarını Ekleyin</h3>
-    <file-pond name="design_images" ref="multiPond" :allowMultiple="true"
-      acceptedFileTypes="image/jpeg, image/png, image/gif, image/svg+xml, application/pdf"
-      labelIdle='Tasarım Dosyalarını Buraya Sürükleyiniz veya <span class="filepond--label-action"> Gözat </span>'
-      @updatefiles="handleMultiFileUpdate" />
 
     <button @click="onUpload" type="button"
       class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white mb-10 hover:bg-blue-700 disabled:opacity-50 disabled:bg-gray-800 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 focus:ring-gray-600">
@@ -54,21 +48,10 @@ const props = defineProps({
 });
 
 const singleFile = ref(null);
-const multiFiles = ref([]);
 
 // Handle single file update
 const handleSingleFileUpdate = (fileItems) => {
   singleFile.value = fileItems.length > 0 ? fileItems[0].file : null;
-};
-
-// Handle multiple file update
-const handleMultiFileUpdate = (fileItems) => {
-  // Yeni dosyaları mevcut dosyalara ekle
-  fileItems.forEach(fileItem => {
-    if (fileItem.file && !multiFiles.value.includes(fileItem.file)) {
-      multiFiles.value.push(fileItem.file);
-    }
-  });
 };
 
 
@@ -78,18 +61,13 @@ const onUpload = async () => {
 
   // Check if there's a single file to upload
   if (singleFile.value) {
-    formData.append('design_image', singleFile.value);
+    formData.append('image', singleFile.value);
   }
-
-  // Add multiple files to the form data
-  multiFiles.value.forEach((file, index) => {
-    formData.append(`design_images[${index}]`, file);
-  });
 
 
   try {
     // POST isteğini yapın
-    const response = await apiClient.post(`/update-design/${props.orderId}`, formData, {
+    const response = await apiClient.post(`/upload-production-image/${props.orderId}`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
@@ -101,7 +79,7 @@ const onUpload = async () => {
       toast(response.data.message, {
         autoClose: 3000, // Bildirimi 3 saniye sonra otomatik olarak kapat
         onClose: () => { // Bildirim kapatıldığında tetiklenir
-          router.push(`/dashboard/tasarimci/tasarim-guncelle`); // Yönlendirme işlemini gerçekleştir
+          router.push(`/dashboard/tasarimci/uretim-bekleyen`); // Yönlendirme işlemini gerçekleştir
         }
       });
 

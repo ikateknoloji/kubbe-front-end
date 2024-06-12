@@ -21,7 +21,7 @@
     </ImagesList>
 
     <CoverContent title="Tasarım Güncelle">
-      <TasarimGuncelle :orderId="ordersData.order.id" />
+      <UretimEkle :orderId="ordersData.order.id" />
     </CoverContent>
   </div>
 </template>
@@ -39,9 +39,9 @@ import OrderTable from '@/components/Desinger/OrderTable.vue';
 import TableColm from '@/components/Desinger/TableColm.vue';
 import OrderTableItem from '@/components/Desinger/OrderTableItem.vue';
 
-import TasarimGuncelle from '@/components/Desinger/TasarimGuncelle.vue';
+import UretimEkle from '@/components/Desinger/UretimEkle.vue';
+import ImagesList from '@/components/Customer/ImagesList.vue';
 import SiparisLogo from '@/components/Admin/buttons/SiparisLogo.vue';
-import ImagesList from '@/components/Admin/ImagesList.vue';
 import TasarimButton from '@/components/Admin/buttons/TasarimButton.vue';
 
 const route = useRoute();

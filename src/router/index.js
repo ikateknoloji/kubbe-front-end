@@ -348,6 +348,18 @@ const router = createRouter({
               meta: { breadcrumb: 'Siparişler' }
             },
             {
+              path: 'uretim-bekleyen',
+              name: 'uretim-bekleyen',
+              component: () => import('@/views/tasarimci/order/UretimBekleyen.vue'),
+              meta: { breadcrumb: 'Siparişler' }
+            },
+            {
+              path: 'uretim-bekleyen/:id',
+              name: 'uretim-ekle-item',
+              component: () => import('@/views/tasarimci/order/UretimBekleyenItem.vue'),
+              meta: { breadcrumb: 'Siparişler' }
+            },
+            {
               path: 'tasarim-bekleyen/:id',
               name: 'tasarimci-ekle',
               component: () => import('@/views/tasarimci/order/TasarimEkle.vue'),
