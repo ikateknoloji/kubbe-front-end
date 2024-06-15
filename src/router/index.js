@@ -351,13 +351,19 @@ const router = createRouter({
               path: 'uretim-bekleyen',
               name: 'uretim-bekleyen',
               component: () => import('@/views/tasarimci/order/UretimBekleyen.vue'),
-              meta: { breadcrumb: 'Siparişler' }
+              meta: { breadcrumb: 'Üretim Bekleyen' }
             },
             {
               path: 'uretim-bekleyen/:id',
               name: 'uretim-ekle-item',
               component: () => import('@/views/tasarimci/order/UretimBekleyenItem.vue'),
-              meta: { breadcrumb: 'Siparişler' }
+              meta: { breadcrumb: 'Üretim Bekleyen' }
+            },
+            {
+              path: 'uretim-gonder',
+              name: 'uretim-gonder',
+              component: () => import('@/views/tasarimci/order/UretimEkle.vue'),
+              meta: { breadcrumb: 'Üretime Ekle' }
             },
             {
               path: 'tasarim-bekleyen/:id',
