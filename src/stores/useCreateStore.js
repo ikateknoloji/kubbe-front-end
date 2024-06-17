@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 import apiClient from '@/api/apiClient' // axios instance
 import { useRouter } from 'vue-router'
 import { toast } from 'vue3-toastify' // Vue3-Toastify'ı içe aktar
@@ -11,112 +11,235 @@ export const useCreateStore = defineStore('create', () => {
   const loadingStore = useLoadingStore();
 
   const formData = ref({
-    order_name: '',
-    invoice_type: '',
-    offer_price: 0,
-    note: '',
-    image_url: '',
-    // Şirket Bilgileri için
-    company_name: '',
-    address: '',
-    tax_office: '',
-    tax_number: '',
-    // Her iki kapsamdada olacak bilgiler
-    name: '',
-    surname: '',
-    phone: '',
-    email: '',
-    order_address: '',
-    shipping_type: '',
-    addressControll: false,
-    // Sipariş kalemleri
-    order_items: [],
+    customer: {
+      name: 'Mehmet',
+      surname: 'Kara',
+      phone: '5358757884',
+      email: 'ikatech@gmail.com',
+    },
+    order: {
+      order_name: 'mehmet',
+      offer_price: 0,
+      note: '',
+    },
+    baskets: [], // Boş sepetler dizisi
   })
 
   const formErrors = ref({
-    order_name: '',
-    invoice_type: '',
-    offer_price: '',
-    note: '',
-    image_url: '',
-    company_name: '',
-    address: '',
-    tax_office: '',
-    tax_number: '',
-    name: '',
-    surname: '',
-    phone: '',
-    order_address: '',
-    shipping_type: '',
-    email: '',
-  })
-
-  const orderDisplay = ref([])
-  const fileT = ref(null)
-
-  const fileInput = ref(null)
-  const imagePreview = ref(null)
-  const fileType = ref(null)
-
-  function resetForm() {
-    formData.value = {
-      order_name: '',
-      invoice_type: '',
-      offer_price: 0,
-      note: '',
-      image_url: '',
-      company_name: '',
-      address: '',
-      tax_office: '',
-      tax_number: '',
+    customer: {
       name: '',
       surname: '',
       phone: '',
       email: '',
-      order_address: '',
-      shipping_type: '',
-      order_items: [],
-      addressControll: false,
+    },
+    order: {
+      order_name: '',
+      offer_price: '',
+      note: '',
+    }
+  })
+
+  const orderData = reactive({
+    selectedCategory: null,
+    selectedType: null,
+    color: null,
+    quantity: 0,
+    unit_price: 0,
+    type: '',
+    newColor: '',
+    hexColor: '',
+    items: [], // Ürün kalemleri dizisi
+    logos: [], // Logo dizisi
+  });
+
+  function resetOrderData() {
+    orderData.selectedCategory = null;
+    orderData.selectedType = null;
+    orderData.color = null;
+    orderData.quantity = 0;
+    orderData.unit_price = 0;
+    orderData.type = '';
+    orderData.newColor = '';
+    orderData.hexColor = '';
+  }
+
+  function resetFormData() {
+    formData.value.customer = {
+      name: '',
+      surname: '',
+      phone: '',
+      email: '',
+    };
+    formData.value.order = {
+      order_name: '',
+      offer_price: 0,
+      note: '',
+    };
+    formData.value.baskets = [];
+    resetOrderData();
+  }
+
+  const validateForm = async () => {
+    // formErrors nesnesini sıfırlayın
+    Object.keys(formErrors.value.customer).forEach((key) => {
+      formErrors.value.customer[key] = '';
+    });
+    Object.keys(formErrors.value.order).forEach((key) => {
+      formErrors.value.order[key] = '';
+    });
+
+    // formData nesnesini doğrudan JSON olarak gönderin
+    const formDataToSend = {
+      customer: formData.value.customer,
+      order: formData.value.order,
     };
 
-    orderDisplay.value = [];
-    fileT.value = null;
-    fileInput.value = null;
-    imagePreview.value = null;
-    fileType.value = null;
-  }
-
-
-  const handleFileUpload = (event) => {
-    const file = event.target.files[0]
-
-    if (file.type.startsWith('image/')) {
-      fileType.value = 'image'
-      fileT.value = 'image'
-    } else if (file.type === 'application/pdf') {
-      fileType.value = 'pdf'
-      fileT.value = 'pdf'
+    try {
+      loadingStore.setLoading(true); // Yüklenme durumunu başlat
+      // '/validate-form' rotasına bir POST isteği gönderin
+      const response = await apiClient.post('/validate-form', formDataToSend, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      // Eğer yanıtın durumu 200 ise
+      if (response.status === 200) {
+        toast('Müşteri bilgileriniz başarıyla doğrulandı.', {
+          autoClose: 1000, // Bildirimi 1 saniye sonra otomatik olarak kapat
+          onClose: () => {
+            // Kullanıcıyı '/order-create' rotasına yönlendirin
+            router.push('/dashboard/musteri/order-item-create');
+          }
+        });
+      }
+    } catch (error) {
+      // Eğer bir hata oluşursa, hatayı yakalayın
+      if (error.response && error.response.data && error.response.data.errors) {
+        // Hata mesajlarını formErrors nesnesine ekleyin
+        const errors = error.response.data.errors;
+        for (let key in errors) {
+          const field = key.split('.').pop(); // "customer.name" gibi bir anahtardan "name" kısmını al
+          if (formErrors.value.customer.hasOwnProperty(field)) {
+            formErrors.value.customer[field] = errors[key][0]; // Hata mesajını ekleyin
+          } else if (formErrors.value.order.hasOwnProperty(field)) {
+            formErrors.value.order[field] = errors[key][0]; // Hata mesajını ekleyin
+          }
+        }
+      }
+    } finally {
+      loadingStore.setLoading(false); // Yüklenme durumunu sonlandır
     }
+  };
 
-    imagePreview.value = URL.createObjectURL(file)
-    formData.value.image_url = file
-  }
+  const addOrderItem = async () => {
+    const newItem = {
+      product_type_id: orderData.selectedType?.id,
+      product_type: orderData.selectedType?.product_type,
+      product_category_id: orderData.selectedCategory?.id,
+      product_category: orderData.selectedCategory?.category,
+      color: orderData.newColor || orderData.color?.name || '',
+      quantity: orderData.quantity,
+      unit_price: orderData.unit_price,
+      type: orderData.type,
+      hexColor: orderData.hexColor,
+    };
 
-  const handleDrop = (event) => {
-    event.preventDefault()
-    const file = event.dataTransfer.files[0]
+    try {
+      const response = await apiClient.post('/validate-order-item-single', newItem, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
-    if (file.type.startsWith('image/')) {
-      fileType.value = 'image'
-      fileT.value = 'image'
-    } else if (file.type === 'application/pdf') {
-      fileType.value = 'pdf'
-      fileT.value = 'pdf'
+      if (response.status === 200) {
+        orderData.items.push(newItem);
+        resetOrderData();
+        toast.success('Sipariş kalemi başarıyla eklendi!');
+      }
+    } catch (error) {
+      if (error.response && error.response.data && error.response.data.errors) {
+        const errors = error.response.data.errors;
+        for (let key in errors) {
+          toast.error(errors[key][0]);
+        }
+      } else {
+        toast.error('Sipariş kalemi eklenirken bir hata oluştu.');
+      }
     }
+  };
 
-    imagePreview.value = URL.createObjectURL(file)
-    formData.value.image_url = file
-  }
+  const removeOrderItem = (index) => {
+    orderData.items.splice(index, 1);
+  };
+
+  const addOrderLogo = (logo) => {
+    orderData.logos.push({ logo_url: logo });
+  };
+
+  const removeLogo = (logoUrl) => {
+    const index = orderData.logos.findIndex(logo => logo.logo_url === logoUrl);
+    if (index !== -1) {
+      orderData.logos.splice(index, 1);
+    }
+  };
+
+  const addItemsAndLogosToBasket = async () => {
+    try {
+      loadingStore.setLoading(true);
+      const response = await apiClient.post('/validate-order-item', {
+        items: orderData.items,
+        logos: orderData.logos,
+      });
+
+      if (response.status === 200) {
+        const basket = {
+          items: [...orderData.items],
+          logos: [...orderData.logos],
+        };
+
+        formData.value.baskets.push(basket);
+
+        // Toplam fiyatı güncelle
+        orderData.items.forEach(item => {
+          formData.value.order.offer_price += item.quantity * item.unit_price;
+        });
+
+        // Order data ve items/logos resetleme
+        resetOrderData();
+        orderData.items = [];
+        orderData.logos = [];
+      }
+    } catch (error) {
+      console.error('Hata:', error.response.data.errors);
+      // Hataları işleyin, örneğin toast bildirimleri kullanarak
+      Object.values(error.response.data.errors).forEach(err => {
+        toast.error(err[0]);
+      });
+    }
+    finally { loadingStore.setLoading(false); }
+  };
+
+  const removeBasket = (basketIndex) => {
+    const basket = formData.value.baskets[basketIndex];
+
+    // Toplam fiyatı güncelle
+    basket.items.forEach(item => {
+      formData.value.order.offer_price -= item.quantity * item.unit_price;
+    });
+
+    // Sepeti kaldır
+    formData.value.baskets.splice(basketIndex, 1);
+  };
+
+  const removeBasketOrderItem = (basketIndex, itemIndex) => {
+    const item = formData.value.baskets[basketIndex].items[itemIndex];
+    formData.value.order.offer_price -= item.quantity * item.unit_price;
+    formData.value.baskets[basketIndex].items.splice(itemIndex, 1);
+  };
+
+  const removeOrderLogo = (basketIndex, logoIndex) => {
+    formData.value.baskets[basketIndex].logos.splice(logoIndex, 1);
+  };
 
   const handleKeyDown = (event) => {
     const charCode = event.key
@@ -129,213 +252,77 @@ export const useCreateStore = defineStore('create', () => {
     }
   }
 
-  const submitForm = async () => {
-
-    // formErrors nesnesini sıfırlayın
-    Object.keys(formErrors.value).forEach((key) => {
-      formErrors.value[key] = '';
-    });
-
-    // Yeni bir FormData nesnesi oluşturun
-    const formDataToSend = new FormData()
-
-    // formData.value içindeki her anahtar-değer çifti için
-    for (let key in formData.value) {
-      // Eğer anahtar 'image_url' ve değer bir File nesnesi ise
-      if (key === 'image_url' && formData.value[key] instanceof File) {
-        // Dosyayı 'image_url' anahtarı ile FormData nesnesine ekleyin
-        formDataToSend.append('image_url', formData.value.image_url)
-      } else {
-        // Diğer durumlarda, anahtar ve değeri doğrudan FormData nesnesine ekleyin
-        formDataToSend.append(key, formData.value[key])
-      }
-    }
-
-    try {
-      loadingStore.setLoading(true); // Yüklenme durumunu başlat
-      // '/validate-form' rotasına bir POST isteği gönderin
-      // FormData nesnesini ve 'Content-Type' başlığını isteğe ekleyin
-      const response = await apiClient.post('/validate-form', formDataToSend, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
-      // Eğer yanıtın durumu 200 ise
-      if (response.status === 200) {
-        toast('Müşteri bilgileriniz başarıyla doğrulandı.', {
-          autoClose: 1000, // Bildirimi 3 saniye sonra otomatik olarak kapat
-          onClose: () => {
-            // Kullanıcıyı '/order-create' rotasına yönlendirin
-            router.push('/dashboard/musteri/order-item-create')
-          }
-        })
-      }
-    } catch (error) {
-      // Eğer bir hata oluşursa, hatayı yakalayın
-      if (error.response && error.response.data && error.response.data.errors) {
-        // Hata mesajlarını formErrors nesnesine ekleyin
-        const errors = error.response.data.errors;
-        for (let key in errors) {
-          if (formErrors.value.hasOwnProperty(key)) {
-            formErrors.value[key] = errors[key];
-          }
-        }
-      } else {
-      }
-    } finally {
-      loadingStore.setLoading(false); // Yüklenme durumunu sonlandır
-    }
-  }
-
-  const removeOrderItem = (index) => {
-    /*
-    // order_items dizisinden öğeyi çıkarın
-    formData.value.order_items.splice(index, 1);
-  
-    // display_order_items dizisinden öğeyi çıkarın
-    orderDisplay.value.splice(index, 1);
-*/
-    const item = formData.value.order_items.splice(index, 1)[0];
-
-    // display_order_items dizisinden öğeyi çıkarın
-    orderDisplay.value.splice(index, 1);
-
-    // quantity ve unit_price değerlerini çarpıp offer_price değerinden çıkarın
-    formData.value.offer_price -= item.quantity * item.unit_price;
-
-    toast('Ürün sepetinizden çıkarıldı', {
-      autoClose: 1000, // Bildirimi 3 saniye sonra otomatik olarak kapat
-    })
+  const resetItemsAndLogos = () => {
+    orderData.items = [];
+    orderData.logos = [];
   };
 
-  const addOrderItem = async (category, product, color, quantity, unit_price, type, newColor, hexColor) => {
-    try {
-      loadingStore.setLoading(true); // Yüklenme durumunu başlat
 
-      const selectedColor = color ? color.name : newColor;
-
-      const orderItem = {
-        product_category_id: category?.id,
-        product_type_id: product?.id ?? '',
-        color: selectedColor,
-        quantity,
-        unit_price,
-        type
-      };
-
-      const displayItem = {
-        product_category: category,
-        product_type: product,
-        color: color ? color : { name: newColor, hex: newColor },
-        quantity,
-        unit_price,
-        type
-      };
-
-      // FormData nesnesini sunucuya gönderin
-      const response = await apiClient.post('/validate-order-item', orderItem)
-
-      if (response.status === 200) {
-        // Doğrulama başarılı olduğunda, form verilerini Pinia store'a aktarın
-        // Sipariş öğesini order_items dizisine ekleyin
-        formData.value.order_items.push(orderItem);
-
-        // Sipariş öğesini display_order_items dizisine ekleyin
-        orderDisplay.value.push(displayItem);
-
-        // quantity ve unit_price değerlerini çarpıp offer_price değerine ekleyin
-        formData.value.offer_price += Number(quantity * unit_price);
-
-        await nextTick();
-
-        toast('Ürünleriniz Sepete Eklendi', {
-          autoClose: 1000, // Bildirimi 3 saniye sonra otomatik olarak kapat
-        })
-      } else {
-        toast.error('Bir hata oluştu', {
-          // Hata mesajını göster
-          autoClose: 3000, // Bildirimi 3 saniye sonra otomatik olarak kapat
-        })
-      }
-    } catch (error) {
-      toast.error(`Hata: ${error.response.data.error}`, {
-        // Yakalanan hata mesajını göster
-        autoClose: 1000, // Bildirimi 3 saniye sonra otomatik olarak kapat
-      })
-
-      console.log(error)
-
-    } finally {
-      loadingStore.setLoading(false); // Yüklenme durumunu sonlandır
-    }
+  function resetOrderData() {
+    Object.assign(orderData, {
+      selectedCategory: null,
+      selectedType: null,
+      color: null,
+      quantity: 0,
+      unit_price: 0,
+      type: '',
+      newColor: '',
+      hexColor: '',
+    });
   }
 
+  async function createOrder() {
+    const orderPayload = {
+      customer: formData.value.customer,
+      order: {
+        order_name: formData.value.order.order_name,
+        offer_price: formData.value.order.offer_price,
+        note: formData.value.order.note,
+      },
+      baskets: formData.value.baskets,
+    };
 
-  const createOrder = async () => {
     try {
-      loadingStore.setLoading(true); // Yüklenme durumunu başlat
-      let formDataToSend = new FormData();
-
-      for (let key in formData.value) {
-        if (Array.isArray(formData.value[key])) {
-          formData.value[key].forEach((item, index) => {
-            for (let subKey in item) {
-              formDataToSend.append(`${key}[${index}][${subKey}]`, item[subKey]);
-            }
-          });
-        } else if (key === 'image_url' && formData.value[key] instanceof File) {
-          formDataToSend.append('image_url', formData.value[key], formData.value[key].name);
-        } else {
-          formDataToSend.append(key, formData.value[key]);
-        }
-      }
-
-      const response = await apiClient.post('/order-create', formDataToSend, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      })
+      loadingStore.setLoading(true);
+      const response = await apiClient.post('/order-create', orderPayload);
 
       if (response.status === 201) {
-        toast.success('Sipariş başarıyla oluşturuldu!', {
-          onClose: () => {
-            resetForm()
-            router.push('/dashboard/musteri/order-create');
-          }
-        });
+        toast.success('Sipariş başarıyla oluşturuldu!');
+        resetFormData(); // Form verilerini sıfırla
+        router.push('/dashboard/musteri/order-create'); // Kullanıcıyı siparişler sayfasına yönlendir
       }
     } catch (error) {
-      console.log(error)
-    } finally {
-      loadingStore.setLoading(false); // Yüklenme durumunu sonlandır
-    }
-  }
-
-  const rejectOrder = async () => {
-    toast.success('Sipariş başarıyla iptal edildi!', {
-      onClose: () => {
-        resetForm()
-        router.push('/order-info');
+      if (error.response && error.response.data && error.response.data.errors) {
+        console.error('Sipariş oluşturma hatası:', error.response.data.errors);
+        Object.values(error.response.data.errors).forEach(err => {
+          toast.error(err[0]);
+        });
+        console.log(error)
+      } else {
+        toast.error('Sipariş oluşturulurken bir hata oluştu.');
+        console.log(error)
       }
-    });
+    } finally {
+      loadingStore.setLoading(false);
+    }
   }
 
   return {
     formData,
-    orderDisplay,
-    fileT,
-    fileInput,
-    imagePreview,
-    fileType,
     formErrors,
-    submitForm,
+    orderData,
+    resetOrderData,
+    validateForm,
     addOrderItem,
+    addOrderLogo,
+    addItemsAndLogosToBasket,
     handleKeyDown,
-    handleDrop,
-    handleFileUpload,
+    removeLogo,
     removeOrderItem,
+    removeBasket,
+    removeBasketOrderItem,
+    removeOrderLogo,
+    resetItemsAndLogos,
     createOrder,
-    rejectOrder
-  }
-})
-
+  };
+});
