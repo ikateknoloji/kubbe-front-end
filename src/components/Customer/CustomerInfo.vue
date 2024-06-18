@@ -1,9 +1,9 @@
 <template>
-  <div class="w-full lg:max-w-lg border mb-6 mt-5 py-3">
+  <div class="w-full lg:max-w-lg border  py-3">
     <div class="border-b p-2 text-[#333]  font-source text-[13px] md:text-[15px]">
       Müşteri Bilgileri
     </div>
-    <div class="grid grid-cols-12 gap-4 px-2 py-4 md:p-4">
+    <div class="grid grid-cols-12 gap-4 px-4 md:px-8 py-4 md:py-8">
       <div class="col-span-4 md:col-span-3 flex flex-col space-y-4">
         <div class="text-blue-500/80 bg-gray-200/60 px-2 py-2 shadow-xs   text-xs sm:text-sm md:text-base"> Ad Soyad
         </div>

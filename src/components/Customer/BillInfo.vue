@@ -11,15 +11,12 @@
         </div>
         <div class="text-blue-500/80 bg-gray-200/60 px-2 py-2 shadow-xs  text-xs sm:text-sm md:text-base">Vergi No
         </div>
-        <div class="text-blue-500/80 bg-gray-200/60 px-2 py-2 shadow-xs  text-xs sm:text-sm md:text-base">Email Adresi
-        </div>
         <div class="text-blue-500/80 bg-gray-200/60 px-2 py-2 shadow-xs  text-xs sm:text-sm md:text-base">Adres</div>
       </div>
       <div class="col-span-8 md:col-span-9 flex flex-col space-y-4 md:space-y-4">
         <p class="px-2 py-2  text-xs sm:text-sm md:text-base">{{ info.company_name }}</p>
         <p class="px-2 py-2  text-xs sm:text-sm md:text-base">{{ info.tax_office }}</p>
         <p class="px-2 py-2  text-xs sm:text-sm md:text-base">{{ info.tax_number }}</p>
-        <p class="px-2 py-2  text-xs sm:text-sm md:text-base">{{ info.email }}</p>
         <p class="px-2 py-2  text-xs sm:text-sm md:text-base">{{ info.address }}</p>
       </div>
     </div>

@@ -1,13 +1,11 @@
 <template>
-  <div class="w-full lg:max-w-2xl border mb-6 mt-10 col-span-12 lg:col-span-6">
+  <div class="w-full lg:max-w-2xl border col-span-12 lg:col-span-6">
     <div class="border-b p-2 text-[#333]  font-source text-[13px] md:text-[15px]">
       Sipariş Bilgileri
     </div>
     <div class="grid grid-cols-12 gap-4 px-2 py-4 md:p-4">
       <div class="col-span-4 md:col-span-3 flex flex-col space-y-4">
         <div class="text-blue-500/80 bg-gray-200/60 px-2 py-2 shadow-xs  text-xs sm:text-sm md:text-base">Şipariş Kodu
-        </div>
-        <div class="text-blue-500/80 bg-gray-200/60 px-2 py-2 shadow-xs  text-xs sm:text-sm md:text-base">Fatura Tipi
         </div>
         <div class="text-blue-500/80 bg-gray-200/60 px-2 py-2 shadow-xs  text-xs sm:text-sm md:text-base">Teklif Tutarı
         </div>
@@ -18,7 +16,6 @@
       </div>
       <div class="col-span-8 md:col-span-9 flex flex-col space-y-4 md:space-y-4">
         <p class="px-2 py-2  text-xs sm:text-sm md:text-base">{{ order.order_code }}</p>
-        <p class="px-2 py-2  text-xs sm:text-sm md:text-base">{{ order.invoice_type }}</p>
         <p class="px-2 py-2  text-xs sm:text-sm md:text-base">{{ order.offer_price }}</p>
         <p class="px-2 py-2  text-xs sm:text-sm md:text-base">{{ order.status }}</p>
         <p class="px-2 py-2  text-xs sm:text-sm md:text-base">{{ formatDate(order.created_at) }}</p>
