@@ -1,16 +1,9 @@
 <template>
   <div class="max-w-4xl w-full">
-    <h3 class="font-poppins text-[#090909] my-10 text-xl">Tasarım Dosyasını Ekleyin</h3>
     <file-pond name="design_image" ref="singlePond" :allowMultiple="false"
       acceptedFileTypes="image/jpeg, image/png, image/gif, image/svg+xml, application/pdf"
       labelIdle='Tasarım dosyasını Buraya ekleyiniz <span class="filepond--label-action"> Gözat </span>'
       @updatefiles="handleSingleFileUpdate" />
-
-    <h3 class="font-poppins text-[#090909] my-10 text-xl">Sipariş Tasarımlarını Ekleyin</h3>
-    <file-pond name="design_images" ref="multiPond" :allowMultiple="true"
-      acceptedFileTypes="image/jpeg, image/png, image/gif, image/svg+xml, application/pdf"
-      labelIdle='Tasarım Dosyalarını Buraya Sürükleyiniz veya <span class="filepond--label-action"> Gözat </span>'
-      @updatefiles="handleMultiFileUpdate" />
 
     <div class="mt-10">
       <button @click="submitFiles" type="button" :disabled="!singleFile && !multiFiles.length"
@@ -62,16 +55,6 @@ const handleSingleFileUpdate = (fileItems) => {
   singleFile.value = fileItems.length > 0 ? fileItems[0].file : null;
 };
 
-// Handle multiple file update
-const handleMultiFileUpdate = (fileItems) => {
-  // Yeni dosyaları mevcut dosyalara ekle
-  fileItems.forEach(fileItem => {
-    if (fileItem.file && !multiFiles.value.includes(fileItem.file)) {
-      multiFiles.value.push(fileItem.file);
-    }
-  });
-};
-
 // Define the submit function
 const submitFiles = async () => {
   const formData = new FormData();
@@ -80,11 +63,6 @@ const submitFiles = async () => {
   if (singleFile.value) {
     formData.append('design_image', singleFile.value);
   }
-
-  // Add multiple files to the form data
-  multiFiles.value.forEach((file, index) => {
-    formData.append(`design_images[${index}]`, file);
-  });
 
   try {
     const response = await apiClient.post(`/approve-design/${props.orderId}`, formData, {

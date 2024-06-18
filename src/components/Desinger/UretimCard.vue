@@ -21,6 +21,9 @@
           </div>
         </div>
         <h2 class="text-lg md:text-xl font-bold text-gray-800 mb-4">
+          {{ item.order_name }}
+        </h2>
+        <h2 class="text-lg md:text-xl font-bold text-gray-800 mb-4">
           {{ item.order_code }}
 
         </h2>
@@ -37,7 +40,7 @@
         </p>
 
         <ul class="text-sm text-gray-600 mb-6">
-          <li class="mb-2 flex items-center">
+          <li v-if="item?.invoice_type" class="mb-2 flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
               stroke="currentColor" class="w-6 h-6 mr-2">
               <path stroke-linecap="round" stroke-linejoin="round"
@@ -69,6 +72,18 @@
       </div>
 
       <div class="p-2 md:p-4">
+        <button @click="orderCompleted(item.id)" target="_blank"
+          class="block w-full bg-teal-500 rounded text-white text-center px-4 py-2 hover:bg-teal-700 focus:outline-none focus:shadow-outline-blue active:bg-teal-800">
+          Siparişi tamamla
+        </button>
+      </div>
+      <div class="p-2 md:p-4">
+        <a :href="getFullUrl(item.order_images[0].product_image)" target="_blank"
+          class="block w-full bg-red-500 rounded text-white text-center px-4 py-2 hover:bg-red-700 focus:outline-none focus:shadow-outline-blue active:bg-red-800">
+          Tasarım Dosyası
+        </a>
+      </div>
+      <div class="p-2 md:p-4">
         <router-link :to="`/dashboard/tasarimci/uretim-bekleyen/${item.id}`"
           class="block w-full bg-blue-500 rounded text-white text-center px-4 py-2 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
           Sipariş Detayı
@@ -79,8 +94,13 @@
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router';
+import apiClient from '@/api/apiClient';
 
+const baseURL = import.meta.env.VITE_IMAGE_BASE_URL;
+const getFullUrl = (logoUrl) => { return `${baseURL}${logoUrl}` };
 
+const router = useRouter();
 
 const props = defineProps({
   order: Object
@@ -102,6 +122,15 @@ const formatDate = (value) => {
   }
 }
 
+const orderCompleted = async (id) => {
+  try {
+    const response = await apiClient.post(`/mark-completed-orders/${id}`);
+
+    router.go(0);
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 
 </script>

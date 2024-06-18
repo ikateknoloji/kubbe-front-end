@@ -21,6 +21,9 @@
           </div>
         </div>
         <h2 class="text-lg md:text-xl font-bold text-gray-800 mb-4">
+          {{ item.order_name }}
+        </h2>
+        <h2 class="text-lg md:text-xl font-bold text-gray-800 mb-4">
           {{ item.order_code }}
 
         </h2>

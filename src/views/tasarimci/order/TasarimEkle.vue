@@ -2,21 +2,26 @@
   <div v-if="ordersData">
     <CoverContent title="Müşteri Bilgileri">
       <div class="grid grid-cols-12 gap-4 ">
-        <div class="flex flex-col col-span-12  lg:col-span-7 min-h-[300px] lg:order-0 order-1">
+        <div class="flex flex-col col-span-12 ">
           <Dealer :info="ordersData.order.customer" />
-          <OrderTable>
-            <TableColm :columns="columnsData" />
-            <OrderTableItem :data="ordersData.order.order_items" />
-          </OrderTable>
         </div>
-        <div class="col-span-12 lg:col-span-5  lg:order-1 order-0">
-          <LogoComponent :order="ordersData.order" />
+        <div class="col-span-12 ">
+          <OrderInfo :order="ordersData.order" />
         </div>
       </div>
     </CoverContent>
-    <ImageList v-if="ordersData.order">
-      <SiparisLogo :url="ordersData.order" />
-    </ImageList>
+
+    <CoverContent title="Sipariş Sepeti">
+      <div v-for="basket in ordersData.order.baskets" :key="basket.id">
+        <OrderTable>
+          <TableColm :columns="columnsData" />
+          <OrderTableItem :data="basket.items" />
+        </OrderTable>
+        <div class="mx-4">
+          <OrderLogos :logos="basket.logos" />
+        </div>
+      </div>
+    </CoverContent>
     <CoverContent title="Tasarım Ekle">
       <TasarimEkle :orderId="ordersData.order.id" />
     </CoverContent>
@@ -30,16 +35,15 @@ import { useRoute } from 'vue-router';
 
 import CoverContent from '@/components/CoverContent.vue';
 import Dealer from '@/components/Desinger/Dealer.vue';
-import LogoComponent from '@/components/Desinger/LogoComponent.vue';
+import OrderLogos from '@/components/Desinger/OrderLogos.vue';
 
 import OrderTable from '@/components/Desinger/OrderTable.vue';
 import TableColm from '@/components/Desinger/TableColm.vue';
 import OrderTableItem from '@/components/Desinger/OrderTableItem.vue';
 
 import TasarimEkle from '@/components/Desinger/TasarimEkle.vue';
+import OrderInfo from '@/components/Admin/OrderInfo.vue';
 
-import ImageList from '@/components/Admin/ImagesList.vue';
-import SiparisLogo from '@/components/Admin/buttons/SiparisLogo.vue';
 
 const route = useRoute();
 
@@ -51,7 +55,6 @@ const columnsData = [
   'Ürün Tipi',
   'Renk',
   'Adet',
-  'Birim Fiyatı'
 ];
 
 

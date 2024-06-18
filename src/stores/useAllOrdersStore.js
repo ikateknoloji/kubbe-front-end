@@ -59,7 +59,7 @@ export const useAllOrdersStore = defineStore('allOrders', () => {
  async function fetchCustomerActiveOrders(customerId) {
   try {
    loadingStore.setLoading(true); // Yüklenme durumunu başlat
-   const response = await apiClient.get(`/orders/customer-active/${customerId}`);
+   const response = await apiClient.get(`/history-orders/customer-active/${customerId}`);
    allOrders.value = await response.data.orders;
 
   } catch (error) {

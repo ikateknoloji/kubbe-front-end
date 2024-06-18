@@ -21,6 +21,9 @@
           </div>
         </div>
         <h2 class="text-lg md:text-xl font-bold text-gray-800 mb-4">
+          {{ item.order_name }}
+        </h2>
+        <h2 class="text-lg md:text-xl font-bold text-gray-800 mb-4">
           {{ item.order_code }}
 
         </h2>
@@ -37,7 +40,7 @@
         </p>
 
         <ul class="text-sm text-gray-600 mb-6">
-          <li class="mb-2 flex items-center">
+          <li v-if="item?.invoice_type" class="mb-2 flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
               stroke="currentColor" class="w-6 h-6 mr-2">
               <path stroke-linecap="round" stroke-linejoin="round"
