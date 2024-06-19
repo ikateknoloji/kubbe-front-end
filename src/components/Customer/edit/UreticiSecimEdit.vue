@@ -10,9 +10,6 @@
       <EditAdress :data="data" />
     </CoverContent>
     <div class="grid grid-cols-2 gap-4">
-      <CoverContent title="Logo Güncelle">
-        <EditLogo :data="data" />
-      </CoverContent>
       <CoverContent title="Dekont Güncelle">
         <EditDekont :data="data" />
       </CoverContent>
@@ -22,11 +19,10 @@
 
 <script setup>
 import CoverContent from '@/components/CoverContent.vue';
-import EditCustomerInfo from '@/components/Admin/edit/form/EditCustomerInfo.vue';
-import EditBillInfo from '@/components/Admin/edit/form/EditBillInfo.vue';
-import EditAdress from '@/components/Admin/edit/form/EditAdress.vue';
-import EditLogo from '@/components/Admin/edit/form/EditLogo.vue';
-import EditDekont from '@/components/Admin/edit/form/EditDekont.vue';
+import EditCustomerInfo from '@/components/Customer/edit/form/EditCustomerInfo.vue';
+import EditBillInfo from '@/components/Customer/edit/form/EditBillInfo.vue';
+import EditAdress from '@/components/Customer/edit/form/EditAdress.vue';
+import EditDekont from '@/components/Customer/edit/form/EditDekont.vue';
 
 const props = defineProps({
   data: {

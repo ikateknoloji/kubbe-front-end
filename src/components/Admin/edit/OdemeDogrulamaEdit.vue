@@ -9,14 +9,9 @@
     <CoverContent title="Sipariş Adresini Düzenle">
       <EditAdress :data="data" />
     </CoverContent>
-    <div class="grid grid-cols-2 gap-4">
-      <CoverContent title="Logo Güncelle">
-        <EditLogo :data="data" />
-      </CoverContent>
-      <CoverContent title="Tasarımı Güncelle">
-        <EditDesign :data="data" />
-      </CoverContent>
-    </div>
+    <CoverContent title="Tasarımı Güncelle">
+      <EditDesign :data="data" />
+    </CoverContent>
     <CoverContent title="Dekont Güncelle">
       <EditDekont :data="data" />
     </CoverContent>

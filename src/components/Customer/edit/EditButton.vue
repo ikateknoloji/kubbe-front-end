@@ -33,15 +33,26 @@
                 role="menuitem">
                 Siparis İptal Talebi
               </router-link>
+
+
+              <button @click="copyOrderCode"
+                class="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left border-b border-dashed border-slate-300/70"
+                role="menuitem">
+                Sipariş Linkini Paylaş
+              </button>
+
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+
 </template>
 
 <script setup>
+import { toast } from 'vue3-toastify'; // Vue3-Toastify'ı içe aktar
+
 const props = defineProps({
   order: {
     type: Object,
@@ -49,6 +60,15 @@ const props = defineProps({
   }
 })
 
+const copyOrderCode = () => {
+  const orderLink = `${window.location.origin}/order-status-for-guest/${props.order.order_code}`;
+  navigator.clipboard.writeText(orderLink)
+    .then(() => {
+      toast('Şipariş linki kopyalandı.', {
+        autoClose: 1000, // Bildirimi 3 saniye sonra otomatik olarak kapat
+      });
+    })
+};
 </script>
 
 <style scoped></style>
