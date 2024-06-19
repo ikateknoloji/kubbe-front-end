@@ -462,6 +462,11 @@ const router = createRouter({
       component: () => import('../views/ForgotPassword.vue'),
       meta: { guestOnly: true } // Sadece giriş yapmış kullanıcılar için
     },
+    {
+      path: '/order-status-for-guest/:id',
+      name: 'order-status-for-guest',
+      component: () => import('../views/OrderStatus.vue'),
+    },
   ]
 })
 
