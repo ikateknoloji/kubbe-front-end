@@ -1,6 +1,6 @@
 <template>
-  <div class="flex flex-col p-5 box box--stacked max-w-5xl">
-    <div class="pb-5 mb-6 font-medium border-b border-dashed border-slate-300/70 text-[0.94rem]">Sipariş Listesi</div>
+  <div class="flex flex-col p-5 box box--stacked max-w-5xl mb-10">
+    <div class="pb-5 mb-6 font-medium border-b border-dashed border-slate-300/70 text-[0.94rem]">Sipariş Kalemi</div>
     <div class="max-w-5xl">
       <div class="-m-1.5 overflow-x-auto mb-2">
         <div class="p-1.5 min-w-full inline-block align-middle">

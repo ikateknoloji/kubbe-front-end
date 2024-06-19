@@ -312,6 +312,32 @@
         </div>
       </div>
     </div>
+    <div class="mb-10 flex-col block pt-5 mt-5 xl:items-center sm:flex xl:flex-row first:mt-0 first:pt-0">
+
+      <label class="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:w-60 xl:mr-14">
+        <div class="text-left">
+          <div class="flex items-center">
+            <div class="font-medium">Tasarım Ekle</div>
+            <div
+              class="ml-2.5 px-2 py-0.5 bg-slate-100 text-slate-500 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md border border-slate-200">
+              Gerekli
+            </div>
+          </div>
+          <div class="mt-1.5 xl:mt-3 text-xs leading-relaxed text-slate-500/80">
+            Lütfen siparişiniz üretim tasarımını yükleyiniz.
+          </div>
+        </div>
+      </label>
+      <div class="w-full">
+
+        <file-pond ref="filePond" :files="uploadedProductionImages" allow-multiple="true"
+          accepted-file-types="image/jpeg, image/png, image/jpg, image/gif, image/svg"
+          label-idle="Dosyaları buraya sürükleyin veya <span class='filepond--label-action'>Göz atın</span>"
+          @updatefiles="handleFilePondUpdate" @removefile="handleFilePondRemove"></file-pond>
+      </div>
+
+    </div>
+
     <div class="flex items-center justify-center w-full mb-10">
       <label for="dropzone-file"
         class="flex flex-col items-center justify-center w-full h-fit border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100"
@@ -341,9 +367,7 @@
     <div v-if="errors.payment_proof" class="text-red-500 text-sm mt-1 mb-5">
       {{ errors.payment_proof[0] }}
     </div>
-    <file-pond ref="filePond" :files="uploadedProductionImages" allow-multiple="true"
-      accepted-file-types="image/jpeg, image/png, image/jpg, image/gif, image/svg"
-      @updatefiles="handleFilePondUpdate"></file-pond>
+
     <button @click="onUploadHandler" type="button"
       class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white mb-10 hover:bg-blue-700 disabled:opacity-50 disabled:bg-gray-800 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 focus:ring-gray-600">
       Dekont Ekle
@@ -399,6 +423,20 @@ const onUploadHandler = () => {
 
 const handleFilePondUpdate = (fileItems) => {
   info.handleFilePondUpdate(fileItems);
+};
+
+// Dosya silme işlemi
+const handleFilePondRemove = (error, file) => {
+  if (error) {
+    console.error(error);
+    return;
+  }
+
+  // Dosya referansını reactive değerden kaldır
+  const index = uploadedProductionImages.value.findIndex(item => item.name === file.filename);
+  if (index !== -1) {
+    uploadedProductionImages.value.splice(index, 1);
+  }
 };
 </script>
 

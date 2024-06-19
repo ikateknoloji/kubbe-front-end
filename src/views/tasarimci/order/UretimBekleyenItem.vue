@@ -23,6 +23,14 @@
       </div>
     </CoverContent>
 
+    <CoverContent title="Sipariş Ürün Resimleri" v-if="ordersData.order.production_images.length > 0">
+      <div class=" grid grid-cols-12 gap-4 ">
+        <div v-for="image in ordersData.order.production_images" :key="image.id" class="col-span-4">
+          <img :src="getFullUrl(image.file_path)" :alt="image.type" class="max-w-xs" />
+        </div>
+      </div>
+    </CoverContent>
+
     <CoverContent title="Tasarım Güncelle">
       <TasarimGuncelle :orderId="ordersData.order.id" />
     </CoverContent>
@@ -44,6 +52,10 @@ import OrderTableItem from '@/components/Desinger/OrderTableItem.vue';
 import OrderLogos from '@/components/Admin/OrderLogos.vue';
 import OrderInfo from '@/components/Admin/OrderInfo.vue';
 import TasarimGuncelle from '@/components/Desinger/TasarimGuncelle.vue';
+
+
+const baseURL = import.meta.env.VITE_IMAGE_BASE_URL;
+const getFullUrl = (logoUrl) => { return `${baseURL}${logoUrl}` };
 
 const route = useRoute();
 

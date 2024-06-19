@@ -10,24 +10,27 @@
         <div class="flex flex-wrap space-x-3">
         </div>
         <div class="grid grid-cols-12 gap-4">
-          <div class="flex flex-col col-span-12  lg:col-span-7 min-h-[300px] lg:order-0 order-1">
+          <div class="flex flex-col col-span-12  lg:col-span-7 ">
+            <Dealer v-if="data" :info="data.order?.customer" />
             <Date :order="data.order" />
           </div>
-          <div class="col-span-12 lg:col-span-5  lg:order-1 order-0">
-            <LogoComponent :order="data.order" />
+          <div class="col-span-12 ">
+            <div v-for="basket in data.order.baskets" :key="basket.id">
+              <OrderTable>
+                <TableColm :columns="columnsData" />
+                <OrderTableItem :data="basket.items" />
+              </OrderTable>
+              <OrderLogos :logos="basket.logos" />
+            </div>
           </div>
         </div>
       </CoverContent>
 
       <ImageList v-if="data.order">
-        <SiparisLogo :url="data.order" />
         <TasarimButton :url="data.order" />
       </ImageList>
 
-      <OrderTable>
-        <TableColm :columns="columnsData" />
-        <OrderTableItem :data="data.order.order_items" />
-      </OrderTable>
+
       <div class="mt-10">
         <OrderNote v-if="data.order.note" :note="data.order.note" />
       </div>
@@ -49,13 +52,13 @@ import { useRouter, useRoute } from 'vue-router';
 
 import apiClient from '@/api/apiClient';
 
-import LogoComponent from '@/components/Manufacturer/LogoComponent.vue';
 import Date from '@/components/Manufacturer/Date.vue';
 
 import OrderTable from '@/components/Manufacturer/OrderTable.vue';
 import TableColm from '@/components/Manufacturer/TableColm.vue';
 import OrderTableItem from '@/components/Manufacturer/OrderTableItem.vue';
 import OrderNote from '@/components/Manufacturer/OrderNote.vue';
+import OrderLogos from '@/components/Manufacturer/OrderLogos.vue';
 
 import Dealer from '@/components/Manufacturer/Dealer.vue';
 import ImageList from '@/components/Manufacturer/ImagesList.vue';
@@ -65,7 +68,6 @@ import InfoReject from '@/components/Manufacturer/reject/InfoReject.vue';
 import CanceledOrder from '@/components/Manufacturer/reject/CanceledOrder.vue';
 import PendingCancellation from '@/components/Manufacturer/reject/PendingCancellation.vue';
 
-import SiparisLogo from '@/components/Admin/buttons/SiparisLogo.vue';
 import TasarimButton from '@/components/Admin/buttons/TasarimButton.vue';
 
 

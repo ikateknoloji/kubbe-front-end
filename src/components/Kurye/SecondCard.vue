@@ -87,6 +87,13 @@
       </div>
 
       <div class="p-2 md:p-4">
+        <a :href="getFullUrl(item.order_images[0].product_image)" target="_blank"
+          class="block w-full bg-red-500 rounded text-white text-center px-4 py-2 hover:bg-red-700 focus:outline-none focus:shadow-outline-blue active:bg-red-800">
+          Tasarım Dosyası
+        </a>
+      </div>
+
+      <div class="p-2 md:p-4">
         <router-link :to="`/dashboard/kurye/kargo-guncelle/${item.id}`"
           class="block w-full bg-blue-500 rounded text-white text-center px-4 py-2 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
           Sipariş Detayı
@@ -98,7 +105,8 @@
 
 <script setup>
 
-
+const baseURL = import.meta.env.VITE_IMAGE_BASE_URL;
+const getFullUrl = (logoUrl) => { return `${baseURL}${logoUrl}` };
 
 const props = defineProps({
   order: Object

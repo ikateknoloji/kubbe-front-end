@@ -1,9 +1,9 @@
 <template>
-  <div
+  <div v-if="info"
     class="w-[335px] md:w-96 px-2 lg:px-8 flex items-center space-x-2 justify-start border border-gray-200/50 my-4 text-xs md:text-base py-4 shadow-md">
-    <div v-if="info.image_url"
+    <div v-if="info.profile_photo"
       class="relative inline-block h-[4rem] w-[4rem] rounded-full overflow-hidden bg-center bg-cover"
-      :style="{ backgroundImage: `url(${info.image_url})` }">
+      :style="{ backgroundImage: `url(${baseUrl}/${info.profile_photo})` }">
     </div>
     <div v-else>
       <img
@@ -11,18 +11,18 @@
         alt="user-icon" class="w-[50px]" />
     </div>
     <div>
-      <p class="text-sky-900">{{ info.name }}</p>
-      <p class="text-slate-700">{{ info.email }}</p>
+      <p class="text-sky-900">{{ info?.name }}</p>
+      <p class="text-slate-700">{{ info?.email }}</p>
     </div>
   </div>
 </template>
 
 <script setup>
-
 // Üst bileşenden gelen props
 const props = defineProps({
   info: Object,
 })
 
-
+// Çevresel değişkeni alın
+const baseUrl = import.meta.env.VITE_IMAGE_BASE_URL
 </script>

@@ -74,7 +74,7 @@
       <div class="p-2 md:p-4">
         <button @click="orderCompleted(item.id)" target="_blank"
           class="block w-full bg-teal-500 rounded text-white text-center px-4 py-2 hover:bg-teal-700 focus:outline-none focus:shadow-outline-blue active:bg-teal-800">
-          Siparişi tamamla
+          Üretime Ekle
         </button>
       </div>
       <div class="p-2 md:p-4">

@@ -15,9 +15,6 @@
           <div class="flex flex-col col-span-12  lg:col-span-7 min-h-[300px] lg:order-0 order-1">
             <OrderInfo :order="ordersData.order" />
           </div>
-          <div class="col-span-12 lg:col-span-5  lg:order-1 order-0">
-            <LogoComponent :order="ordersData.order" />
-          </div>
           <div class="col-span-12  lg:order-1 order-0">
             <div class="w-full flex flex-wrap items-center justify-between">
               <CustomerInfo :customer="ordersData.order.customer_info" />
@@ -28,15 +25,21 @@
 
 
       <ImageList v-if="ordersData.order">
-        <SiparisLogo :url="ordersData.order" />
         <TasarimButton :url="ordersData.order" />
         <UrunButton :url="ordersData.order" />
       </ImageList>
 
-      <OrderTable>
-        <TableColm :columns="columnsData" />
-        <OrderTableItem :data="ordersData.order.order_items" />
-      </OrderTable>
+      <CoverContent title="Sipariş Sepeti">
+        <div v-for="basket in ordersData.order.baskets" :key="basket.id">
+          <OrderTable>
+            <TableColm :columns="columnsData" />
+            <OrderTableItem :data="basket.items" />
+          </OrderTable>
+          <OrderLogos :logos="basket.logos" />
+        </div>
+      </CoverContent>
+
+
 
       <div class="p-4 md:p-8 max-w-5xl overflow-x-scroll border my-10">
         <div v-if="ordersData" class="font-poppins min-w-[500px]">
@@ -90,10 +93,12 @@
                 </tr>
               </tbody>
             </table>
-            <table class="table">
-              <TableColm :columns="columnsData" />
-              <OrderTableItem :data="ordersData.order.order_items" />
-            </table>
+            <div v-for="basket in ordersData.order.baskets" :key="basket.id">
+              <OrderTable>
+                <TableColm :columns="columnsData" />
+                <OrderTableItem :data="basket.items" />
+              </OrderTable>
+            </div>
           </div>
           <button type="button"
             class="mt-10 w-fit text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-2 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 me-2 mb-2  dark:focus:ring-red-100"
@@ -103,7 +108,7 @@
 
       <OrderNote v-if="ordersData.order.note" :note="ordersData.order.note" />
       <div class="mt-10">
-        <CoverContent title="Kargo Güncelle Ekle">
+        <CoverContent title="Kargo Güncelle">
           <KargoCodeGuncelle :orderId="ordersData.order.id" />
         </CoverContent>
       </div>
