@@ -34,7 +34,7 @@
 
                       <div class="">
                         <button ype="submit"
-                          class=" max-w-2xl mt-10 text-lg font-semibold bg-gray-800 w-full text-white rounded-lg  px-6 py-3 block shadow-xl hover:text-white hover:bg-black">
+                          class=" max-w-2xl mt-10 text-lg font-semibold bg-gray-800 w-full text-white rounded-lg  px-6 py-3 block shadow-xl hover:text-white hover:bg-black z-[9999]">
                           Giriş Yap
                         </button>
                       </div>

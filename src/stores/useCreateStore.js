@@ -12,13 +12,13 @@ export const useCreateStore = defineStore('create', () => {
 
   const formData = ref({
     customer: {
-      name: 'Mehmet',
-      surname: 'Kara',
-      phone: '5358757884',
-      email: 'ikatech@gmail.com',
+      name: '',
+      surname: '',
+      phone: '',
+      email: '',
     },
     order: {
-      order_name: 'mehmet',
+      order_name: '',
       offer_price: 0,
       note: '',
     },

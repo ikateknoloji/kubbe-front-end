@@ -482,6 +482,8 @@ router.beforeEach((to, from, next) => {
         const store = useUserStore();
         store.clearUserData();
         // Token geçersizse veya bir hata oluşursa, oturum açma sayfasına yönlendir
+        localStorage.clear();
+        sessionStorage.clear();
         next({ path: '/giris' });
       });
   } else {

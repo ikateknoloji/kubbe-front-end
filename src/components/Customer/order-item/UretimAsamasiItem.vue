@@ -41,7 +41,7 @@
       </div>
 
       <OrderNote v-if="data.order.note" :note="data.order.note" />
-      <OrderAddress :address="data.order.order_address.address" />
+      <OrderAddress v-if="data.order?.order_address" :address="data.order.order_address.address" />
     </div>
   </div>
 </template>
