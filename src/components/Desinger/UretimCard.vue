@@ -72,18 +72,6 @@
       </div>
 
       <div class="p-2 md:p-4">
-        <button @click="orderCompleted(item.id)" target="_blank"
-          class="block w-full bg-teal-500 rounded text-white text-center px-4 py-2 hover:bg-teal-700 focus:outline-none focus:shadow-outline-blue active:bg-teal-800">
-          Üretime Ekle
-        </button>
-      </div>
-      <div class="p-2 md:p-4">
-        <a :href="getFullUrl(item.order_images[0].product_image)" target="_blank"
-          class="block w-full bg-red-500 rounded text-white text-center px-4 py-2 hover:bg-red-700 focus:outline-none focus:shadow-outline-blue active:bg-red-800">
-          Tasarım Dosyası
-        </a>
-      </div>
-      <div class="p-2 md:p-4">
         <router-link :to="`/dashboard/tasarimci/uretim-bekleyen/${item.id}`"
           class="block w-full bg-blue-500 rounded text-white text-center px-4 py-2 hover:bg-blue-700 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
           Sipariş Detayı
@@ -122,15 +110,7 @@ const formatDate = (value) => {
   }
 }
 
-const orderCompleted = async (id) => {
-  try {
-    const response = await apiClient.post(`/mark-completed-orders/${id}`);
 
-    router.go(0);
-  } catch (error) {
-    console.error(error);
-  }
-};
 
 
 </script>

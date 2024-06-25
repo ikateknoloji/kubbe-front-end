@@ -34,6 +34,13 @@
     <CoverContent title="Tasarım Güncelle">
       <TasarimGuncelle :orderId="ordersData.order.id" />
     </CoverContent>
+
+    <div class="p-2 md:p-4">
+      <button @click="orderCompleted(ordersData.order.id)" target="_blank"
+        class="block w-full bg-teal-500 rounded text-white text-center px-4 py-2 hover:bg-teal-700 focus:outline-none focus:shadow-outline-blue active:bg-teal-800">
+        Üretime Ekle
+      </button>
+    </div>
   </div>
 </template>
 
@@ -86,6 +93,15 @@ onMounted(async () => {
   await getOrder();
 });
 
+const orderCompleted = async (id) => {
+  try {
+    const response = await apiClient.post(`/mark-completed-orders/${id}`);
+
+    router.go(0);
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 </script>
 
