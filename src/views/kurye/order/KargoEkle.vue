@@ -42,7 +42,7 @@
 
 
       <div class="p-4 md:p-8 max-w-5xl overflow-x-scroll border my-10">
-        <div v-if="ordersData" class="font-poppins min-w-[500px]">
+        <div v-if="ordersData.order?.order_address" class="font-poppins min-w-[500px]">
 
           <div id="printMe">
             <table class="table">

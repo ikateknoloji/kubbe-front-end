@@ -44,7 +44,7 @@
       </div>
 
       <OrderNote v-if="data.order.note" :note="data.order.note" />
-      <OrderAddress :address="data.order.order_address.address" />
+      <OrderAddress v-if="data.order?.order_address" :address="data.order.order_address.address" />
 
       <AddBill v-if="data.order.invoice_type === 'Kurumsal'" :orderId="data.order.id" />
 

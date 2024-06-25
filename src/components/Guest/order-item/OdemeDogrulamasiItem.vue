@@ -27,7 +27,7 @@
       </CoverContent>
 
       <BillInfo v-if="data.order?.invoice_info" :info="data.order.invoice_info" />
-      <OrderAddress :address="data.order.order_address.address" />
+      <OrderAddress v-if="data.order?.order_address" :address="data.order.order_address.address" />
     </div>
   </div>
 </template>
