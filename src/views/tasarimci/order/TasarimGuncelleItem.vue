@@ -51,7 +51,7 @@ import TableColm from '@/components/Desinger/TableColm.vue';
 import OrderTableItem from '@/components/Desinger/OrderTableItem.vue';
 
 import TasarimGuncelle from '@/components/Desinger/TasarimGuncelle.vue';
-import OrderInfo from '@/components/Admin/OrderInfo.vue';
+import OrderInfo from '@/components/Desinger/OrderInfo.vue';
 
 const baseURL = import.meta.env.VITE_IMAGE_BASE_URL;
 const getFullUrl = (logoUrl) => { return `${baseURL}${logoUrl}` };

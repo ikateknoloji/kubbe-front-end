@@ -57,7 +57,7 @@ import TableColm from '@/components/Desinger/TableColm.vue';
 import OrderTableItem from '@/components/Desinger/OrderTableItem.vue';
 
 import OrderLogos from '@/components/Admin/OrderLogos.vue';
-import OrderInfo from '@/components/Admin/OrderInfo.vue';
+import OrderInfo from '@/components/Desinger/OrderInfo.vue';
 import TasarimGuncelle from '@/components/Desinger/TasarimGuncelle.vue';
 
 
@@ -73,8 +73,7 @@ const columnsData = [
   'Kategori',
   'Ürün Tipi',
   'Renk',
-  'Adet',
-  'Birim Fiyatı'
+  'Adet'
 ];
 
 

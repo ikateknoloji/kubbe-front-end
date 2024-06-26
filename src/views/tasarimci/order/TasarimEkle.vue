@@ -42,7 +42,7 @@ import TableColm from '@/components/Desinger/TableColm.vue';
 import OrderTableItem from '@/components/Desinger/OrderTableItem.vue';
 
 import TasarimEkle from '@/components/Desinger/TasarimEkle.vue';
-import OrderInfo from '@/components/Admin/OrderInfo.vue';
+import OrderInfo from '@/components/Desinger/OrderInfo.vue';
 
 
 const route = useRoute();
