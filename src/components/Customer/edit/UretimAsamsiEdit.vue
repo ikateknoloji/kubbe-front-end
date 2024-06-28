@@ -3,7 +3,10 @@
     <CoverContent title="Müşteri Bilgilerini Düzenle">
       <EditCustomerInfo :data="data" />
     </CoverContent>
-    <CoverContent v-if="data.order.invoice_info" title="Fatura Bilgilerini Düzenle">
+    <CoverContent title="Sipariş Notunu Düzenle">
+      <EditOrder :data="data" />
+    </CoverContent>
+    <CoverContent title="Fatura Bilgilerini Düzenle">
       <EditBillInfo :data="data" />
     </CoverContent>
     <CoverContent title="Sipariş Adresini Düzenle">
@@ -23,6 +26,7 @@ import EditCustomerInfo from '@/components/Customer/edit/form/EditCustomerInfo.v
 import EditBillInfo from '@/components/Customer/edit/form/EditBillInfo.vue';
 import EditAdress from '@/components/Customer/edit/form/EditAdress.vue';
 import EditDekont from '@/components/Customer/edit/form/EditDekont.vue';
+import EditOrder from './form/EditOrder.vue';
 
 const props = defineProps({
   data: {
