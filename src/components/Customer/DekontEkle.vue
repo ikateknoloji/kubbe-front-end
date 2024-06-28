@@ -188,7 +188,7 @@
                   </label>
                 </div>
               </div>
-              <div v-if="errors.shipping_type" class="text-red-500 text-sm mt-1 mt-5">
+              <div v-if="errors.shipping_type" class="text-red-500 text-sm mt-5">
                 {{ errors.shipping_type[0] }}
               </div>
             </div>

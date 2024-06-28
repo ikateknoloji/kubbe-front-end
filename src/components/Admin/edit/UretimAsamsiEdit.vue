@@ -12,6 +12,10 @@
       <EditBillInfo :data="data" />
     </CoverContent>
 
+    <CoverContent title="Üretici Güncelle">
+      <EditManufacturer :data="data" />
+    </CoverContent>
+
     <CoverContent title="Tasarımı Güncelle">
       <EditDesign :data="data" />
     </CoverContent>
@@ -31,6 +35,7 @@ import EditBillInfo from '@/components/Admin/edit/form/EditBillInfo.vue';
 import EditAdress from '@/components/Admin/edit/form/EditAdress.vue';
 import EditDesign from '@/components/Admin/edit/form/EditDesign.vue';
 import EditDekont from '@/components/Admin/edit/form/EditDekont.vue';
+import EditManufacturer from '@/components/Admin/edit/form/EditManufacturer.vue';
 
 const props = defineProps({
   data: {
