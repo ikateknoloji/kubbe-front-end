@@ -7,7 +7,8 @@
       <div class="col-span-4 md:col-span-3 flex flex-col space-y-4">
         <div class="text-blue-500/80 bg-gray-200/60 px-2 py-2 shadow-xs  text-xs sm:text-sm md:text-base">Şipariş Kodu
         </div>
-        <div class="text-blue-500/80 bg-gray-200/60 px-2 py-2 shadow-xs  text-xs sm:text-sm md:text-base">Fatura Tipi
+        <div v-if="order.invoice_type"
+          class="text-blue-500/80 bg-gray-200/60 px-2 py-2 shadow-xs  text-xs sm:text-sm md:text-base">Fatura Tipi
         </div>
         <div class="text-blue-500/80 bg-gray-200/60 px-2 py-2 shadow-xs  text-xs sm:text-sm md:text-base">Teklif Tutarı
         </div>
@@ -18,7 +19,7 @@
       </div>
       <div class="col-span-8 md:col-span-9 flex flex-col space-y-4 md:space-y-4">
         <p class="px-2 py-2  text-xs sm:text-sm md:text-base">{{ order.order_code }}</p>
-        <p class="px-2 py-2  text-xs sm:text-sm md:text-base">{{ order.invoice_type }}</p>
+        <p v-if="order.invoice_type" class="px-2 py-2  text-xs sm:text-sm md:text-base">{{ order.invoice_type }}</p>
         <p class="px-2 py-2  text-xs sm:text-sm md:text-base">{{ order.offer_price }}</p>
         <p class="px-2 py-2  text-xs sm:text-sm md:text-base">{{ order.status }}</p>
         <p class="px-2 py-2  text-xs sm:text-sm md:text-base">{{ formatDate(order.created_at) }}</p>

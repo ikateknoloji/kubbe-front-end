@@ -3,29 +3,24 @@
     <CoverContent title="Müşteri Bilgilerini Düzenle">
       <EditCustomerInfo :data="data" />
     </CoverContent>
-    <CoverContent v-if="data.order.invoice_info" title="Fatura Bilgilerini Düzenle">
-      <EditBillInfo :data="data" />
-    </CoverContent>
+
     <CoverContent title="Sipariş Adresini Düzenle">
       <EditAdress :data="data" />
     </CoverContent>
-    <CoverContent title="Üretici Güncelle">
-      <EditManufacturer :data="data" />
+
+    <CoverContent title="Fatura Bilgilerini Düzenle">
+      <EditBillInfo :data="data" />
     </CoverContent>
-    <div class="grid grid-cols-2 gap-4">
-      <CoverContent title="Tasarımı Güncelle">
-        <EditDesign :data="data" />
-      </CoverContent>
-      <CoverContent title="Dekont Güncelle">
-        <EditDekont :data="data" />
-      </CoverContent>
-      <CoverContent title="Ürün Resmi Güncelle">
-        <EditProduct :data="data" />
-      </CoverContent>
-      <CoverContent title="Kargo Kodunu Güncelle">
-        <EditKargo :data="data" />
-      </CoverContent>
-    </div>
+
+    <CoverContent title="Tasarımı Güncelle">
+      <EditDesign :data="data" />
+    </CoverContent>
+
+    <CoverContent title="Dekont Güncelle">
+      <EditDekont :data="data" />
+    </CoverContent>
+
+
   </div>
 </template>
 
@@ -36,9 +31,6 @@ import EditBillInfo from '@/components/Admin/edit/form/EditBillInfo.vue';
 import EditAdress from '@/components/Admin/edit/form/EditAdress.vue';
 import EditDesign from '@/components/Admin/edit/form/EditDesign.vue';
 import EditDekont from '@/components/Admin/edit/form/EditDekont.vue';
-import EditManufacturer from '@/components/Admin/edit/form/EditManufacturer.vue';
-import EditProduct from '@/components/Admin/edit/form/EditProduct.vue';
-import EditKargo from '@/components/Admin/edit/form/EditKargo.vue';
 
 const props = defineProps({
   data: {

@@ -4,12 +4,12 @@
       <EditCustomerInfo :data="data" />
     </CoverContent>
 
-    <CoverContent v-if="data.order.invoice_info" title="Fatura Bilgilerini Düzenle">
-      <EditBillInfo :data="data" />
-    </CoverContent>
-
     <CoverContent title="Sipariş Adresini Düzenle">
       <EditAdress :data="data" />
+    </CoverContent>
+
+    <CoverContent title="Fatura Bilgilerini Düzenle">
+      <EditBillInfo :data="data" />
     </CoverContent>
 
     <CoverContent title="Tasarımı Güncelle">
@@ -19,6 +19,8 @@
     <CoverContent title="Dekont Güncelle">
       <EditDekont :data="data" />
     </CoverContent>
+
+
   </div>
 </template>
 
