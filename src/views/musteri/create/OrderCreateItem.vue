@@ -542,7 +542,8 @@ const colorControll = ref(false)
 
 const myFiles = ref([]);
 const pond = ref(null);
-const acceptedFileTypes = ref(['image/*', 'application/pdf', 'application/postscript']); // Kabul edilen dosya türleri
+const acceptedFileTypes = ref(['image/*', 'application/pdf', 'application/postscript', 'image/vnd.adobe.photoshop',
+  'application/x-photoshop', 'image/photoshop', 'application/photoshop']); // Kabul edilen dosya türleri
 const getFullUrl = (logoUrl) => { return `${baseURL}${logoUrl}` };
 const orderName = computed(() => formData.value.order.order_name);
 const handleFilePondInit = () => { };

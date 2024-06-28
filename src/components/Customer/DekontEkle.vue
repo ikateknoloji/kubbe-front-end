@@ -63,8 +63,8 @@
               class="mb-3 py-3 px-4 block w-full border rounded text-sm focus:border-[#6398bc] focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none focus:outline-none resize-none bg-[#f8fafb] border-gray-400"
               rows="4" maxlength="256" v-model="reactiveFormData.order_address">
           </textarea>
-            <div v-if="errors.order_address" class="text-red-500 text-sm mt-1 mb-5">
-              {{ errors.order_address[0] }}
+            <div v-if="errors.order_address" class="text-red-500 text-sm mt-5">
+              Sipariş Adresi ofis teslim olmadığı sürece zorunlu olacaktır.
             </div>
           </div>
         </div>
@@ -142,7 +142,7 @@
                 rows="4" maxlength="256" v-model="reactiveFormData.order_address">
               </textarea>
               <div v-if="errors.order_address" class="text-red-500 text-sm mt-5">
-                {{ errors.order_address[0] }}
+                Sipariş Adresi ofis teslim olmadığı sürece zorunlu olacaktır.
               </div>
             </div>
           </div>

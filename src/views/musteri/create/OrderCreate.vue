@@ -107,7 +107,7 @@
               <div class="font-medium">Müşteri Email</div>
               <div
                 class="ml-2.5 px-2 py-0.5 bg-slate-100 text-slate-500 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md      border border-slate-200">
-                Gerekli
+                İsteğe Bağlıu
               </div>
             </div>
             <div class="mt-1.5 xl:mt-3 text-xs leading-relaxed text-slate-500/80">

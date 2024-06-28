@@ -9,12 +9,13 @@
         </div>
         <div class="text-blue-500/80 bg-gray-200/60 px-2 py-2 shadow-xs   text-xs sm:text-sm md:text-base">Telefon
         </div>
-        <div class="text-blue-500/80 bg-gray-200/60 px-2 py-2 shadow-xs   text-xs sm:text-sm md:text-base">Email </div>
+        <div v-if="customer.email"
+          class="text-blue-500/80 bg-gray-200/60 px-2 py-2 shadow-xs   text-xs sm:text-sm md:text-base">Email </div>
       </div>
       <div class="col-span-8 md:col-span-9 flex flex-col space-y-4 md:space-y-4">
         <p class="px-2 py-2  text-xs sm:text-sm md:text-base">{{ customer.name }} {{ customer.surname }}</p>
         <p class="px-2 py-2  text-xs sm:text-sm md:text-base">{{ customer.phone }}</p>
-        <p class="px-2 py-2  text-xs sm:text-sm md:text-base">{{ customer.email }}</p>
+        <p v-if="customer.email" class="px-2 py-2  text-xs sm:text-sm md:text-base">{{ customer.email }}</p>
       </div>
     </div>
   </div>

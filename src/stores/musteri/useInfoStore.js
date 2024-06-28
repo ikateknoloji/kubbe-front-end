@@ -59,6 +59,27 @@ export const useInfoStore = defineStore('info', () => {
   onChange(fileInput.value.files[0]);
  };
 
+
+ const resetForm = () => {
+  reactiveFormData.payment_proof = [];
+  reactiveFormData.invoice_type = '';
+  reactiveFormData.shipping_type = '';
+  reactiveFormData.order_address = '';
+  reactiveFormData.company_name = '';
+  reactiveFormData.addressControll = false;
+  reactiveFormData.address = '';
+  reactiveFormData.tax_office = '';
+  reactiveFormData.tax_number = '';
+  reactiveFormData.email = '';
+  fileInput.value = null;
+  image.value = null;
+  fileType.value = null;
+  uploadedProductionImages.value = [];
+  resetErrors();
+ };
+
+
+
  const onUpload = async (orderId, router) => {
   resetErrors();
 
@@ -89,6 +110,7 @@ export const useInfoStore = defineStore('info', () => {
     toast(response.data.message, {
      autoClose: 3000,
      onClose: () => {
+      resetForm();
       router.back();
      }
     });
