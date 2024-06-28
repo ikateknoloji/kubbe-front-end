@@ -47,7 +47,8 @@
 <script setup>
 import { ref, computed, onMounted, watch } from 'vue'
 import apiClient from '@/api/apiClient';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
+import { toast } from 'vue3-toastify'; // Vue3-Toastify'ı içe aktar
 
 import CoverContent from '@/components/CoverContent.vue';
 import Dealer from '@/components/Desinger/Dealer.vue';
@@ -63,6 +64,8 @@ import TasarimGuncelle from '@/components/Desinger/TasarimGuncelle.vue';
 
 const baseURL = import.meta.env.VITE_IMAGE_BASE_URL;
 const getFullUrl = (logoUrl) => { return `${baseURL}${logoUrl}` };
+
+const router = useRouter();
 
 const route = useRoute();
 
@@ -96,7 +99,22 @@ const orderCompleted = async (id) => {
   try {
     const response = await apiClient.post(`/mark-completed-orders/${id}`);
 
-    router.go(0);
+    // Yanıtı işleyin
+    if (response.data.message) {
+
+      toast(response.data.message, {
+        autoClose: 3000, // Bildirimi 3 saniye sonra otomatik olarak kapat
+        onClose: () => { // Bildirim kapatıldığında tetiklenir
+          router.push(`/dashboard/tasarimci/uretim-bekleyen`); // Yönlendirme işlemini gerçekleştir
+        }
+      });
+
+    } else if (response.data.error) {
+
+      toast(response.data.error, {
+        autoClose: 3000, // Bildirimi 3 saniye sonra otomatik olarak kapat
+      });
+    }
   } catch (error) {
     console.error(error);
   }
