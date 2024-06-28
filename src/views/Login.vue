@@ -106,6 +106,7 @@ const loginUser = async () => {
     toast.error(error.response.data.message, {
       autoClose: 3000,
     });
+    console.log(error)
   }
 };
 

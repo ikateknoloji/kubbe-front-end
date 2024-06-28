@@ -39,7 +39,14 @@ const componentsMap = {
 }
 
 
-const dynamicComponent = computed(() => componentsMap[route.params.status])
+// Dinamik bileşeni hesapla
+const dynamicComponent = computed(() => {
+  // ordersData'nın tanımlı olduğundan emin ol
+  if (ordersData.value && ordersData.value?.order && ordersData.value?.order?.original_status) {
+    return componentsMap[ordersData.value.order?.original_status];
+  }
+
+});
 
 
 const getOrder = async () => {
