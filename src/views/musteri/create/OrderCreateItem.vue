@@ -256,16 +256,20 @@
           </template>
         </span>
       </button>
-      <p class="py-5 text-md">
+      <p class="p-5 text-sm bg-red-200 mt-5">
         Burada Sipariş kalemi ekleniyor sipariş kalemleri eklendikten sonra sipariş logosunu yükleyin.
       </p>
     </div>
   </CoverContent>
 
   <CoverContent title="Sipariş Kalemi">
-    <p class="py-5 text-md">
+    <p class="p-5 text-sm bg-red-200 mb-5">
       Bir müşterinin birden fazla siparişi varsa ona göre sipariş kalemini oluşturup sipariş kalemi ile ilgili siparişin
       logosunu girin farklı logolar burada olmamalı her sipariş için farklı bir logo yüklemelisiniz.
+    </p>
+    <p class="p-5 text-sm bg-red-200 mb-5">
+      Sipariş ile ilgili olan sipariş logosunu yükleyin sadece ilgili örnek olarak burada yemeksepetine ait farklı
+      formatlarda logo yüklememiz gerebilir buna göre logoyu yükleyin.
     </p>
     <div>
       <div class="overflow-y-auto">
@@ -275,10 +279,6 @@
             allow-multiple="true" :accepted-file-types="acceptedFileTypes" v-model="myFiles"
             v-on:init="handleFilePondInit" :server="serverOptions" />
         </div>
-        <p class="py-5 text-md">
-          Sipariş ile ilgili olan sipariş logosunu yükleyin sadece ilgili örnek olarak burada yemeksepetine ait farklı
-          formatlarda logo yüklememiz gerebilir buna göre logoyu yükleyin.
-        </p>
         <div v-if="orderData.items.length > 0" class=" max-w-6xl mb-5 font-poppins font-medium">
           <div class="relative grid grid-cols-1 sm:grid-cols-4 gap-3 mb-4" v-for="(item, i) in orderData.items"
             :key="i">
@@ -371,7 +371,7 @@
           </span>
         </button>
       </div>
-      <p class="py-5 text-md">
+      <p class="p-5 text-sm bg-red-200 mb-5">
         Siparişi tamamlamak için aşağıdaki siparişi tamamla butonuna tıklamamnız gerekiyor. Burada siparişi sadece
         sepete
         eklediniz. Sipariş tamamlanmış değildir.

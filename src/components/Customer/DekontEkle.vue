@@ -42,32 +42,6 @@
         {{ errors.invoice_type[0] }}
       </div>
       <div v-motion-fade v-if="reactiveFormData.invoice_type === 'I'">
-        <!-- Sipariş Adres Bilgisi-->
-        <div class="flex-col block pt-5 mt-5 xl:items-center sm:flex xl:flex-row first:mt-0 first:pt-0">
-          <label class="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:w-60 xl:mr-14">
-            <div class="text-left">
-              <div class="flex items-center">
-                <div class="font-medium">Sipariş Adres Bilgisi</div>
-                <div
-                  class="ml-2.5 px-2 py-0.5 bg-slate-100 text-slate-500 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md border border-slate-200">
-                  Gerekli
-                </div>
-              </div>
-              <div class="mt-1.5 xl:mt-3 text-xs leading-relaxed text-slate-500/80">
-                Lütfen müşterinin sipariş adresini detaylı bir şekilde girin. Bu bilgi gereklidir.
-              </div>
-            </div>
-          </label>
-          <div class="max-w-4xl flex-1 w-full mt-3 xl:mt-0">
-            <textarea
-              class="mb-3 py-3 px-4 block w-full border rounded text-sm focus:border-[#6398bc] focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none focus:outline-none resize-none bg-[#f8fafb] border-gray-400"
-              rows="4" maxlength="256" v-model="reactiveFormData.order_address">
-          </textarea>
-            <div v-if="errors.order_address" class="text-red-500 text-sm mt-5">
-              Sipariş Adresi ofis teslim olmadığı sürece zorunlu olacaktır.
-            </div>
-          </div>
-        </div>
         <!--Gönderim Şekli-->
         <div class="flex-col block pt-5 mt-5 xl:items-center sm:flex xl:flex-row first:mt-0 first:pt-0">
           <label class="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:w-60 xl:mr-14">
@@ -115,7 +89,33 @@
             </div>
           </div>
         </div>
-
+        <!-- Sipariş Adres Bilgisi-->
+        <div v-if="reactiveFormData.shipping_type !== 'T' && reactiveFormData.shipping_type !== ''"
+          class="flex-col block pt-5 mt-5 xl:items-center sm:flex xl:flex-row first:mt-0 first:pt-0">
+          <label class="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:w-60 xl:mr-14">
+            <div class="text-left">
+              <div class="flex items-center">
+                <div class="font-medium">Sipariş Adres Bilgisi</div>
+                <div
+                  class="ml-2.5 px-2 py-0.5 bg-slate-100 text-slate-500 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md border border-slate-200">
+                  Gerekli
+                </div>
+              </div>
+              <div class="mt-1.5 xl:mt-3 text-xs leading-relaxed text-slate-500/80">
+                Lütfen müşterinin sipariş adresini detaylı bir şekilde girin. Bu bilgi gereklidir.
+              </div>
+            </div>
+          </label>
+          <div class="max-w-4xl flex-1 w-full mt-3 xl:mt-0">
+            <textarea
+              class="mb-3 py-3 px-4 block w-full border rounded text-sm focus:border-[#6398bc] focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none focus:outline-none resize-none bg-[#f8fafb] border-gray-400"
+              rows="4" maxlength="256" v-model="reactiveFormData.order_address">
+          </textarea>
+            <div v-if="errors.order_address" class="text-red-500 text-sm mt-5">
+              Sipariş Adresi ofis teslim olmadığı sürece zorunlu olacaktır.
+            </div>
+          </div>
+        </div>
       </div>
       <!--Fatura Alanı-->
       <div v-motion-fade v-if="reactiveFormData.invoice_type === 'C'">
@@ -338,7 +338,55 @@
 
     </div>
 
-    <div class="flex items-center justify-center w-full mb-10">
+    <!--ödeme Şekli-->
+    <div class="flex-col block pt-5 mt-5 xl:items-center sm:flex xl:flex-row first:mt-0 first:pt-0 mb-5">
+      <label class="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:w-60 xl:mr-14">
+        <div class="text-left">
+          <div class="flex items-center">
+            <div class="font-medium">Ödeme Şekli</div>
+            <div
+              class="ml-2.5 px-2 py-0.5 bg-slate-100 text-slate-500 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md border border-slate-200">
+              Gerekli
+            </div>
+          </div>
+          <div class="mt-1.5 xl:mt-3 text-xs leading-relaxed text-slate-500/80">
+            Lütfen bir ödeme şekli belirleyiniz. Bu bilgi gereklidir.
+          </div>
+        </div>
+      </label>
+      <div class="flex flex-col">
+        <div class="flex flex-wrap space-y-5 md:space-y-0 mt-4 gap-x-6 mb-3">
+          <div class="w-44">
+            <input type="radio" class="peer hidden" id="P" value="P" v-model="reactiveFormData.payment_status" />
+            <label for="P"
+              class="block cursor-pointer select-none rounded-xl p-2 text-center text-blue-800 bg-blue-100 peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:text-white">
+              Elden Ödeme
+            </label>
+          </div>
+
+          <div class="w-44">
+            <input type="radio" class="peer hidden" id="O" value="O" v-model="reactiveFormData.payment_status" />
+            <label for="O"
+              class="block cursor-pointer select-none rounded-xl p-2 text-center text-blue-800 bg-blue-100 peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:text-white">
+              Peşin Ödeme
+            </label>
+          </div>
+
+          <div class="w-44">
+            <input type="radio" class="peer hidden" id="AH" value="AH" v-model="reactiveFormData.payment_status" />
+            <label for="AH"
+              class="block cursor-pointer select-none rounded-xl p-2 text-center text-blue-800 bg-blue-100 peer-checked:bg-blue-500 peer-checked:font-bold peer-checked:text-white">
+              Açık Hesap
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div v-if="errors.payment_status" class="text-red-500 text-sm mt-1 mb-16">
+      {{ errors.payment_status[0] }}
+    </div>
+
+    <div v-if="reactiveFormData.payment_status === 'O'" class="flex items-center justify-center w-full mb-10">
       <label for="dropzone-file"
         class="flex flex-col items-center justify-center w-full h-fit border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 hover:bg-gray-100"
         @dragover.prevent @dragenter.prevent @dragleave.prevent @drop.prevent="onDropHandler">
@@ -364,6 +412,7 @@
         <input id="dropzone-file" type="file" class="hidden" @change="onChangeHandler" ref="fileInput" />
       </label>
     </div>
+
     <div v-if="errors.payment_proof" class="text-red-500 text-sm mt-1 mb-5">
       {{ errors.payment_proof[0] }}
     </div>

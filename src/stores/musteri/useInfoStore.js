@@ -23,6 +23,7 @@ export const useInfoStore = defineStore('info', () => {
   tax_office: '', // Örnek değer, ihtiyacınıza göre güncelleyin
   tax_number: '', // Örnek değer, ihtiyacınıza göre güncelleyin
   email: '', // Örnek değer, ihtiyacınıza göre güncelleyin
+  payment_status: '',
  });
 
  const handleFilePondUpdate = (fileItems) => {
@@ -75,6 +76,7 @@ export const useInfoStore = defineStore('info', () => {
   image.value = null;
   fileType.value = null;
   uploadedProductionImages.value = [];
+  reactiveFormData.payment_status = '';
   resetErrors();
  };
 
@@ -94,6 +96,7 @@ export const useInfoStore = defineStore('info', () => {
   formDataToSend.append('tax_office', reactiveFormData.tax_office);
   formDataToSend.append('tax_number', reactiveFormData.tax_number);
   formDataToSend.append('email', reactiveFormData.email);
+  formDataToSend.append('payment_status', reactiveFormData.payment_status);
 
   uploadedProductionImages.value.forEach((file, index) => {
    formDataToSend.append(`production_images[${index}]`, file);
