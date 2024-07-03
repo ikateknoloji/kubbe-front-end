@@ -31,6 +31,9 @@
       </div>
     </CoverContent>
 
+    <OrderNote v-if="ordersData.order.note" :note="ordersData.order.note" />
+
+
     <CoverContent title="Tasarım Güncelle">
       <TasarimGuncelle :orderId="ordersData.order.id" />
     </CoverContent>
@@ -60,6 +63,7 @@ import OrderTableItem from '@/components/Desinger/OrderTableItem.vue';
 import OrderLogos from '@/components/Admin/OrderLogos.vue';
 import OrderInfo from '@/components/Desinger/OrderInfo.vue';
 import TasarimGuncelle from '@/components/Desinger/TasarimGuncelle.vue';
+import OrderNote from '@/components/Admin/OrderNote.vue';
 
 
 const baseURL = import.meta.env.VITE_IMAGE_BASE_URL;

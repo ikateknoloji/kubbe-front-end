@@ -22,9 +22,13 @@
         </div>
       </div>
     </CoverContent>
+
+    <OrderNote v-if="ordersData.order.note" :note="ordersData.order.note" />
+
     <CoverContent title="Tasarım Ekle">
       <TasarimEkle :orderId="ordersData.order.id" />
     </CoverContent>
+
   </div>
 </template>
 
@@ -43,6 +47,7 @@ import OrderTableItem from '@/components/Desinger/OrderTableItem.vue';
 
 import TasarimEkle from '@/components/Desinger/TasarimEkle.vue';
 import OrderInfo from '@/components/Desinger/OrderInfo.vue';
+import OrderNote from '@/components/Desinger/OrderNote.vue';
 
 
 const route = useRoute();

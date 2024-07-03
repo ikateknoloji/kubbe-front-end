@@ -252,14 +252,21 @@
               <path stroke-linecap="round" stroke-linejoin="round"
                 d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
             </svg>
-            Sepete Ekle
+            Sipariş Kalemini Ekle
           </template>
         </span>
       </button>
+      <p class="py-5 text-md">
+        Burada Sipariş kalemi ekleniyor sipariş kalemleri eklendikten sonra sipariş logosunu yükleyin.
+      </p>
     </div>
   </CoverContent>
 
   <CoverContent title="Sipariş Kalemi">
+    <p class="py-5 text-md">
+      Bir müşterinin birden fazla siparişi varsa ona göre sipariş kalemini oluşturup sipariş kalemi ile ilgili siparişin
+      logosunu girin farklı logolar burada olmamalı her sipariş için farklı bir logo yüklemelisiniz.
+    </p>
     <div>
       <div class="overflow-y-auto">
         <div>
@@ -268,6 +275,10 @@
             allow-multiple="true" :accepted-file-types="acceptedFileTypes" v-model="myFiles"
             v-on:init="handleFilePondInit" :server="serverOptions" />
         </div>
+        <p class="py-5 text-md">
+          Sipariş ile ilgili olan sipariş logosunu yükleyin sadece ilgili örnek olarak burada yemeksepetine ait farklı
+          formatlarda logo yüklememiz gerebilir buna göre logoyu yükleyin.
+        </p>
         <div v-if="orderData.items.length > 0" class=" max-w-6xl mb-5 font-poppins font-medium">
           <div class="relative grid grid-cols-1 sm:grid-cols-4 gap-3 mb-4" v-for="(item, i) in orderData.items"
             :key="i">
@@ -348,7 +359,7 @@
               Yükleniyor...
             </template>
             <template v-else>
-              Sipariş Oluştur
+              Siparişi Sepete Ekle
             </template>
           </span>
         </button>
@@ -360,6 +371,11 @@
           </span>
         </button>
       </div>
+      <p class="py-5 text-md">
+        Siparişi tamamlamak için aşağıdaki siparişi tamamla butonuna tıklamamnız gerekiyor. Burada siparişi sadece
+        sepete
+        eklediniz. Sipariş tamamlanmış değildir.
+      </p>
     </div>
   </CoverContent>
 
