@@ -8,6 +8,9 @@
       <EditAdress :data="data" />
     </CoverContent>
 
+    <EditPaymentAmoun :order="data.order" />
+
+
     <CoverContent title="Fatura Bilgilerini Düzenle">
       <EditBillInfo :data="data" />
     </CoverContent>
@@ -36,6 +39,7 @@ import EditAdress from '@/components/Admin/edit/form/EditAdress.vue';
 import EditDesign from '@/components/Admin/edit/form/EditDesign.vue';
 import EditDekont from '@/components/Admin/edit/form/EditDekont.vue';
 import EditManufacturer from '@/components/Admin/edit/form/EditManufacturer.vue';
+import EditPaymentAmoun from './form/EditPaymentAmoun.vue';
 
 const props = defineProps({
   data: {

@@ -1,6 +1,5 @@
 <template>
   <div v-if="data" class="font-poppins">
-
     <div class="p-4 md:p-8 mt-10">
 
       <InfoReject v-if="data.order.is_rejected === 'R'" :order="data.order" />
