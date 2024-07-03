@@ -50,6 +50,12 @@
       <OrderNote v-if="data.order.note" :note="data.order.note" />
       <OrderAddress v-if="data.order?.order_address" :address="data.order.order_address.address" />
 
+      <div v-if="data.order" class="max-w-3xl bg-blue-900/90 px-10 py-5 flex justify-between mb-5 text-white">
+        <p>Tutar : {{ data.order.offer_price }}</p>
+        <p>Ödenen Tutar : {{ data.order.paid_amount }}</p>
+        <p>Kalan Tutar : {{ data.order.offer_price - data.order.paid_amount }}</p>
+      </div>
+
       <SelectComponent v-if="data.order.is_rejected == 'A'" :orderId="data.order.id">
         <RejectButton />
       </SelectComponent>
