@@ -6,8 +6,8 @@ const secretKey = import.meta.env.VITE_SECRET_KEY;
 
 // Axios yapılandırmasını oluşturun
 const apiClient = axios.create({
-  // baseURL: "http://127.0.0.1:8000/api", // API adresinizi buraya ekleyin
-  baseURL: "https://app.kubbe-crm.online/api/",
+  baseURL: "http://127.0.0.1:8000/api", // API adresinizi buraya ekleyin
+  // baseURL: "https://app.kubbe-crm.online/api/",
 });
 
 

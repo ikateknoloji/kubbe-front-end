@@ -366,6 +366,12 @@ const router = createRouter({
               meta: { breadcrumb: 'Üretime Ekle' }
             },
             {
+              path: 'uretimde-verilen',
+              name: 'uretimde-verilen',
+              component: () => import('@/views/tasarimci/order/Uretimde.vue'),
+              meta: { breadcrumb: 'Üretime Verilen Siparişler' }
+            },
+            {
               path: 'tasarim-bekleyen/:id',
               name: 'tasarimci-ekle',
               component: () => import('@/views/tasarimci/order/TasarimEkle.vue'),

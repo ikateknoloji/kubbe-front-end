@@ -80,6 +80,18 @@
           Üretim Bekleyen
         </router-link>
       </li>
+      <li>
+        <router-link to="/dashboard/tasarimci/uretimde-verilen"
+          class="flex items-center  py-2 px-2.5 text-sm text-slate-700 rounded-lg hover:bg-gray-300 ">
+          <svg class="mr-2 text-slate-700 " xmlns="http://www.w3.org/2000/svg" width="21" height="21"
+            viewBox="0 0 21 21" fill="none">
+            <path
+              d="M9.84375 1.23047L18.375 5.49609V16.1602L9.84375 20.4155L1.3125 16.1602V5.49609L9.84375 1.23047ZM16.2524 5.90625L9.84375 2.70703L7.37256 3.9375L13.7402 7.15723L16.2524 5.90625ZM9.84375 9.10547L12.2842 7.89551L5.90625 4.67578L3.43506 5.90625L9.84375 9.10547ZM2.625 6.97266V15.3398L9.1875 18.6211V10.2539L2.625 6.97266ZM10.5 18.6211L17.0625 15.3398V6.97266L10.5 10.2539V18.6211Z"
+              fill="#090909" />
+          </svg>
+          Üretimde Verilen Siparişler
+        </router-link>
+      </li>
     </ul>
   </li>
 </template>
