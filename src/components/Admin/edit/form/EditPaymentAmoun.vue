@@ -2,8 +2,8 @@
   <CoverContent title="Ödenen Tutarı Güncelle">
     <div v-if="order" class="max-w-3xl bg-blue-900/90 px-10 py-5 flex justify-between mb-5 text-white">
       <p>Tutar : {{ order.offer_price }}</p>
-      <p>Ödenen Tutar : {{ order.paid_amount }}</p>
-      <p>Kalan Tutar : {{ order.offer_price - order.paid_amount }}</p>
+      <p>Ödenen Tutar : {{ state.paidAmount }}</p>
+      <p>Kalan Tutar : {{ order.offer_price - state.paidAmount }}</p>
     </div>
     <div
       class="max-w-3xl flex-col block xl:items-center sm:flex xl:flex-row first:mt-0 first:pt-0 border p-5 rounded-lg mb-10 ">
@@ -26,7 +26,7 @@
 
     </div>
     <div class="max-w-64 flex flex-col md:flex-row space-y-3 md:space-y-0 md:space-x-3">
-      <button type="button"
+      <button type="button" @click="updatePayment(order.id)"
         class="w-full md:w-fit whitespace-nowrap py-3 px-8 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
         Ödenen Tutarı Güncelle
       </button>
@@ -38,6 +38,12 @@
 import CoverContent from '@/components/CoverContent.vue';
 import apiClient from '@/api/apiClient'; // apiClient'ı doğru yere göre ayarla
 import { reactive } from 'vue';
+
+import { toast } from 'vue3-toastify'; // Vue3-Toastify'ı içe aktar
+import { useRouter } from 'vue-router';
+
+
+const router = useRouter();
 
 
 const props = defineProps({
@@ -55,7 +61,7 @@ const state = reactive({
 // Ödeme doğrulama fonksiyonunu güncelle
 const updatePayment = async (id) => {
   try {
-    const response = await apiClient.post(`/update-payment-amount/${orderId}`, state.value.paidAmount);
+    const response = await apiClient.post(`/update-payment-amount/${id}`, { paid_amount: state.paidAmount });
 
     // Yanıtı işleyin
     if (response.data.message) {
@@ -64,15 +70,16 @@ const updatePayment = async (id) => {
         autoClose: 3000, // Bildirimi 3 saniye sonra otomatik olarak kapat
         onClose: () => { // Bildirim kapatıldığında tetiklenir
           // Yönlendirme işlemini gerçekleştir
-          router.push(`/dashboard/admin/orders/${props.data.order.original_status}/${props.data.order.id}/edit`);
+          router.push(`/dashboard/admin/orders/${props.order.original_status}/${props.order.id}/edit`);
         }
       });
     }
 
   } catch (error) {
-    toast.error(error.response.data.error, {
+    toast.error(error.response?.data?.error, {
       autoClose: 3000, // Bildirimi 3 saniye sonra otomatik olarak kapat
     });
+    console.log(error)
   }
 };
 

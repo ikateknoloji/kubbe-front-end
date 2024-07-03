@@ -39,12 +39,19 @@
         <DekontButton :url="data.order" />
       </ImageList>
 
-
-
       <div class="max-w-7xl grid grid-cols-12 gap-4">
         <OrderInfo :order="data.order" />
         <BillInfo v-if="data.order?.invoice_info" :info="data.order.invoice_info" />
       </div>
+
+      <CoverContent title="Ödeme Miktarı">
+        <div v-if="data.order" class="max-w-3xl bg-blue-900/90 px-10 py-5 flex justify-between mb-5 text-white">
+          <p>Tutar : {{ data.order.offer_price }}</p>
+          <p>Ödenen Tutar : {{ data.order.paid_amount }}</p>
+          <p>Kalan Tutar : {{ data.order.offer_price - data.order.paid_amount }}</p>
+        </div>
+      </CoverContent>
+
 
       <OrderNote v-if="data.order.note" :note="data.order.note" />
       <OrderAddress v-if="data.order?.order_address" :address="data.order.order_address.address" />
