@@ -425,12 +425,12 @@
                 </div>
               </div>
               <div class="w-full flex items-center">
-                <div class=" w-full h-full flex space-x-4 items-center py-3 px-4">
-                  <div class="text-sm md:text-base">
-                    {{ item.product_type }}
+                <div v-if="item.product_type?.type" class="py-3 px-4">
+                  <div class="flex items-center">
+                    {{ item.type }}
                   </div>
                 </div>
-                <div v-if="item.product_type.type" class="py-3 px-4">
+                <div v-else class="py-3 px-4">
                   <div class="flex items-center">
                     {{ item.type }}
                   </div>
