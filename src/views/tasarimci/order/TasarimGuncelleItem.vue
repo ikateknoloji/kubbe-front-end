@@ -1,5 +1,10 @@
 <template>
   <div v-if="ordersData">
+
+    <div class="text-3xl inline-block bg-gray-200/80 py-3 px-5 mb-5 rounded font-semibold text-red-600/70"> {{
+      ordersData.order.order_name }}
+    </div>
+
     <CoverContent title="Müşteri Bilgileri">
       <div class="grid grid-cols-12 gap-4 ">
         <div class="flex flex-col col-span-12 ">

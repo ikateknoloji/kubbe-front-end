@@ -1,7 +1,10 @@
 <template>
   <div v-if="data" class="font-poppins">
-
     <div class="p-2 md:p-8 mt-10 relative">
+
+      <div class="text-3xl inline-block bg-gray-200/80 py-3 px-5 mb-5 rounded font-semibold text-red-600/70"> {{
+        data.order.order_name }}
+      </div>
 
       <InfoReject v-if="data.order.is_rejected === 'R'" :order="data.order" />
       <CanceledOrder v-if="data.order.is_rejected === 'C'" :order="data.order" />

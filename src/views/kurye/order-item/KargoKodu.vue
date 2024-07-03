@@ -5,6 +5,10 @@
       <CanceledOrder v-if="data.is_rejected === 'C'" :order="data" />
       <PendingCancellation v-if="data.is_rejected === 'P'" :order="data" />
 
+      <div class="text-3xl inline-block bg-gray-200/80 py-3 px-5 mb-5 rounded font-semibold text-red-600/70">
+        {{ ordersData.order.order_name }}
+      </div>
+
       <CoverContent title="Müşteri Bilgileri">
         <div class="flex flex-wrap md:space-x-3">
           <Dealer :info="data.customer" />
