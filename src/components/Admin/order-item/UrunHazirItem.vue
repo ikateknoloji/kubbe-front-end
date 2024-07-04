@@ -62,6 +62,8 @@
 
       <AddBill v-if="data.order.invoice_type === 'Kurumsal'" :orderId="data.order.id" />
 
+      <KargoGonder v-if="data.order.invoice_type === 'Bireysel'" :order="data.order" />
+
     </div>
   </div>
 </template>
@@ -90,6 +92,7 @@ import DekontButton from '@/components/Admin/buttons/DekontButton.vue';
 import TasarimButton from '@/components/Admin/buttons/TasarimButton.vue';
 import UrunButton from '@/components/Admin/buttons/UrunButton.vue';
 import AddBill from '../AddBill.vue';
+import KargoGonder from '@/components/Admin/KargoGonder.vue';
 
 
 const props = defineProps({

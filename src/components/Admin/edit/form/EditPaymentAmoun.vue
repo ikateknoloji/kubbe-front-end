@@ -30,6 +30,10 @@
         class="w-full md:w-fit whitespace-nowrap py-3 px-8 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
         Ödenen Tutarı Güncelle
       </button>
+      <button type="button" @click="closePayment(order.id)"
+        class="w-full md:w-fit whitespace-nowrap py-3 px-8 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-950 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+        Hesabı Kapat
+      </button>
     </div>
   </CoverContent>
 </template>
@@ -62,6 +66,31 @@ const state = reactive({
 const updatePayment = async (id) => {
   try {
     const response = await apiClient.post(`/update-payment-amount/${id}`, { paid_amount: state.paidAmount });
+
+    // Yanıtı işleyin
+    if (response.data.message) {
+
+      toast(response.data.message, {
+        autoClose: 3000, // Bildirimi 3 saniye sonra otomatik olarak kapat
+        onClose: () => { // Bildirim kapatıldığında tetiklenir
+          // Yönlendirme işlemini gerçekleştir
+          router.push(`/dashboard/admin/orders/${props.order.original_status}/${props.order.id}/edit`);
+        }
+      });
+    }
+
+  } catch (error) {
+    toast.error(error.response?.data?.error, {
+      autoClose: 3000, // Bildirimi 3 saniye sonra otomatik olarak kapat
+    });
+    console.log(error)
+  }
+};
+
+// Ödeme doğrulama fonksiyonunu güncelle
+const closePayment = async (id) => {
+  try {
+    const response = await apiClient.get(`/close-account/${id}`);
 
     // Yanıtı işleyin
     if (response.data.message) {
