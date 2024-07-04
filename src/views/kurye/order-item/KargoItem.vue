@@ -1,6 +1,5 @@
 <template>
   <div v-if="data" class="font-poppins">
-    dsfsdf
     <div class="p-4 md:p-8 mt-5">
       <InfoReject v-if="data.is_rejected === 'R'" :order="data" />
       <CanceledOrder v-if="data.is_rejected === 'C'" :order="data" />
