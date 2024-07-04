@@ -44,6 +44,7 @@
           Kullanıcı İşlemleri
         </router-link>
       </li>
+
       <li>
         <router-link to="/dashboard/kurye/kargo-teslim"
           class="flex items-center  py-2 px-2.5 text-sm text-slate-700 rounded-lg hover:bg-gray-300 ">
@@ -53,9 +54,39 @@
               d="M8.33333 35C7.41667 35 6.63222 34.6739 5.98 34.0217C5.32778 33.3694 5.00111 32.5844 5 31.6667V8.33333C5 7.41667 5.32667 6.63222 5.98 5.98C6.63333 5.32778 7.41778 5.00111 8.33333 5H31.6667C32.5833 5 33.3683 5.32667 34.0217 5.98C34.675 6.63333 35.0011 7.41778 35 8.33333V31.6667C35 32.5833 34.6739 33.3683 34.0217 34.0217C33.3694 34.675 32.5844 35.0011 31.6667 35H8.33333ZM8.33333 31.6667H31.6667V8.33333H8.33333V31.6667ZM10 28.3333H30L23.75 20L18.75 26.6667L15 21.6667L10 28.3333Z"
               fill="#3C4A5D" />
           </svg>
-          Kargo Bekleyen Siparişler
+          Alıcı Ödemeli Kargolar
         </router-link>
       </li>
+
+      <li>
+        <router-link to="/dashboard/kurye/gonderici-teslim"
+          class="flex items-center  py-2 px-2.5 text-sm text-slate-700 rounded-lg hover:bg-gray-300 ">
+          <svg class="w-6 h-6 mr-2" xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21"
+            fill="none">
+            <path
+              d="M9.84375 1.23047L18.375 5.49609V16.1602L9.84375 20.4155L1.3125 16.1602V5.49609L9.84375 1.23047ZM16.2524 5.90625L9.84375 2.70703L7.37256 3.9375L13.7402 7.15723L16.2524 5.90625ZM9.84375 9.10547L12.2842 7.89551L5.90625 4.67578L3.43506 5.90625L9.84375 9.10547ZM2.625 6.97266V15.3398L9.1875 18.6211V10.2539L2.625 6.97266ZM10.5 18.6211L17.0625 15.3398V6.97266L10.5 10.2539V18.6211Z"
+              fill="#090909" />
+          </svg>
+          Gönderici Ödemeli
+        </router-link>
+      </li>
+
+
+      <li>
+        <router-link to="/dashboard/kurye/ofis-teslim"
+          class="flex items-center  py-2 px-2.5 text-sm text-slate-700 rounded-lg hover:bg-gray-300 ">
+          <svg class="w-6 h-6 mr-2" xmlns="http://www.w3.org/2000/svg" width="21" height="21" viewBox="0 0 21 21"
+            fill="none">
+            <path
+              d="M16.1875 3.5H4.8125C4.32925 3.5 3.9375 3.89175 3.9375 4.375V18.375C3.9375 18.8582 4.32925 19.25 4.8125 19.25H16.1875C16.6707 19.25 17.0625 18.8582 17.0625 18.375V4.375C17.0625 3.89175 16.6707 3.5 16.1875 3.5Z"
+              stroke="#090909" stroke-width="1.75" stroke-linejoin="round" />
+            <path d="M7.875 1.75V4.375M13.125 1.75V4.375M7 8.3125H14M7 11.8125H12.25M7 15.3125H10.5" stroke="#090909"
+              stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          Ofis Teslim
+        </router-link>
+      </li>
+
       <li>
         <router-link to="/dashboard/kurye/kargo-guncelle"
           class="flex items-center  py-2 px-2.5 text-sm text-slate-700 rounded-lg hover:bg-gray-300 ">

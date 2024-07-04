@@ -41,7 +41,8 @@
 
 
 
-      <div class="p-4 md:p-8 max-w-5xl overflow-x-scroll border my-10">
+      <div v-if="ordersData?.order?.shipping_type !== 'Ofis Teslim'"
+        class="p-4 md:p-8 max-w-5xl overflow-x-scroll border my-10">
         <div v-if="ordersData.order?.order_address" class="font-poppins min-w-[500px]">
 
           <div id="printMe">
@@ -107,20 +108,32 @@
       </div>
 
       <OrderNote v-if="ordersData.order.note" :note="ordersData.order.note" />
-      <div class="mt-10">
-        <CoverContent title="Kargo Kodu Ekle">
-          <KargoTeslim :orderId="ordersData.order.id" />
-        </CoverContent>
-      </div>
+    </div>
+
+    <div class="mt-10" v-if="ordersData?.order?.shipping_type !== 'Ofis Teslim'">
+      <CoverContent title="Kargo Kodu Ekle">
+        <KargoTeslim :orderId="ordersData.order.id" />
+      </CoverContent>
+    </div>
+    <div v-else>
+      <CoverContent title="Ofis Teslim">
+        <button type="button" @click="ofisTeslim(ordersData.order.id)"
+          class="text-white bg-[#385ef7] hover:bg-[#F7BE38]/90 focus:ring-4 focus:ring-[#385ef7]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#385ef7]/50 mr-2 mb-2">
+          Kargo Teslim
+        </button>
+      </CoverContent>
     </div>
   </div>
+
+
 
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import apiClient from '@/api/apiClient';
 import { useRoute } from 'vue-router';
+import { toast } from 'vue3-toastify';
 
 import QRCodeVue3 from "qrcode-vue3";
 
@@ -150,9 +163,13 @@ import PendingCancellation from '@/components/Admin/reject/PendingCancellation.v
 import TasarimButton from '@/components/Admin/buttons/TasarimButton.vue';
 import UrunButton from '@/components/Admin/buttons/UrunButton.vue';
 
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+const route = useRoute();
+
 
 const url = import.meta.env.VITE_APP_BASE_URL_KURYE;
-const route = useRoute();
 
 const ordersData = ref(null);
 
@@ -186,6 +203,22 @@ function printPage() {
   newWin.document.write(printContent.innerHTML);
   newWin.print();
   newWin.close();
+}
+
+const ofisTeslim = async (id) => {
+  const response = await apiClient.post(`/order/teslim-transition/${id}`);
+  if (response.data.message) {
+    toast(response.data.message, {
+      autoClose: 3000, // Bildirimi 3 saniye sonra otomatik olarak kapat
+      onClose: () => { // Bildirim kapatıldığında tetiklenir
+        router.push(`/dashboard/kurye/ofis-teslim`); // Yönlendirme işlemini gerçekleştir
+      }
+    });
+  } else if (response.data.error) {
+    toast(response.data.error, {
+      autoClose: 3000, // Bildirimi 3 saniye sonra otomatik olarak kapat
+    });
+  }
 }
 
 </script>

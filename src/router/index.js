@@ -422,6 +422,18 @@ const router = createRouter({
               meta: { breadcrumb: 'Kargo Teslim' }
             },
             {
+              path: 'ofis-teslim',
+              name: 'ofis-teslim',
+              component: () => import('@/views/kurye/order/Ofis.vue'),
+              meta: { breadcrumb: 'Ofis Teslim' }
+            },
+            {
+              path: 'gonderici-teslim',
+              name: 'gonderici-teslim',
+              component: () => import('@/views/kurye/order/Gonderici.vue'),
+              meta: { breadcrumb: 'Gönderici Teslim' }
+            },
+            {
               path: 'kargo-guncelle',
               name: 'kargo-güncelle',
               component: () => import('@/views/kurye/order/KargoGuncelle.vue'),
