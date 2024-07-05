@@ -26,9 +26,15 @@
 
 
       <ImageList v-if="data.order">
-        <TasarimButton :url="data.order" />
+        <button type="button" @click="copyImageUrl(data.order.formatted_order_images.D.image_url)"
+          class="text-white bg-[#3150b6] hover:bg-[#FF9119]/80 focus:ring-4 focus:ring-[#FF9119]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-[#FF9119]/80 dark:focus:ring-[#FF9119]/40 mr-2 mb-2">
+          Tasarım URL'ini Kopyala
+        </button>
         <DekontButton :url="data.order" />
-        <UrunButton :url="data.order" />
+        <button type="button" @click="copyImageUrl(data.order.formatted_order_images.PR.image_url)"
+          class="text-white bg-[#b84331] hover:bg-[#b84331]/80 focus:ring-4 focus:ring-[#b84331]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-[#b84331]/80 dark:focus:ring-[#b84331]/40 mr-2 mb-2">
+          Sipariş Resmi Url'ini Kopyala
+        </button>
       </ImageList>
 
       <CoverContent title="Sipariş Sepeti">
@@ -53,6 +59,11 @@
 </template>
 
 <script setup>
+/**
+ *   <pre>
+    {{ data.order.formatted_order_images.PR.image_url }}
+  </pre>
+ */
 import CustomerInfo from '@/components/Customer/CustomerInfo.vue';
 import OrderLogos from '@/components/Customer/OrderLogos.vue';
 import Date from '@/components/Customer/Date.vue';
@@ -74,9 +85,8 @@ import CanceledOrder from '@/components/Customer/reject/CanceledOrder.vue';
 import PendingCancellation from '@/components/Customer/reject/PendingCancellation.vue';
 
 import DekontButton from '@/components/Admin/buttons/DekontButton.vue';
-import TasarimButton from '@/components/Admin/buttons/TasarimButton.vue';
-import UrunButton from '@/components/Admin/buttons/UrunButton.vue';
 
+import { toast } from 'vue3-toastify'; // Vue3-Toastify'ı içe aktar
 
 
 const props = defineProps({
@@ -96,6 +106,17 @@ const columnsData = [
   'Birim Fiyatı'
 ];
 
+const copyImageUrl = (value) => {
+  const el = document.createElement('textarea');
+  el.value = value;
+  document.body.appendChild(el);
+  el.select();
+  document.execCommand('copy');
+  document.body.removeChild(el);
+  toast('Resim URL Kopyalandı', {
+    autoClose: 1000
+  });
+};
 </script>
 
 <style scoped></style>

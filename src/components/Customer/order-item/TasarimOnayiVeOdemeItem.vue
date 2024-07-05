@@ -24,7 +24,10 @@
       </CoverContent>
 
       <ImageList v-if="data.order">
-        <TasarimButton :url="data.order" />
+        <button type="button" @click="copyImageUrl(data.order.formatted_order_images.D.image_url)"
+          class="text-white bg-[#FF9119] hover:bg-[#FF9119]/80 focus:ring-4 focus:ring-[#FF9119]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-[#FF9119]/80 dark:focus:ring-[#FF9119]/40 mr-2 mb-2">
+          Tasarım URL'ini Kopyala
+        </button>
       </ImageList>
 
       <CoverContent title="Sipariş Sepeti">
@@ -66,8 +69,9 @@ import InfoReject from '@/components/Customer/reject/InfoReject.vue';
 import CanceledOrder from '@/components/Customer/reject/CanceledOrder.vue';
 import PendingCancellation from '@/components/Customer/reject/PendingCancellation.vue';
 
-import TasarimButton from '@/components/Admin/buttons/TasarimButton.vue';
 import DekontEkle from '@/components/Customer/DekontEkle.vue';
+
+import { toast } from 'vue3-toastify'; // Vue3-Toastify'ı içe aktar
 
 const store = useMangeOrderStore();
 
@@ -87,6 +91,18 @@ const columnsData = [
   'Adet',
   'Birim Fiyatı'
 ];
+
+const copyImageUrl = (value) => {
+  const el = document.createElement('textarea');
+  el.value = value;
+  document.body.appendChild(el);
+  el.select();
+  document.execCommand('copy');
+  document.body.removeChild(el);
+  toast('Resim URL Kopyalandı', {
+    autoClose: 1000
+  });
+};
 
 </script>
 
