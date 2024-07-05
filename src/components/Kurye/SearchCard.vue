@@ -24,6 +24,9 @@
           {{ item.order_code }}
 
         </h2>
+        <h2 class="text-lg md:text-2xl font-bold text-red-800 mb-4 bg-gray-500/20 p-2 rounded-lg inline-block px-3">
+          {{ item.order_name }}
+        </h2>
 
         <p class="text-gray-100 mb-6 inline-block px-4 py-3 rounded-lg text-xs"
           :style="{ backgroundColor: item.status_color }">{{

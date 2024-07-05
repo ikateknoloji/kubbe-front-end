@@ -20,7 +20,7 @@
             <p class="text-slate-700">{{ item.customer.email }}</p>
           </div>
         </div>
-        <h2 class="text-lg md:text-xl font-bold text-gray-800 mb-4">
+        <h2 class="text-lg md:text-2xl font-bold text-red-800 mb-4 bg-gray-500/20 p-2 rounded-lg inline-block px-3">
           {{ item.order_name }}
         </h2>
         <h2 class="text-lg md:text-xl font-bold text-gray-800 mb-4">

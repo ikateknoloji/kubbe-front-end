@@ -1,5 +1,5 @@
 <template>
-  <CoverContent title="Kargoya Gönder">
+  <CoverContent v-if="!(order.shipping_status === 'Y')" title="Kargoya Gönder">
     <div v-if="!(order.offer_price === order.paid_amount)">
       <div
         class="max-w-3xl flex-col block xl:items-center sm:flex xl:flex-row first:mt-0 first:pt-0 border p-5 rounded-lg mb-10">
@@ -78,7 +78,7 @@ const updatePayment = async (id) => {
         autoClose: 3000, // Bildirimi 3 saniye sonra otomatik olarak kapat
         onClose: () => { // Bildirim kapatıldığında tetiklenir
           // Yönlendirme işlemini gerçekleştir
-          router.push(`/dashboard/admin/orders/${props.order.original_status}/${props.order.id}/edit`);
+          router.push(`/dashboard/admin/orders/${props.order.original_status}/${props.order.id}/`);
         }
       });
     }

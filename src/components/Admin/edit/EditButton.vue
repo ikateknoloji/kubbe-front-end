@@ -33,6 +33,7 @@
                 role="menuitem">
                 Siparis İptal Talebi
               </router-link>
+
             </div>
           </div>
         </div>
@@ -48,7 +49,15 @@ const props = defineProps({
     required: true
   }
 })
-
+/**
+ *
+ *
+              <router-link :to="`/dashboard/admin/orders/${order.original_status}/${order.id}/cancel-request`"
+                class="text-gray-700 flex justify-between w-full px-4 py-2 text-sm leading-5 text-left border-b border-dashed border-slate-300/70"
+                role="menuitem">
+                Siparis İptal
+              </router-link>
+ */
 </script>
 
 <style scoped></style>

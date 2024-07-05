@@ -48,6 +48,7 @@
 
       <OrderNote v-if="data.order.note" :note="data.order.note" />
       <OrderAddress v-if="data.order?.order_address" :address="data.order.order_address.address" />
+
       <PaymentConfirm :order="data.order" />
 
     </div>

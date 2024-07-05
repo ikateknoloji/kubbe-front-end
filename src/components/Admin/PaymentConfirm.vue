@@ -13,14 +13,15 @@
       <label class="inline-block mb-2 sm:mb-0 sm:mr-5 sm:text-right xl:w-60 xl:mr-14">
         <div class="text-left">
           <div class="flex items-center">
-            <div class="font-medium">Sipariş Adı</div>
+            <div class="font-medium">Ödeme Tutarı</div>
             <div
               class="ml-2.5 px-2 py-0.5 bg-slate-100 text-slate-500 dark:bg-darkmode-300 dark:text-slate-400 text-xs rounded-md border border-slate-200">
-              Gerekli
+              İsteğe Bağlı
             </div>
           </div>
-          <div class="mt-1.5 xl:mt-3 text-xs leading-relaxed text-slate-500/80">Lütfen bir şipariş adı oluşturun. Bu
-            bilgiler gereklidir.</div>
+          <div class="mt-1.5 xl:mt-3 text-xs leading-relaxed text-slate-500/80">
+            Lütfen ödeme miktarı girin. Bu bilgiler isteğe Bağlıdır.
+          </div>
         </div>
       </label>
       <input type="number" v-model="state.paidAmount" placeholder="Ödenen Tutar"

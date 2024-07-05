@@ -96,6 +96,12 @@ const router = createRouter({
               meta: { breadcrumb: 'Siparişi İptal İsteği' }
             },
             {
+              path: 'orders/:status/:id/cancel-request',
+              name: 'order-request-cancel-detail',
+              component: () => import('@/views/admin/order/OrderCancel.vue'),
+              meta: { breadcrumb: 'Siparişi İptal' }
+            },
+            {
               path: 'orders-reject',
               name: 'orders-reject',
               component: () => import('@/views/admin/order-cancel/ReddedilenSiparisler.vue'),

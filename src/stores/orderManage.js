@@ -50,7 +50,7 @@ export const useMangeOrderStore = defineStore('orders-manage', () => {
     toast('Şipariş durumu güncellendi!', {
      autoClose: 1000, // Bildirimi 1 saniye sonra otomatik olarak kapat
      onClose: () => { // Bildirim kapatıldığında tetiklenir
-      router.push(`/dashboard/admin/orders/${route.params.status}`); // Yönlendirme işlemini gerçekleştir
+      router.push(`/dashboard/admin/orders/PA/${orderId}`); // Yönlendirme işlemini gerçekleştir
      }
     });
 

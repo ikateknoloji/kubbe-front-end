@@ -6,6 +6,10 @@
 
 
       <div class="p-4 md:p-8">
+        <h2 class="text-lg md:text-2xl font-bold text-red-800 mb-4 bg-gray-500/20 p-2 rounded-lg inline-block px-3">
+          {{ item.order_name }}
+        </h2>
+
         <h2 class="text-lg md:text-xl font-bold text-gray-800 mb-4">
           {{ item.customer_info.name }}
           {{ item.customer_info.surname }}
