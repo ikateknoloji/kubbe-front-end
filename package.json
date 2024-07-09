@@ -19,7 +19,7 @@
     "filepond-plugin-image-preview": "^4.6.12",
     "laravel-echo": "^1.16.1",
     "pinia": "^2.1.7",
-    "preline": "^2.1.0",
+    "preline": "^2.3.0",
     "pusher-js": "^8.4.0-rc2",
     "qrcode-vue3": "^1.6.8",
     "vue": "^3.4.21",

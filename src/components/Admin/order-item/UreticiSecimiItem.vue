@@ -55,9 +55,6 @@
         <p>Kalan Tutar : {{ data.order.offer_price - data.order.paid_amount }}</p>
       </div>
 
-      <SelectComponent v-if="data.order.is_rejected == 'A'" :orderId="data.order.id">
-        <RejectButton />
-      </SelectComponent>
 
     </div>
   </div>
@@ -75,7 +72,6 @@ import OrderNote from '@/components/Admin/OrderNote.vue';
 import OrderInfo from '@/components/Admin/OrderInfo.vue';
 import BillInfo from '@/components/Admin/BillInfo.vue';
 import OrderAddress from '@/components/Admin/OrderAddress.vue';
-import SelectComponent from '@/components/Admin/SelectComponent.vue';
 import ImageList from '@/components/Admin/ImagesList.vue';
 import CoverContent from '@/components/CoverContent.vue';
 import EditButton from '@/components/Admin/edit/EditButton.vue';
@@ -88,7 +84,6 @@ import PendingCancellation from '@/components/Admin/reject/PendingCancellation.v
 import DekontButton from '@/components/Admin/buttons/DekontButton.vue';
 import TasarimButton from '@/components/Admin/buttons/TasarimButton.vue';
 
-import RejectButton from '@/components/Admin/reject/RejectButton.vue';
 
 const store = useMangeOrderStore();
 
