@@ -26,7 +26,7 @@
 
       <CoverContent title="Sipariş Sepeti">
         <div v-for="basket in data.order.baskets" :key="basket.id">
-          <OrderTable>
+          <OrderTable :order="basket.id">
             <TableColm :columns="columnsData" />
             <OrderTableItem :data="basket.items" />
           </OrderTable>

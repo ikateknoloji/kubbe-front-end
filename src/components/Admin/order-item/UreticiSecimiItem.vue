@@ -26,13 +26,14 @@
 
       <CoverContent title="Sipariş Sepeti">
         <div v-for="basket in data.order.baskets" :key="basket.id">
-          <OrderTable>
+          <OrderTable :order="basket.id">
             <TableColm :columns="columnsData" />
             <OrderTableItem :data="basket.items" />
           </OrderTable>
           <OrderLogos :logos="basket.logos" />
         </div>
       </CoverContent>
+
 
       <ImageList v-if="data.order">
         <TasarimButton :url="data.order" />
