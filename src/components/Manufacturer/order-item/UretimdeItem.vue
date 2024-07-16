@@ -37,7 +37,6 @@
       <div class="mt-10">
         <OrderNote v-if="data.order.note" :note="data.order.note" />
       </div>
-      <UrunResmi :orderId="data.order.id" />
     </div>
   </div>
 </template>
@@ -49,7 +48,7 @@ import OrderTable from '@/components/Manufacturer/OrderTable.vue';
 import TableColm from '@/components/Manufacturer/TableColm.vue';
 import OrderTableItem from '@/components/Manufacturer/OrderTableItem.vue';
 import OrderNote from '@/components/Manufacturer/OrderNote.vue';
-import UrunResmi from '@/components/Manufacturer/UrunResmi.vue';
+// import UrunResmi from '@/components/Manufacturer/UrunResmi.vue';
 
 import Dealer from '@/components/Manufacturer/Dealer.vue';
 import ImageList from '@/components/Manufacturer/ImagesList.vue';

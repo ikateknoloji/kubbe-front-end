@@ -46,6 +46,18 @@
       </li>
 
       <li>
+        <router-link to="/dashboard/kurye/urun-hazir"
+          class="flex items-center  py-2 px-2.5 text-sm text-slate-700 rounded-lg hover:bg-gray-300 ">
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none"
+            class="w-6 h-6 mr-2">
+            <path
+              d="M8.33333 35C7.41667 35 6.63222 34.6739 5.98 34.0217C5.32778 33.3694 5.00111 32.5844 5 31.6667V8.33333C5 7.41667 5.32667 6.63222 5.98 5.98C6.63333 5.32778 7.41778 5.00111 8.33333 5H31.6667C32.5833 5 33.3683 5.32667 34.0217 5.98C34.675 6.63333 35.0011 7.41778 35 8.33333V31.6667C35 32.5833 34.6739 33.3683 34.0217 34.0217C33.3694 34.675 32.5844 35.0011 31.6667 35H8.33333ZM8.33333 31.6667H31.6667V8.33333H8.33333V31.6667ZM10 28.3333H30L23.75 20L18.75 26.6667L15 21.6667L10 28.3333Z"
+              fill="#3C4A5D" />
+          </svg>
+          Ürün Resmi Ekle
+        </router-link>
+      </li>
+      <li>
         <router-link to="/dashboard/kurye/kargo-teslim"
           class="flex items-center  py-2 px-2.5 text-sm text-slate-700 rounded-lg hover:bg-gray-300 ">
           <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none"
@@ -57,7 +69,6 @@
           Alıcı Ödemeli Kargolar
         </router-link>
       </li>
-
       <li>
         <router-link to="/dashboard/kurye/gonderici-teslim"
           class="flex items-center  py-2 px-2.5 text-sm text-slate-700 rounded-lg hover:bg-gray-300 ">

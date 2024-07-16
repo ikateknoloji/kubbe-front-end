@@ -428,6 +428,18 @@ const router = createRouter({
               meta: { breadcrumb: 'Bildirimler' }
             },
             {
+              path: 'urun-hazir',
+              name: 'urun-hazir',
+              component: () => import('@/views/kurye/order/Uretilen.vue'),
+              meta: { breadcrumb: 'Hazır Olarak İşaretle' }
+            },
+            {
+              path: 'urun-hazir/:id',
+              name: 'urun-hazir-item',
+              component: () => import('@/views/kurye/order/UretilenItem.vue'),
+              meta: { breadcrumb: 'Urun Hazır Olarak İşaretle' }
+            },
+            {
               path: 'kargo-teslim',
               name: 'kargo-teslim',
               component: () => import('@/views/kurye/order/Kargo.vue'),

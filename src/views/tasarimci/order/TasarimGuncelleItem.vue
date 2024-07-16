@@ -42,6 +42,9 @@
       <TasarimGuncelle :orderId="ordersData.order.id" />
     </CoverContent>
   </div>
+  <pre>
+    {{ ordersData }}
+  </pre>
 </template>
 
 <script setup>

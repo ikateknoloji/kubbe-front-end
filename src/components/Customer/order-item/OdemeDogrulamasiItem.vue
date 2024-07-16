@@ -45,9 +45,6 @@
       <OrderAddress v-if="data.order?.order_address" :address="data.order.order_address.address" />
     </div>
   </div>
-  <pre>
-    {{ data.order }}
-  </pre>
 </template>
 
 <script setup>
